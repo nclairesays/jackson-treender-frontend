@@ -17,9 +17,14 @@ export default class Login extends Component {
                     style={{fontSize: 27}}>
                     Login
                 </Text>
+
+                <View style={{margin:10}}/>
+
                 <TextInput placeholder='Email' />
                 <TextInput placeholder='Password' />
-                <View style={{margin:7}} />
+                <View style={{margin:10}}/>
+
+
                 <Button 
                           onPress={this.props.onLoginPress}
                           title="Submit"

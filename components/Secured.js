@@ -1,12 +1,26 @@
-import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import React, { Component } from 'react';
+import {
+    ScrollView,
+    Text,
+    View,
+    Button
+} from 'react-native';
 
 export default class Secured extends Component {
-  render() {
-    return (
-      <View>
-        <Text> SECURED </Text>
-      </View>
-    )
-  }
+    render() {
+        return (
+            <View style={{padding: 20}}>
+                <Text style={{fontSize: 27}}>
+                    Welcome
+                </Text>
+                
+                <View style={{margin:10}} />
+
+                <Button 
+                    title="Logout"
+                    onPress={this.props.onLogoutPress}
+                />
+            </View>
+        )
+    }
 }
