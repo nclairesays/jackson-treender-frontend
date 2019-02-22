@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Login from './components/Login';
 import Secured from './components/Secured';
+import SignUp from './components/SignUp';
+
 
 
 export default class App extends React.Component {
@@ -20,6 +22,7 @@ export default class App extends React.Component {
           (this.state.isLoggedIn) 
           ? <Secured onLogoutPress={() => this.setState({isLoggedIn: false})} />
           : <Login onLoginPress={() => this.setState({isLoggedIn: true})} />
+          // : <SignUp />
         }
       </View>
     )

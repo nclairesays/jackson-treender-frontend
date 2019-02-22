@@ -9,7 +9,7 @@ import {
 export default class Secured extends Component {
     render() {
         return (
-            <View style={{padding: 20}}>
+            <View >
                 <Text style={{fontSize: 27}}>
                     Welcome
                 </Text>

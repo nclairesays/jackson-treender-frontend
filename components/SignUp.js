@@ -7,41 +7,66 @@ import {
     StyleSheet
 } from 'react-native';
 
-export default class Login extends Component {
+export default class SignUp extends Component {
 
     state = {
-        email: '',
-        password: ''
+      name: '', 
+      email: '', 
+      password: ''
     }
 
-
+  
+    signUp = async () => {
+      const { name, email, password } = this.state
+      try {
+        // here place your signup logic
+        console.log('user successfully signed up!: ', 'successsss')
+      } catch (err) {
+        console.log('error signing up: ', err)
+      }
+    }
+  
     render() {
         return (
             <View>
                 <Text 
                     style={{fontSize: 27}}>
-                    Login
+                    Sign Up
                 </Text>
 
                 <View style={{margin:10}}/>
+
+                <TextInput
+                  style={styles.input}
+                  placeholder='Full Name'
+                  autoCapitalize="words"
+                  onChangeText={ text => this.setState({ name: text })}
+
+                />
+
 
                 <TextInput 
                     placeholder='Email' 
                     style={styles.input}
                     onChangeText={ text => this.setState({ email: text })}
+                    autoCapitalize="none"
+
+                    
                 />
                 <TextInput 
                     placeholder='Password' 
                     style={styles.input}
                     secureTextEntry={true}
                     onChangeText={ text => this.setState({ password: text })}
+                    autoCapitalize="none"
+
                 />
                 <View style={{margin:10}}/>
-
-
+             
                 <Button 
-                    onPress={this.props.onLoginPress}
-                    title="Submit"
+          
+                    onPress={this.signUp}
+                    title="Sign Up"
                     color="#841584"  // color of text
                 />
 
@@ -50,7 +75,6 @@ export default class Login extends Component {
         )
     }
 }
-
 
 
 
@@ -64,3 +88,4 @@ const styles = StyleSheet.create({
       fontWeight: '500'
     }
 });
+
