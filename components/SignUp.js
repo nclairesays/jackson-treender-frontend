@@ -6,6 +6,9 @@ import {
     Button,
     StyleSheet
 } from 'react-native';
+import { API_URL } from '../constants';
+
+
 
 export default class SignUp extends Component {
 
@@ -16,17 +19,39 @@ export default class SignUp extends Component {
     }
 
   
-    signUp = async () => {
-      const { name, email, password } = this.state
-      try {
-        // here place your signup logic
-        console.log('user successfully signed up!: ', 'successsss')
-      } catch (err) {
-        console.log('error signing up: ', err)
-      }
+    // signUp = async () => {
+    //   const { name, email, password } = this.state
+    //   try {
+    //     // here place your signup logic
+    //     console.log('user successfully signed up!: ', 'successsss')
+    //   } catch (err) {
+    //     console.log('error signing up: ', err)
+    //   }
+    // }
+
+    createUser = () => {
+      fetch(`${API_URL}/users/`,{
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+              'Content-Type':'application/json'
+          },
+          body: JSON.stringify(this.state)
+      })
+      .catch(error => {
+        console.log('ERRORS GOT IN THE WAY: ', error)
+      })
+      // .then( res => res.json())
+      // .then( ({ id }) => this.props.history.push(`/login`))
     }
+
+    
+
+
   
     render() {
+      
+        const { name, email, password } = this.state
         return (
             <View>
                 <Text 
@@ -41,7 +66,7 @@ export default class SignUp extends Component {
                   placeholder='Full Name'
                   autoCapitalize="words"
                   onChangeText={ text => this.setState({ name: text })}
-
+                  value={name}
                 />
 
 
@@ -50,22 +75,28 @@ export default class SignUp extends Component {
                     style={styles.input}
                     onChangeText={ text => this.setState({ email: text })}
                     autoCapitalize="none"
-
-                    
+                    value={email}    
                 />
+
+
                 <TextInput 
                     placeholder='Password' 
                     style={styles.input}
                     secureTextEntry={true}
                     onChangeText={ text => this.setState({ password: text })}
                     autoCapitalize="none"
+                    value={password}
 
                 />
+
                 <View style={{margin:10}}/>
              
                 <Button 
           
-                    onPress={this.signUp}
+                    onPress={() => {
+                      this.createUser()
+                      this.props.onSignUpPress()
+                    }}
                     title="Sign Up"
                     color="#841584"  // color of text
                 />

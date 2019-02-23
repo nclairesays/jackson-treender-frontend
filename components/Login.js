@@ -6,6 +6,7 @@ import {
     Button,
     StyleSheet
 } from 'react-native';
+import { NativeRouter, Route, Link } from 'react-router-native'
 
 export default class Login extends Component {
 
@@ -40,11 +41,16 @@ export default class Login extends Component {
 
 
                 <Button 
-                    onPress={this.props.onLoginPress}
-                    title="Submit"
+                    onPress={ () => this.props.onLoginPress() }
+                    title="Login, Jackson!"
                     color="#841584"  // color of text
                 />
 
+                <View style={{margin:10}}/>
+
+                <Text> Not a registered Jackson?  </Text>
+                {/* <Link to="/SignUp">Sign up here! </Link> */}
+                {/* <Link to="/">Home</Link> */}
 
             </View>    
         )
