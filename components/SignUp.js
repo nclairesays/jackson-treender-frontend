@@ -38,11 +38,10 @@ export default class SignUp extends Component {
           },
           body: JSON.stringify(this.state)
       })
+      .then( res => res.json())
       .catch(error => {
         console.log('ERRORS GOT IN THE WAY: ', error)
       })
-      // .then( res => res.json())
-      // .then( ({ id }) => this.props.history.push(`/login`))
     }
 
     
@@ -92,7 +91,6 @@ export default class SignUp extends Component {
                 <View style={{margin:10}}/>
              
                 <Button 
-          
                     onPress={() => {
                       this.createUser()
                       this.props.onSignUpPress()
@@ -100,8 +98,6 @@ export default class SignUp extends Component {
                     title="Sign Up"
                     color="#841584"  // color of text
                 />
-
-
             </View>    
         )
     }

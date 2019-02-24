@@ -1,3 +1,41 @@
+// import React from 'react';
+// import {
+//     Button,
+//     StyleSheet,
+//     View,
+//     AsyncStorage
+// } from 'react-native';
+
+// export default class LoginScreen extends React.Component {
+//     static navigationOptions = {
+//         title: 'Please Sign In',
+//     };
+
+//     render() {
+//         return (
+//             <View style={styles.container}>
+//                 <Button title="Sign in!" onPress={this._LoginAsync} />
+//                 {/* <Button title="Sign in!" /> */}
+//             </View>
+//         );
+//     }
+
+//     _LoginAsync = async () => {
+//         await AsyncStorage.setItem('userToken', 'abcddd');
+//         this.props.navigation.navigate('App'); 
+//     };
+// };
+
+// const styles = StyleSheet.create({
+//     container: {
+//         flex: 1,
+//         backgroundColor: '#fff',
+//         alignItems: 'center',
+//         justifyContent: 'center',
+//     },
+// });
+
+
 import React, { Component } from 'react';
 import {
     Text,
@@ -35,7 +73,7 @@ export default class Login extends Component {
 
     render() {
         return (
-            <View>
+            <View style={styles.container}>
                 <Text 
                     style={{fontSize: 27}}>
                     Login
@@ -81,6 +119,11 @@ export default class Login extends Component {
 
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     input: {
       width: 250,
       height: 50,
@@ -90,3 +133,4 @@ const styles = StyleSheet.create({
       fontWeight: '500'
     }
 });
+
