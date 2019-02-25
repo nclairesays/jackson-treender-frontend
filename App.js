@@ -1,9 +1,9 @@
 
 import React from 'react';
 import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
-import Login from './components/Login';
-import Secured from './components/Secured';
-import SignUp from './components/SignUp';
+import _Login from './components/Login';
+import _Secured from './components/Secured';
+import _SignUp from './components/SignUp';
 import { NativeRouter, Route, Link } from 'react-router-native'
 import { Switch } from 'react-router'
 
@@ -66,14 +66,14 @@ class App extends React.Component {
 
         
             <Route path="/login" render={(props) => 
-              <Login 
+              <_Login 
                 {...props} 
                 // setUser={this.setCurrentUser} 
                 onLoginPress={() => this.setState({ isLoggedIn: true })}
                 />} 
               />
             <Route path="/signup" render={ props => 
-              <SignUp 
+              <_SignUp 
                 {...props} 
                 // onSignUp={this.setCurrentUser} 
                 onSignUpPress={()=> this.setState({ isSignedUp: true }) }
@@ -90,16 +90,6 @@ class App extends React.Component {
 }
       
 
-
-export default () => {
-  return (
-    <Provider store={store}>
-      <View style={styles.container}>
-        <App />
-      </View>
-    </Provider>
-  )
-}
 
 
 const styles = StyleSheet.create({
@@ -129,3 +119,19 @@ const styles = StyleSheet.create({
     fontSize: 15,
   }
 })
+
+
+
+
+
+
+
+export default () => {
+  return (
+    <Provider store={store}>
+      <View style={styles.container}>
+        <App />
+      </View>
+    </Provider>
+  )
+}

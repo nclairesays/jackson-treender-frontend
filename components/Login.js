@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-import {
-    Text,
-    TextInput,
-    View,
-    Button,
-    StyleSheet
-} from 'react-native';
+import { Text, TextInput, View, Button, StyleSheet } from 'react-native';
 import { NativeRouter, Route, Link } from 'react-router-native'
 import { API_URL } from '../constants';
 import { connect } from 'react-redux'
@@ -14,17 +8,17 @@ import { connect } from 'react-redux'
 
 const mapStateToProps = state => state
 const mapDispatchToProps = (dispatch) => ({
-    logIn: (email, password) => dispatch({ type: 'LOGIN', email, password })
+    onLogin: (email, password) => dispatch({ type: 'LOGIN', email, password })
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(class Login extends Component {
+export default connect(mapStateToProps, mapDispatchToProps)(class _Login extends Component {
 
     state = {
         email: '',
         password: ''
     }
 
-    logIn = () => {
+    onLogin = () => {
         fetch(`${API_URL}/auth`,{
             method: 'POST',
             headers: {

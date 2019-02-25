@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
-import {
-    Text,
-    TextInput,
-    View,
-    Button,
-    StyleSheet
-} from 'react-native';
+import { Text, TextInput, View, Button, StyleSheet } from 'react-native';
 import { API_URL } from '../constants';
+import { connect } from 'react-redux'
 
 
 
-export default class SignUp extends Component {
+class _SignUp extends Component {
 
     state = {
       name: '', 
@@ -19,33 +14,10 @@ export default class SignUp extends Component {
     }
 
   
-    // signUp = async () => {
-    //   const { name, email, password } = this.state
-    //   try {
-    //     // here place your signup logic
-    //     console.log('user successfully signed up!: ', 'successsss')
-    //   } catch (err) {
-    //     console.log('error signing up: ', err)
-    //   }
-    // }
 
-    createUser = async () => {
-      console.log('creating user')
+    createUser = () => {
 
-      // const res = await fetch(`${API_URL}/users/`, {
-      //   method: 'POST',
-      //     headers: {
-      //         'Accept': 'application/json',
-      //         'Content-Type':'application/json'
-      //     }
-      // })
-      // const profile = await res.json()
-      // console.log(profile)
-      // this.setState({
-      //   profile: profile
-      // })
-
-      fetch(`http://10.185.2.241:3000/users`,{
+      fetch(`${API_URL}/users`,{
           method: 'POST',
           headers: {
               'Content-Type':'application/json'
@@ -60,15 +32,9 @@ export default class SignUp extends Component {
         console.log('ERRORS GOT IN THE WAY: ', error)
       })
 
-
-
-      
     }
 
     
-
-
-  
     render() {
       // console.log("SIGN UP PROPS HERE", this.props)
       
@@ -138,3 +104,14 @@ const styles = StyleSheet.create({
     }
 });
 
+
+
+
+const mapStateToProps = state => state
+const mapDispatchToProps = (dispatch) => ({
+    onSignUp: (name, email, password) => dispatch({ type: 'CREATE_USER', name, email, password })
+})
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(_SignUp)

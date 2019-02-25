@@ -26,6 +26,23 @@ const rootReducer = (state = {
                 ...state, user: action.user
                 
             };
+        case 'CREATE_USER': 
+            fetch(`${API_URL}/users`,{
+                method: 'POST',
+                headers: {
+                    'Content-Type':'application/json'
+                },
+                body: JSON.stringify(this.state)
+            })
+            .then( res => res.json())
+            .then(() => {
+            this.props.history.push('/login');
+            })
+            .catch(error => {
+            console.log('ERRORS GOT IN THE WAY: ', error)
+            })
+
+
         case 'LOGIN':
            
             server.post(`${API_URL}/auth`, {
