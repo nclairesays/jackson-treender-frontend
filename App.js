@@ -1,3 +1,102 @@
+
+
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
+import HomeScreen from "./screens/HomeScreen";
+import LoginScreen from './screens/LoginScreen';
+import SwipeScreen from './screens/SwipeScreen';
+import AuthLoadingScreen from './screens/AuthLoadingScreen';
+
+import { Provider } from 'react-redux';
+import store from './redux/store';
+import { createStackNavigator, createAppContainer, createSwitchNavigator } from "react-navigation";
+
+const AppStack = createStackNavigator({ Home: HomeScreen });
+const AuthStack = createStackNavigator({ Login: LoginScreen}); 
+
+const AppNavigator = createSwitchNavigator(
+    {
+        AuthLoading: AuthLoadingScreen,
+        App: AppStack,
+        Auth: AuthStack
+    },
+    {
+        initialRouteName: 'AuthLoading',
+    }
+);
+
+
+const AppContainer = createAppContainer(AppNavigator);
+
+export default App = () => {
+  console.log(store)
+  return (
+    <Provider store={store}>
+        <AppContainer />
+    </Provider>
+  )
+}
+
+
+
+
+
+
+
+
+// const AppNavigator = createStackNavigator({
+//   Home: {
+//     screen: HomeScreen
+//   }
+// });
+
+// export default createAppContainer(AppNavigator);
+
+
+
+
+
+
+
+
+
+
+
+// export default class App extends React.Component {
+//   render() {
+//     return (
+//       <Provider store={store}>
+
+//       </Provider>
+//     )
+//   }
+
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // import React from 'react';
 // import {
 //   ActivityIndicator,
@@ -100,6 +199,8 @@
 
 
 
+
+
 // const AppStack = createStackNavigator({ Home: HomeScreen, Other: OtherScreen });
 // const AuthStack = createStackNavigator({ SignIn: SignInScreen });
 
@@ -113,44 +214,6 @@
 //     initialRouteName: 'AuthLoading',
 //   }
 // ));
-
-
-
-
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import HomeScreen from "./screens/HomeScreen";
-import LoginScreen from './screens/LoginScreen';
-import SwipeScreen from './screens/SwipeScreen';
-import AuthLoadingScreen from './screens/AuthLoadingScreen';
-
-import { createStackNavigator, createAppContainer, createSwitchNavigator } from "react-navigation";
-
-
-
-const AppStack = createStackNavigator({ Home: HomeScreen });
-const AuthStack = createStackNavigator({ Login: LoginScreen});
-
-export const AppNavigator = createSwitchNavigator(
-    {
-        AuthLoading: AuthLoadingScreen,
-        App: AppStack,
-        Auth: AuthStack
-    },
-    {
-        initialRouteName: 'AuthLoading',
-    }
-);
-
-// const AppNavigator = createStackNavigator({
-//   Home: {
-//     screen: HomeScreen
-//   }
-// });
-
-export default createAppContainer(AppNavigator);
-
-
 
 
 
