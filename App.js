@@ -7,6 +7,9 @@ import SignUp from './components/SignUp';
 import { NativeRouter, Route, Link } from 'react-router-native'
 import { Switch } from 'react-router'
 
+import { Provider } from 'react-redux';
+import store from './redux/store'
+
 import { YellowBox, AppRegistry } from 'react-native'
 import HomeScreen from './screens/HomeScreen';
 YellowBox.ignoreWarnings([
@@ -14,7 +17,7 @@ YellowBox.ignoreWarnings([
 ])
 
 
-export default class App extends React.Component {
+class App extends React.Component {
   
   state = {
     isLoggedIn: false,
@@ -61,8 +64,6 @@ export default class App extends React.Component {
   
             </View>
 
-
-
         
             <Route path="/login" render={(props) => 
               <Login 
@@ -79,13 +80,6 @@ export default class App extends React.Component {
               />
             }/>
 
-
-
-
-
-
-              
-            
            
           </View>
         </NativeRouter>
@@ -95,69 +89,17 @@ export default class App extends React.Component {
   }
 }
       
- 
 
 
-
-// import React from "react";
-// import { View, Text, StyleSheet } from "react-native";
-// import HomeScreen from "./screens/HomeScreen";
-// import LoginScreen from './screens/LoginScreen';
-// import SwipeScreen from './screens/SwipeScreen';
-// import AuthLoadingScreen from './screens/AuthLoadingScreen';
-
-// import { Provider } from 'react-redux';
-// import store from './redux/store';
-// import { createStackNavigator, createAppContainer, createSwitchNavigator } from "react-navigation";
-
-// const AppStack = createStackNavigator({ Home: HomeScreen });
-// const AuthStack = createStackNavigator({ Login: LoginScreen}); 
-
-// const AppNavigator = createSwitchNavigator(
-//     {
-//         AuthLoading: AuthLoadingScreen,
-//         App: AppStack,
-//         Auth: AuthStack
-//     },
-//     {
-//         initialRouteName: 'AuthLoading',
-//     }
-// );
-
-
-// const AppContainer = createAppContainer(AppNavigator);
-
-// export default App = () => {
-//   console.log('STOOOORRRREEE', store)
-//   return (
-//     <Provider store={store}>
-//         <View style={styles.container}>
-//             <AppContainer />
-//         </View>
-//     </Provider>
-//   )
-// }
-
-
-
-
-
-
-
-// other way to use createStackNavigator:
-// const AppNavigator = createStackNavigator({
-//   Home: {
-//     screen: HomeScreen
-//   }
-// });
-
-// export default createAppContainer(AppNavigator);
-
-
-
-
-
-
+export default () => {
+  return (
+    <Provider store={store}>
+      <View style={styles.container}>
+        <App />
+      </View>
+    </Provider>
+  )
+}
 
 
 const styles = StyleSheet.create({

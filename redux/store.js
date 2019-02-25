@@ -1,6 +1,12 @@
 
-import { combineReducers } from 'redux';
+
+import { createStore, applyMiddleware, compose } from 'redux';
+import ReduxThunk from 'redux-thunk';
 import { API_URL } from '../constants';
+import { AsyncStorage } from 'react-native';
+
+
+const middlewares = [ReduxThunk];
 
 
 const rootReducer = (state = {
@@ -20,26 +26,18 @@ const rootReducer = (state = {
                 ...state, user: action.user
                 
             };
-        // case 'LOGIN':
+        case 'LOGIN':
            
             server.post(`${API_URL}/auth`, {
                 email: action.email,
                 password: action.password,
                     
             })
-                .then( user => {
-                    store.dispatch({ type: 'SAVE_USER', user })
-                }) 
-            // fetch(`${API_URL}/auth`,{
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json'
-            //     },
-            //     body:JSON.stringify({
-            //         username: this.state.username,
-            //         password: this.state.password
-            //     })
-            // })
+            .then( user => {
+                store.dispatch({ type: 'SAVE_USER', user })
+            }) 
+            .then(console.log)
+           
             //     .then(res => res.json())
             //     .then( (user) => {
             //         this.props.onLogin(user.token, user)

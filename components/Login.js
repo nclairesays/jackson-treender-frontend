@@ -8,6 +8,9 @@ import {
 } from 'react-native';
 import { NativeRouter, Route, Link } from 'react-router-native'
 import { API_URL } from '../constants';
+import { connect } from 'react-redux'
+
+
 
 const mapStateToProps = state => state
 const mapDispatchToProps = (dispatch) => ({
