@@ -1,42 +1,37 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View, Button, StyleSheet } from 'react-native';
+import { Text, TextInput, View, Button, StyleSheet, AsyncStorage } from 'react-native';
 import { NativeRouter, Route, Link } from 'react-router-native'
 import { API_URL } from '../constants';
 import { connect } from 'react-redux'
 
 
 
-const mapStateToProps = state => state
-const mapDispatchToProps = (dispatch) => ({
-    onLogin: (email, password) => dispatch({ type: 'LOGIN', email, password })
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(class _Login extends Component {
+class _Login extends Component {
 
     state = {
         email: '',
         password: ''
     }
 
-    onLogin = () => {
-        fetch(`${API_URL}/auth`,{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body:JSON.stringify({
-                email: this.state.email,
-                password: this.state.password
-            })
-        })
-         .then(res => res.json())
-         .then(res => AsyncStorage.setItem('user', JSON.stringify(user)))
-         .then( (user) => {
-             this.props.onLogin(user)
-             this.props.history.push(`/users/${user.id}`)
-         })
+    // onLogin = () => {
+    //     fetch(`${API_URL}/auth`,{
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body:JSON.stringify({
+    //             email: this.state.email,
+    //             password: this.state.password
+    //         })
+    //     })
+    //      .then(res => res.json())
+    //      .then(res => AsyncStorage.setItem('user', JSON.stringify(user)))
+    //      .then( (user) => {
+    //         //  this.props.onLogin(user)
+    //          this.props.history.push(`/users/${user.id}`)
+    //      })
         
-    }
+    // }
 
         // static navigationOptions = {
         //     title: 'Welcome to the Jackson Treender App!',
@@ -69,8 +64,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(class _Login extends
                 <Button 
                     onPress={ () => {
                         // this.props.onLogin()
-                        this.props.logIn(this.state.email, this.state.password)
+                        // this.props.logIn(this.state.email, this.state.password)
                         // this.props.onLoginPress() 
+                        this.props.onLogin(this.state.email, this.state.password)
                     }}
                     title="Login, Jackson!"
                     color="#841584"  // color of text
@@ -85,9 +81,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(class _Login extends
             </View>    
         )
     }
-})
-
-
+}
 
 
 const styles = StyleSheet.create({
@@ -100,3 +94,15 @@ const styles = StyleSheet.create({
       fontWeight: '500'
     }
 });
+
+
+
+
+const mapStateToProps = state => state
+const mapDispatchToProps = (dispatch) => ({
+    onLogin: (email, password) => 
+        dispatch({ type: 'LOGIN', email, password })
+})
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(_Login)

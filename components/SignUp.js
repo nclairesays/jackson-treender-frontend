@@ -15,28 +15,28 @@ class _SignUp extends Component {
 
   
 
-    createUser = () => {
+    // createUser = () => {
 
-      fetch(`${API_URL}/users`,{
-          method: 'POST',
-          headers: {
-              'Content-Type':'application/json'
-          },
-          body: JSON.stringify(this.state)
-      })
-      .then( res => res.json())
-      .then(() => {
-        this.props.history.push('/login');
-      })
-      .catch(error => {
-        console.log('ERRORS GOT IN THE WAY: ', error)
-      })
+    //   fetch(`${API_URL}/users`,{
+    //       method: 'POST',
+    //       headers: {
+    //           'Content-Type':'application/json'
+    //       },
+    //       body: JSON.stringify(this.state)
+    //   })
+    //   .then( res => res.json())
+    //   .then(() => {
+    //     this.props.history.push('/login');
+    //   })
+    //   .catch(error => {
+    //     console.log('ERRORS GOT IN THE WAY: ', error)
+    //   })
 
-    }
+    // }
 
     
     render() {
-      // console.log("SIGN UP PROPS HERE", this.props)
+      console.log("SIGN UP PROPS HERE", this.props)
       
         const { name, email, password } = this.state
         return (
@@ -80,7 +80,8 @@ class _SignUp extends Component {
              
                 <Button 
                     onPress={() => {
-                      this.createUser()
+                      // this.createUser()
+                      this.props.onSignUp(this.state.name, this.state.email, this.state.password)
                       this.props.onSignUpPress()
                     }}
                     title="Sign Up"

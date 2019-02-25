@@ -2,20 +2,21 @@
 import React from 'react';
 import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
 import _Login from './components/Login';
-import _Secured from './components/Secured';
+import _Profile from './components/Profile';
 import _SignUp from './components/SignUp';
 import { NativeRouter, Route, Link } from 'react-router-native'
 import { Switch } from 'react-router'
 
 import { Provider } from 'react-redux';
+import { createStore } from 'redux'
 import store from './redux/store'
+import rootReducer from './redux/store'
 
 import { YellowBox, AppRegistry } from 'react-native'
 import HomeScreen from './screens/HomeScreen';
 YellowBox.ignoreWarnings([
   'Remote debugger',
 ])
-
 
 class App extends React.Component {
   
@@ -61,22 +62,35 @@ class App extends React.Component {
                 style={styles.navItem}>
                   <Text>Login</Text>
               </Link>
-  
+
+              <Link
+                to="/profile"
+                underlayColor='#f0f4f7'
+                style={styles.navItem}>
+                  <Text>Profile</Text>
+              </Link>
+
             </View>
 
         
             <Route path="/login" render={(props) => 
               <_Login 
-                {...props} 
+         
                 // setUser={this.setCurrentUser} 
                 onLoginPress={() => this.setState({ isLoggedIn: true })}
                 />} 
               />
-            <Route path="/signup" render={ props => 
+            <Route path="/signup" render={ () => 
               <_SignUp 
-                {...props} 
+              
                 // onSignUp={this.setCurrentUser} 
                 onSignUpPress={()=> this.setState({ isSignedUp: true }) }
+              />
+            }/>
+
+            <Route path="/profile" render={ () => 
+              <_Profile
+           
               />
             }/>
 
@@ -124,9 +138,39 @@ const styles = StyleSheet.create({
 
 
 
+// STORE/ INITIAL STATE
 
 
+const initialState = {
+  token: null,   
+  user: {
+      name: "Claire",
+      email: "claire@flatiron.com",
+      age: 26,
+      bio: "I code and stuff"
+  },
+
+  loading: true,
+  error: null
+
+
+}
+
+
+
+// const store = createStore(
+//   rootReducer,
+//   initialState,
+//   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+//   // compose(applyMiddleware(...middlewares))
+// );
+
+
+
+console.log('STORE 1', store.getState())
 export default () => {
+  console.log('STORE 2', store.getState())
+
   return (
     <Provider store={store}>
       <View style={styles.container}>

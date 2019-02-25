@@ -13,6 +13,7 @@
     "react-navigation": "^3.3.0",
     "react-redux": "^6.0.1",
     "react-router-native": "^4.3.0",
+    "react-router-redux": "^4.0.8",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0"
   },

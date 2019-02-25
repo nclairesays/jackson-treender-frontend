@@ -4,57 +4,79 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import { API_URL } from '../constants';
 import { AsyncStorage } from 'react-native';
+import { server } from '../server';
+import { push } from 'react-router-redux'
+
 
 
 const middlewares = [ReduxThunk];
 
 
-const rootReducer = (state = {
+const initialState = {
 
-    // initial state:
-    token: {},
-    loading: true,
-    error: null,
-    // user: null
+    user: null
+      
+    // user: {
+    //     name: "Claire",
+    //     email: "claire@flatiron.com",
+    //     age: 26,
+    //     bio: "I code and stuff"
+    // },
 
-}, action) => {
-    console.log('ACTIONSSS', state)
+    // loading: true,
+    // error: null
+
+
+}
+
+
+
+const rootReducer = (state, action) => {
+    
     switch (action.type) {
         
         case 'SAVE_USER':
             return {
                 ...state, user: action.user
-                
             };
         case 'CREATE_USER': 
-            fetch(`${API_URL}/users`,{
+            server.post(`${API_URL}/users`,{
+                name: action.name,
+                email: action.email,
+                password: action.password
+            })
+           
+            // .then(() => {
+            //     store.dispatch(push('/login'));
+            // })
+
+            .catch(error => {
+                 console.log('ERRORS GOT IN THE WAY: ', error)
+            })
+        case 'LOGOUT':
+            
+            return {
+                ...state, user: null
+            }
+        case 'LOGIN':
+
+            fetch(`${API_URL}/auth`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type':'application/json'
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(this.state)
+                body: JSON.stringify({
+                    email: action.email,
+                    password: action.password
+                })
             })
-            .then( res => res.json())
-            .then(() => {
-            this.props.history.push('/login');
-            })
-            .catch(error => {
-            console.log('ERRORS GOT IN THE WAY: ', error)
-            })
-
-
-        case 'LOGIN':
-           
-            server.post(`${API_URL}/auth`, {
-                email: action.email,
-                password: action.password,
-                    
-            })
+            .then(res => { res.json() })
             .then( user => {
                 store.dispatch({ type: 'SAVE_USER', user })
-            }) 
-            .then(console.log)
-           
+            })
+
+            // REDIRECT TO PROFILE
+            // .then() 
             //     .then(res => res.json())
             //     .then( (user) => {
             //         this.props.onLogin(user.token, user)
@@ -71,29 +93,30 @@ const rootReducer = (state = {
     }
 };
 
-const initialState = {
-    token: null
-}
+
+
+AsyncStorage.getItem('user')
+.then( jsonUser => {
+    try {
+        let user = JSON.parse(jsonUser)
+        if(user) store.dispatch({ type: 'SAVE_USER', user: user })
+    } catch(err){
+        console.log('HAVE NO SIGNED IN YET. ERROR: ', err)
+      
+    }
+})
 
 
 const store = createStore(
     rootReducer,
-    initialState,// default state of the application
-    compose(applyMiddleware(...middlewares)),
+    initialState,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+    // compose(applyMiddleware(...middlewares))
 );
-
-
-AsyncStorage.getItem('user')
-    .then( jsonUser => {
-        try {
-            let user = JSON.parse(jsonUser)
-            store.dispatch({ type: 'SAVE_USER', user: user })
-        } catch(err){
-            // Have not signed in yet
-        }
-    })
-
-
-
 export default store;
+
+
+
+
+// export default rootReducer;
 
