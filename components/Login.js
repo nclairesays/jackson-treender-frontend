@@ -13,31 +13,15 @@ class _Login extends Component {
         password: ''
     }
 
-    // onLogin = () => {
-    //     fetch(`${API_URL}/auth`,{
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body:JSON.stringify({
-    //             email: this.state.email,
-    //             password: this.state.password
-    //         })
-    //     })
-    //      .then(res => res.json())
-    //      .then(res => AsyncStorage.setItem('user', JSON.stringify(user)))
-    //      .then( (user) => {
-    //         //  this.props.onLogin(user)
-    //          this.props.history.push(`/users/${user.id}`)
-    //      })
-        
-    // }
+  
 
         // static navigationOptions = {
         //     title: 'Welcome to the Jackson Treender App!',
         // };
 
     render() {
+      console.log("LOGIN PROPS HERE", this.props)
+
         return (
             <View>
                 <Text 
@@ -75,7 +59,7 @@ class _Login extends Component {
                 <View style={{margin:10}}/>
 
                 <Text> Not a registered Jackson?  </Text>
-                {/* <Link to="/SignUp">Sign up here! </Link> */}
+                {/* <Link to="/signup">Sign up here! </Link> //REACT CHILDREN EXPECTED TO RECEIVE ONE PROP */}
                 {/* <Link to="/">Home</Link> */}
 
             </View>    

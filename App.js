@@ -167,9 +167,8 @@ const initialState = {
 
 
 
-console.log('STORE 1', store.getState())
+
 export default () => {
-  console.log('STORE 2', store.getState())
 
   return (
     <Provider store={store}>

@@ -11,16 +11,16 @@ import { Link, Redirect } from 'react-router-native';
 
 class _Profile extends Component {
     render() {
-        // console.log('PROPS IN PROFILE', this.props)
+        console.log('PROPS IN PROFILE', this.props)
         
         return (
+
             <View >
                 <Text style={{fontSize: 36}}> PROFILE </Text>
 
-                {this.props.user
-                
-                ? 
-                    <> 
+                {
+                this.props.user    
+                ? <> 
                     <Text style={{fontSize: 27}}>
                     
                         Welcome {this.props.user.name}!
@@ -38,8 +38,7 @@ class _Profile extends Component {
                     />
                     </>
                 
-                : 
-                    null
+                : null
                 }
 
             </View>

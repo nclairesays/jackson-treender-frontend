@@ -54,11 +54,11 @@ const rootReducer = (state, action) => {
                  console.log('ERRORS GOT IN THE WAY: ', error)
             })
         case 'LOGOUT':
-            
             return {
                 ...state, user: null
             }
         case 'LOGIN':
+            console.log(action.email, action.password)
 
             fetch(`${API_URL}/auth`, {
                 method: 'POST',
@@ -70,7 +70,8 @@ const rootReducer = (state, action) => {
                     password: action.password
                 })
             })
-            .then(res => { res.json() })
+
+            .then(res => res.json() )
             .then( user => {
                 store.dispatch({ type: 'SAVE_USER', user })
             })
