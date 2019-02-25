@@ -29,19 +29,40 @@ export default class SignUp extends Component {
     //   }
     // }
 
-    createUser = () => {
-      fetch(`${API_URL}/users/`,{
+    createUser = async () => {
+      console.log('creating user')
+
+      // const res = await fetch(`${API_URL}/users/`, {
+      //   method: 'POST',
+      //     headers: {
+      //         'Accept': 'application/json',
+      //         'Content-Type':'application/json'
+      //     }
+      // })
+      // const profile = await res.json()
+      // console.log(profile)
+      // this.setState({
+      //   profile: profile
+      // })
+
+      fetch(`http://10.185.2.241:3000/users`,{
           method: 'POST',
           headers: {
-            'Accept': 'application/json',
               'Content-Type':'application/json'
           },
           body: JSON.stringify(this.state)
       })
       .then( res => res.json())
+      .then(() => {
+        this.props.history.push('/login');
+      })
       .catch(error => {
         console.log('ERRORS GOT IN THE WAY: ', error)
       })
+
+
+
+      
     }
 
     
@@ -49,6 +70,7 @@ export default class SignUp extends Component {
 
   
     render() {
+      // console.log("SIGN UP PROPS HERE", this.props)
       
         const { name, email, password } = this.state
         return (

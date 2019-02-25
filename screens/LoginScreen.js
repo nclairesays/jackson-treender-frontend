@@ -45,35 +45,44 @@ import {
     StyleSheet
 } from 'react-native';
 import { NativeRouter, Route, Link } from 'react-router-native'
+import { connect } from 'react-redux';
 
-export default class Login extends Component {
+
+class LoginScreen extends Component {
 
     state = {
         email: '',
         password: ''
     }
 
-    logIn = () => {
-        fetch(`${API_URL}/auth`,{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body:JSON.stringify({
-                username: this.state.username,
-                password: this.state.password
-            })
-        })
-         .then(res => res.json())
-         .then( (user) => {
-             this.props.onLogin(user.token, user)
-            //  this.props.history.push(`/users/${user.id}`)
-         } )
-     }
+
+    _LoginAsync = async () => {
+        await AsyncStorage.setItem('userToken', 'abcddd');
+        this.props.navigation.navigate('App'); 
+    };
+
+    // logIn = () => {
+    //     fetch(`${API_URL}/auth`,{
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body:JSON.stringify({
+    //             username: this.state.username,
+    //             password: this.state.password
+    //         })
+    //     })
+    //      .then(res => res.json())
+    //      .then( (user) => {
+    //          this.props.onLogin(user.token, user)
+    //         //  this.props.history.push(`/users/${user.id}`)
+    //      } )
+    //  }
 
     render() {
+        // console.log('PROPPSS',this.props)
         return (
-            <View style={styles.container}>
+            <View>
                 <Text 
                     style={{fontSize: 27}}>
                     Login
@@ -97,8 +106,9 @@ export default class Login extends Component {
 
                 <Button 
                     onPress={ () => {
-                        this.props.onLogin()
-                        this.props.onLoginPress() 
+                        // this.props.onLogin()
+                        // this.props.onLoginPress() 
+                        this.props.saveUserToken
                     }}
                     title="Login, Jackson!"
                     color="#841584"  // color of text
@@ -119,11 +129,7 @@ export default class Login extends Component {
 
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
+  
     input: {
       width: 250,
       height: 50,
@@ -134,3 +140,14 @@ const styles = StyleSheet.create({
     }
 });
 
+
+const mapStateToProps = state => ({
+    token: state.token,
+});
+
+
+const mapDispatchToProps = dispatch => ({
+    saveUserToken: () => dispatch(saveUserToken()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

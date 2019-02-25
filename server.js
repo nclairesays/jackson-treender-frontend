@@ -1,9 +1,11 @@
+import { AsyncStorage } from 'react-native';
+
 const request = method => (url, body) => {
     return fetch(url, {
         method: method,
         headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${localStorage.getItem('token')}` 
+            Authorization: `Bearer ${AsyncStorage.getItem('token')}` 
         },
         body: JSON.stringify(body)
     })

@@ -7,8 +7,14 @@ import {
     StyleSheet
 } from 'react-native';
 import { NativeRouter, Route, Link } from 'react-router-native'
+import { API_URL } from '../constants';
 
-export default class Login extends Component {
+const mapStateToProps = state => state
+const mapDispatchToProps = (dispatch) => ({
+    logIn: (email, password) => dispatch({ type: 'LOGIN', email, password })
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(class Login extends Component {
 
     state = {
         email: '',
@@ -22,16 +28,22 @@ export default class Login extends Component {
                 'Content-Type': 'application/json'
             },
             body:JSON.stringify({
-                username: this.state.username,
+                email: this.state.email,
                 password: this.state.password
             })
         })
          .then(res => res.json())
+         .then(res => AsyncStorage.setItem('user', JSON.stringify(user)))
          .then( (user) => {
-             this.props.onLogin(user.token, user)
-            //  this.props.history.push(`/users/${user.id}`)
-         } )
-     }
+             this.props.onLogin(user)
+             this.props.history.push(`/users/${user.id}`)
+         })
+        
+    }
+
+        // static navigationOptions = {
+        //     title: 'Welcome to the Jackson Treender App!',
+        // };
 
     render() {
         return (
@@ -59,8 +71,9 @@ export default class Login extends Component {
 
                 <Button 
                     onPress={ () => {
-                        this.props.onLogin()
-                        this.props.onLoginPress() 
+                        // this.props.onLogin()
+                        this.props.logIn(this.state.email, this.state.password)
+                        // this.props.onLoginPress() 
                     }}
                     title="Login, Jackson!"
                     color="#841584"  // color of text
@@ -75,7 +88,7 @@ export default class Login extends Component {
             </View>    
         )
     }
-}
+})
 
 
 
