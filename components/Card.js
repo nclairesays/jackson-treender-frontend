@@ -68,14 +68,15 @@ export default class _Card extends Component {
             <Text style={{fontSize:15, color:'darkgrey'}}>{bio}</Text>
           </View>
 
-          <View style={{flexDirection: 'row'}}>
-                <TouchableHighlight onPress={this.props.onPressLeft}>
-                   <View style={{backgroundColor: 'powderblue'}}>
+          <View style={{flexDirection: 'row',  justifyContent: 'space-between'}}>
+          
+                <TouchableHighlight onPress={()=>(this.props.onPressLeft(id))}>
+                   <View style={{ backgroundColor: 'darkred'}}>
                         <Text>LEFT BUTTON</Text>
                    </View>
                 </TouchableHighlight>
-                <TouchableHighlight onPress={this.props.onPressRight}>
-                    <View style={{backgroundColor: 'skyblue'}}>
+                <TouchableHighlight onPress={()=>(this.props.onPressRight(id))}>
+                    <View style={{backgroundColor: 'forestgreen'}}>
                         <Text>Right BUTTON</Text>
 
                     </View>

@@ -60,6 +60,7 @@ const rootReducer = (state, action) => {
                 ...state, user: null
             }
         case 'LOGIN':
+       
 
             fetch(`${API_URL}/auth`, {
                 method: 'POST',
@@ -71,11 +72,14 @@ const rootReducer = (state, action) => {
                     password: action.password
                 })
             })
-
+            
             .then(res => res.json() )
             .then( user => {
                 store.dispatch({ type: 'SAVE_USER', user })
+                AsyncStorage.setItem('token', user.token)
+                AsyncStorage.setItem('user', JSON.stringify(user))  
             })
+            
 
             // REDIRECT TO PROFILE
             // .then() 
@@ -93,12 +97,26 @@ const rootReducer = (state, action) => {
            .catch(error => {
                 console.log('ERRORS GOT IN THE WAY: ', error)
             })
-        
-        
-       
         case 'SAVE_POTENTIALS': {
             return {...state, potentials: action.potentials}
-        }    
+        }   
+        case 'ADD_RESPONSE': {
+            console.log('ACTIONSSS', action)
+            server.post(`${API_URL}/matches/check`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': state.user.token
+                },
+                body: JSON.stringify({
+                    current_user_response: action.current_user_response,
+                    matchee_id: action.matchee_id
+                })
+            })
+
+            // .then(res => res.json() )
+            // .then(console.log)
+        } 
 
             
         case 'LOADING':

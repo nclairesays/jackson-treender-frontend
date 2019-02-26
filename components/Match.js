@@ -19,14 +19,18 @@ class _Match extends Component {
 
   swipedLeft = () => {
     console.log('YOU SWIPED LEFT')
+   
+
   }
 
-  pressedRight = () => {
-    console.log('YOU PRESSED RIGHT')
+  pressedRight = (id) => {
+    console.log('YOU PRESSED RIGHT', id)
+    this.props.addResponse(id, true)
   }
 
-  pressedLeft = () => {
-    console.log('YOU PRESSED LEFT')
+  pressedLeft = (id) => {
+    console.log('YOU PRESSED LEFT', id)
+    this.props.addResponse(id, false)
   }
 
 
@@ -59,7 +63,6 @@ class _Match extends Component {
 
 
 const mapStateToProps = state => {
-    console.log('POTENTIALSSSSSS', state.potentials, 'LENGTH', state.potentials.length)
 
     return {
       user: state.user,
@@ -69,7 +72,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => ({
     getMatchees: () => 
-        dispatch({ type: 'GET_POTENTIALS' })
+        dispatch({ type: 'GET_POTENTIALS' }),
+    addResponse: (matchee_id, current_user_response) => 
+      dispatch({ type: 'ADD_RESPONSE', matchee_id, current_user_response })
 })
 
 
