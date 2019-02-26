@@ -86,14 +86,12 @@ const rootReducer = (state, action) => {
             //     } )
                      
         case 'GET_POTENTIALS': 
-           server.get(`${API_URL}/get_potential_matchees`)
-           .then( potentials => {
-            store.dispatch({ type: 'SAVE_POTENTIALS', potentials })
+            server.get(`${API_URL}/get_potential_matchees`)
+            .then( potentials => {
+                store.dispatch({ type: 'SAVE_POTENTIALS', potentials })
             })
-           
-        //    .then(() => console.log('STATEE22321', state))
            .catch(error => {
-            console.log('ERRORS GOT IN THE WAY: ', error)
+                console.log('ERRORS GOT IN THE WAY: ', error)
             })
         
         

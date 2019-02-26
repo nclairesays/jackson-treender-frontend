@@ -5,29 +5,25 @@ import { connect } from 'react-redux'
 
 const defaultImg = {uri: 'https://i.pinimg.com/originals/9f/81/2d/9f812d4cf313e887ef99d8722229eee1.jpg'}
 
-const cards = [
-  {
-    text: 'Card One',
-    name: 'One',
-    image: defaultImg
-  },
-  {
-    text: 'Card TWO',
-    name: 'TWO',
-    image: defaultImg
-  },
-  {
-    text: 'Card Three',
-    name: 'Three',
-    image: defaultImg
-  },
+// const cards = [
+//   {
+//     text: 'Card One',
+//     name: 'One',
+//     image: defaultImg
+//   },
+//   {
+//     text: 'Card TWO',
+//     name: 'TWO',
+//     image: defaultImg
+//   },
+//   {
+//     text: 'Card Three',
+//     name: 'Three',
+//     image: defaultImg
+//   },
 
   
-];
-
-
-// const cards = this.props.potentials
-// console.log('THISSSS', this.props.potentials)
+// ];
 
 
 class _Match extends Component {
@@ -35,14 +31,17 @@ class _Match extends Component {
 
   render() {
     
-   
+    const cards = this.props.potentials
+    
     return (
       <Container>
         {/* <Header /> */}
-        <Text onPress={this.props.getMatchees}>
+        <Text onPress={this.props.getMatchees} style={{fontSize: 25}}>
+
             GET MATCHEES
-           
-        </Text>
+
+        </Text> 
+       
         <View>
           <DeckSwiper
             dataSource={cards}
@@ -54,29 +53,32 @@ class _Match extends Component {
               >
                 <CardItem>
                   <Left>
-                    <Thumbnail source={item.image} />
+                    <Thumbnail source={defaultImg} />
                     <Body>
-                      <Text>{item.text}</Text>
-                      <Text note>NativeBase</Text>
+                      <Text>{item.name}</Text>
+                      <Text note>{item.email}</Text>
                     </Body>
                   </Left>
                 </CardItem>
 
 
                 <CardItem cardBody>
-                  <Image style={{ height: 300, flex: 1 }} source={item.image} />
+                  <Image style={{ height: 300, flex: 1 }} source={defaultImg} />
                 </CardItem>
 
 
                 
                 <CardItem>
                   <Icon name="heart" style={{ color: '#ED4A6A' }} />
-                  <Text>{item.name}</Text>
+                  <Text>{item.bio}</Text>
                 </CardItem>
               </Card>
             }
           />
-        </View>
+
+       
+        </View> 
+
       </Container>
     );
   }
@@ -84,7 +86,10 @@ class _Match extends Component {
 
 
 
+
+
 const mapStateToProps = state => {
+    console.log('POTENTIALSSSSSS', state.potentials, 'LENGTH', state.potentials.length)
 
     return {
       user: state.user,
