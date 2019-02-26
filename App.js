@@ -4,9 +4,10 @@ import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
 import _Login from './components/Login';
 import _Profile from './components/Profile';
 import _SignUp from './components/SignUp';
+import _Match from './components/Match'
+
 import { NativeRouter, Route, Link } from 'react-router-native'
 import { Switch } from 'react-router'
-
 import { Provider } from 'react-redux';
 import { createStore } from 'redux'
 import store from './redux/store'
@@ -70,6 +71,13 @@ class App extends React.Component {
                   <Text>Profile</Text>
               </Link>
 
+              <Link
+                to="/match"
+                underlayColor='#f0f4f7'
+                style={styles.navItem}>
+                  <Text>MATCH</Text>
+              </Link>
+
             </View>
 
         
@@ -89,9 +97,12 @@ class App extends React.Component {
             }/>
 
             <Route path="/profile" render={ () => 
-              <_Profile
-           
-              />
+              <_Profile />
+            }/>
+
+
+            <Route path="/match" render={ () => 
+              <_Match />
             }/>
 
            

@@ -11,17 +11,17 @@ import { Link, Redirect } from 'react-router-native';
 
 class _Profile extends Component {
     render() {
-        console.log('PROPS IN PROFILE', this.props)
+        // console.log('PROPS IN PROFILE', this.props)
         
         return (
 
             <View >
-                <Text style={{fontSize: 36}}> PROFILE </Text>
+                <Text style={{fontSize: 27}}> PROFILE </Text>
 
                 {
                 this.props.user    
                 ? <> 
-                    <Text style={{fontSize: 27}}>
+                    <Text style={{fontSize: 25}}>
                     
                         Welcome {this.props.user.name}!
                     </Text>
@@ -58,8 +58,6 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    onLogin: (email, password) => 
-        dispatch({ type: 'LOGIN', email, password }),
     onLogout: () => dispatch({ type: 'LOGOUT'})
 })
 

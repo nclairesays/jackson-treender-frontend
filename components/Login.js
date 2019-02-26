@@ -15,12 +15,12 @@ class _Login extends Component {
 
   
 
-        // static navigationOptions = {
-        //     title: 'Welcome to the Jackson Treender App!',
-        // };
+    static navigationOptions = {
+        title: 'Welcome to the Jackson Treender App!',
+    };
 
     render() {
-      console.log("LOGIN PROPS HERE", this.props)
+    //   console.log("LOGIN PROPS HERE", this.props)
 
         return (
             <View>

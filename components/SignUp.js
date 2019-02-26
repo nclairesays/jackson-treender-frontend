@@ -13,30 +13,10 @@ class _SignUp extends Component {
       password: ''
     }
 
-  
-
-    // createUser = () => {
-
-    //   fetch(`${API_URL}/users`,{
-    //       method: 'POST',
-    //       headers: {
-    //           'Content-Type':'application/json'
-    //       },
-    //       body: JSON.stringify(this.state)
-    //   })
-    //   .then( res => res.json())
-    //   .then(() => {
-    //     this.props.history.push('/login');
-    //   })
-    //   .catch(error => {
-    //     console.log('ERRORS GOT IN THE WAY: ', error)
-    //   })
-
-    // }
 
     
     render() {
-      console.log("SIGN UP PROPS HERE", this.props)
+      // console.log("SIGN UP PROPS HERE", this.props)
       
         const { name, email, password } = this.state
         return (
