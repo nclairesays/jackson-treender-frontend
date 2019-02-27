@@ -6,8 +6,7 @@ import { API_URL } from '../constants';
 import { AsyncStorage } from 'react-native';
 import { server } from '../server';
 import { push } from 'react-router-redux'
-import { history } from '../history'
-
+import { history } from '../history';
 
 
 
@@ -17,8 +16,7 @@ const middlewares = [ReduxThunk];
 const initialState = {
 
     user: null,
-    potentials: null,
-    token: null
+    potentials: null
       
     // user: {
     //     name: "Claire",
@@ -36,10 +34,12 @@ const initialState = {
 
 
 const rootReducer = (state, action) => {
-    
+    history
     switch (action.type) {
         
         case 'SAVE_USER':
+            //  console.log(action)
+
             return {
                 ...state, user: action.user
             };
@@ -56,35 +56,32 @@ const rootReducer = (state, action) => {
                 })
             })
             .then(resp => resp.json())
-            .then(res => {
-                // this.props.history.push(`/login`)  
-                console.log(res)
-            })
-
+            .then(() => history.push(`/login`))
             .catch(error => {
                  console.log('ERRORS GOT IN THE WAY: ', error)
-            })
+            })   
         case 'LOGOUT':
-            AsyncStorage.setItem('token', null)
-            AsyncStorage.setItem('user', null)  
-            // this.props.history.push(`/login`)
+            AsyncStorage.clear()
+            history.push(`/login`)
 
             return {
                 ...state, user: null
             }
         case 'LOGIN':
-            
             server.post(`${API_URL}/auth`, {
                 email: action.email,
                 password: action.password
             }) 
+            
             .then( user => {
                 store.dispatch({ type: 'SAVE_USER', user })
                 AsyncStorage.setItem('token', user.token)
-                AsyncStorage.setItem('user', JSON.stringify(user))  
-                // history.push(`/match`)
+                AsyncStorage.setItem('user', JSON.stringify(user)) 
+                history.push(`/profile`)
             })
-    
+            .catch(error => {
+                console.log('SIGN IN ERRORS GOT IN THE WAY: ', error)
+           })
         case 'GET_POTENTIALS': 
             server.get(`${API_URL}/get_potential_matchees`)
             .then( potentials => {
@@ -98,15 +95,27 @@ const rootReducer = (state, action) => {
         }   
         case 'ADD_RESPONSE': {
             console.log('ACTIONSSS', action)
-
             server.post(`${API_URL}/matches/check`, {
                 current_user_response: action.current_user_response,
-                matchee_id: action.matchee_id
-                // current_user: action.current_user
+                matchee_id: action.matchee_id,
+                current_user_id: action.current_user_id
             })
-            
+
+
+
+
+                // method: 'POST',
+                // headers: {
+                //     'Content-Type': 'application/json',
+                //     'Authorization': state.user.token
+                // },
+                // body: JSON.stringify({
+                //     current_user_response: action.current_user_response,
+                //     matchee_id: action.matchee_id
+                // })
+            // })
             // .then(res => res.json() )
-            // .then(() => console.log(' THIS IS FROM ADD_RESPONSE'))
+            // .then(console.log)
         } 
 
             

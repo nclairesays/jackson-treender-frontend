@@ -5,51 +5,34 @@ import _Login from './components/Login';
 import _Profile from './components/Profile';
 import _SignUp from './components/SignUp';
 import _Match from './components/Match'
+import _Chat from './components/Chat'
 
-import { NativeRouter, Router, Route, Link, nativeHistory } from 'react-router-native'
-import { Switch, MemoryRouter } from 'react-router'
+import { Route, Link  } from 'react-router-native'
+import { Switch, Router } from 'react-router'
 import { Provider } from 'react-redux';
 import { createStore } from 'redux'
 import store from './redux/store'
-import rootReducer from './redux/store'
 import { history } from './history'
 
+
 import { YellowBox, AppRegistry } from 'react-native'
-
-
-
+import HomeScreen from './screens/HomeScreen';
 YellowBox.ignoreWarnings([
   'Remote debugger',
 ])
 
 class App extends React.Component {
   
-  // state = {
-  //   isLoggedIn: false,
-  //   isSignedUp: false,
-  //   // token: AsyncStorage.getItem('token'),
-  //   // user: JSON.parse(AsyncStorage.getItem('user')) || {}
-  // }
 
-
-  // setUserInState = (token, user) => {
-  //   // AsyncStorage.setItem('token', token)
-  //   // AsyncStorage.setItem('user', JSON.stringify(user))
-  //   // this.setState({ token, user })
-    
-
-  // }
 
   render() {
 
-
+   
     return (
       
-        // <MemoryRouter history={history}>
+      
 
-        <NativeRouter >
-        {/* <Router history={nativeHistory}>  */}
-
+        <Router history={history}>
           <View style={styles.container}>
             <Text>JACKSON TREENDER </Text>
 
@@ -80,13 +63,20 @@ class App extends React.Component {
                 to="/match"
                 underlayColor='#f0f4f7'
                 style={styles.navItem}>
-                  <Text>MATCH</Text>
+                  <Text>Match</Text>
+              </Link>
+
+              <Link
+                to="/chat"
+                underlayColor='#f0f4f7'
+                style={styles.navItem}>
+                  <Text>Chat</Text>
               </Link>
 
             </View>
 
-         
-            <Route path="/login" render={(props) => 
+        
+            <Route path="/login" render={() => 
               <_Login 
          
                 // setUser={this.setCurrentUser} 
@@ -110,13 +100,14 @@ class App extends React.Component {
               <_Match />
             }/>
 
+            <Route path="/chat" render={ () => 
+              <_Chat />
+            }/>
+
+
            
           </View>
-
-          {/* </MemoryRouter> */}
-        </NativeRouter> 
-        // </Router>
-        
+        </Router>
 
        
     )

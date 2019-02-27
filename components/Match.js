@@ -25,12 +25,12 @@ class _Match extends Component {
 
   pressedRight = (id) => {
     console.log('YOU PRESSED RIGHT', id)
-    this.props.addResponse(id, true)
+    this.props.addResponse(id, true, this.props.user.id)
   }
 
   pressedLeft = (id) => {
     console.log('YOU PRESSED LEFT', id)
-    this.props.addResponse(id, false)
+    this.props.addResponse(id, false, this.props.user.id)
   }
 
 
@@ -73,8 +73,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch) => ({
     getMatchees: () => 
         dispatch({ type: 'GET_POTENTIALS' }),
-    addResponse: (matchee_id, current_user_response) => 
-      dispatch({ type: 'ADD_RESPONSE', matchee_id, current_user_response})
+    addResponse: (matchee_id, current_user_response, current_user_id) => 
+      dispatch({ type: 'ADD_RESPONSE', matchee_id, current_user_response, current_user_id })
 })
 
 
@@ -223,4 +223,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(_Match)
   // }
   
   
+
+
+
   

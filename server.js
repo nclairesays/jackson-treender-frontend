@@ -19,14 +19,12 @@ const request = method => (url, body) => {
             method: method,
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}` 
+                'Authorization': `Bearer ${token}` 
             },
             body: JSON.stringify(body)
         })
         .then(resp => resp.json())
         )}
-
-
 
 export const server = {
     get: request('GET'),
