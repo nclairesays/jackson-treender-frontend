@@ -6,45 +6,50 @@ import _Profile from './components/Profile';
 import _SignUp from './components/SignUp';
 import _Match from './components/Match'
 
-import { NativeRouter, Route, Link } from 'react-router-native'
-import { Switch } from 'react-router'
+import { NativeRouter, Router, Route, Link, nativeHistory } from 'react-router-native'
+import { Switch, MemoryRouter } from 'react-router'
 import { Provider } from 'react-redux';
 import { createStore } from 'redux'
 import store from './redux/store'
 import rootReducer from './redux/store'
+import { history } from './history'
 
 import { YellowBox, AppRegistry } from 'react-native'
-import HomeScreen from './screens/HomeScreen';
+
+
+
 YellowBox.ignoreWarnings([
   'Remote debugger',
 ])
 
 class App extends React.Component {
   
-  state = {
-    isLoggedIn: false,
-    isSignedUp: false,
-    // token: AsyncStorage.getItem('token'),
-    // user: JSON.parse(AsyncStorage.getItem('user')) || {}
-  }
+  // state = {
+  //   isLoggedIn: false,
+  //   isSignedUp: false,
+  //   // token: AsyncStorage.getItem('token'),
+  //   // user: JSON.parse(AsyncStorage.getItem('user')) || {}
+  // }
 
 
-  setUserInState = (token, user) => {
-    // AsyncStorage.setItem('token', token)
-    // AsyncStorage.setItem('user', JSON.stringify(user))
-    // this.setState({ token, user })
+  // setUserInState = (token, user) => {
+  //   // AsyncStorage.setItem('token', token)
+  //   // AsyncStorage.setItem('user', JSON.stringify(user))
+  //   // this.setState({ token, user })
     
 
-  }
+  // }
 
   render() {
 
 
     return (
       
-      
+        // <MemoryRouter history={history}>
 
-        <NativeRouter>
+        <NativeRouter >
+        {/* <Router history={nativeHistory}>  */}
+
           <View style={styles.container}>
             <Text>JACKSON TREENDER </Text>
 
@@ -80,7 +85,7 @@ class App extends React.Component {
 
             </View>
 
-        
+         
             <Route path="/login" render={(props) => 
               <_Login 
          
@@ -107,7 +112,11 @@ class App extends React.Component {
 
            
           </View>
-        </NativeRouter>
+
+          {/* </MemoryRouter> */}
+        </NativeRouter> 
+        // </Router>
+        
 
        
     )

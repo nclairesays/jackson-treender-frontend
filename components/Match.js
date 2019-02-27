@@ -74,7 +74,7 @@ const mapDispatchToProps = (dispatch) => ({
     getMatchees: () => 
         dispatch({ type: 'GET_POTENTIALS' }),
     addResponse: (matchee_id, current_user_response) => 
-      dispatch({ type: 'ADD_RESPONSE', matchee_id, current_user_response })
+      dispatch({ type: 'ADD_RESPONSE', matchee_id, current_user_response})
 })
 
 

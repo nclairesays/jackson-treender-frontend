@@ -6,7 +6,8 @@ import { API_URL } from '../constants';
 import { AsyncStorage } from 'react-native';
 import { server } from '../server';
 import { push } from 'react-router-redux'
-import { createMemoryHistory } from 'history'
+import { history } from '../history'
+
 
 
 
@@ -16,7 +17,8 @@ const middlewares = [ReduxThunk];
 const initialState = {
 
     user: null,
-    potentials: null
+    potentials: null,
+    token: null
       
     // user: {
     //     name: "Claire",
@@ -47,47 +49,53 @@ const rootReducer = (state, action) => {
                 email: action.email,
                 password: action.password
             })
-           
-            // .then(() => {
-            //     store.dispatch(push('/login'));
-            // })
+            .then(() => {
+                // this.props.history.push(`/login`)  
+                console.log(this.props)
+            })
 
             .catch(error => {
                  console.log('ERRORS GOT IN THE WAY: ', error)
             })
         case 'LOGOUT':
+            // AsyncStorage.setItem('token', null)
+            // AsyncStorage.setItem('user', null)  
+            // this.props.history.push(`/login`)
+
             return {
                 ...state, user: null
             }
         case 'LOGIN':
-       
-
-            fetch(`${API_URL}/auth`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    email: action.email,
-                    password: action.password
-                })
-            })
             
-            .then(res => res.json() )
-            .then( user => {
-                store.dispatch({ type: 'SAVE_USER', user })
-                AsyncStorage.setItem('token', user.token)
-                AsyncStorage.setItem('user', JSON.stringify(user))  
-            })
-            
+            server.post(`${API_URL}/auth`, {
+                email: action.email,
+                password: action.password
+            }) 
 
-            // REDIRECT TO PROFILE
-            // .then() 
-            //     .then(res => res.json())
-            //     .then( (user) => {
-            //         this.props.onLogin(user.token, user)
-            //     //  this.props.history.push(`/users/${user.id}`)
-            //     } )
+            // console.log('ASYNC STORAGE TOKEN', AsyncStorage.getItem('token') )
+            // fetch(`${API_URL}/auth`, {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     },
+            //     body: JSON.stringify({
+            //         email: action.email,
+            //         password: action.password
+            //     })
+            // })
+            
+            // .then(res => res.json() )
+
+            // .then( user => {
+            //     store.dispatch({ type: 'SAVE_USER', user })
+            //     console.log('TOKEN', user.token)
+            //     AsyncStorage.setItem('token', user.token)
+
+            //     // AsyncStorage.setItem('user', JSON.stringify(user))  
+            //     // history.push(`/match`)
+            // })
+                
+            //     .then( () => console.log('ASYNC STORAGE TOKEN', AsyncStorage.getItem('token') ))
                      
         case 'GET_POTENTIALS': 
             server.get(`${API_URL}/get_potential_matchees`)
@@ -102,20 +110,27 @@ const rootReducer = (state, action) => {
         }   
         case 'ADD_RESPONSE': {
             console.log('ACTIONSSS', action)
+
             server.post(`${API_URL}/matches/check`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': state.user.token
-                },
-                body: JSON.stringify({
-                    current_user_response: action.current_user_response,
-                    matchee_id: action.matchee_id
-                })
+                current_user_response: action.current_user_response,
+                matchee_id: action.matchee_id
+                // current_user: action.current_user
             })
+            // server.post(`${API_URL}/matches/check`, {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //         'Authorization': state.user.token
+            //     },
+            //     body: JSON.stringify({
+            //         current_user_response: action.current_user_response,
+            //         matchee_id: action.matchee_id
+            //         // current_user: action.current_user
+            //     })
+            // })
 
             // .then(res => res.json() )
-            // .then(console.log)
+            // .then(() => console.log(' THIS IS FROM ADD_RESPONSE'))
         } 
 
             
