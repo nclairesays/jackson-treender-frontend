@@ -54,6 +54,7 @@ class App extends React.Component {
               (!this.state.isLoggedIn)
               ? 
               <View style={styles.nav}>
+                  <_Welcome />
                   <Link
                       to="/signup"
                       underlayColor='#f0f4f7'
@@ -71,8 +72,6 @@ class App extends React.Component {
                     style={styles.navItem}>
                       <Text>Login</Text>
                   </Link>
-                  <_Welcome />
-
                 </View>
                
               :
@@ -163,6 +162,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   nav: {
+    
     flexDirection: 'row',
     justifyContent: 'space-around'
   },
