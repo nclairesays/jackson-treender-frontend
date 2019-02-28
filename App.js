@@ -6,6 +6,7 @@ import _Profile from './components/Profile';
 import _SignUp from './components/SignUp';
 import _Match from './components/Match'
 import _Chat from './components/Chat'
+import _Welcome from './components/Welcome'
 
 import { Route, Link  } from 'react-router-native'
 import { Switch, Router } from 'react-router'
@@ -22,8 +23,21 @@ YellowBox.ignoreWarnings([
 ])
 
 class App extends React.Component {
-  
 
+  state = {
+    isLoggedIn: false
+  }
+
+//  <View style={ styles.container}>
+//         {
+//           (this.state.isLoggedIn) 
+//           ? <Secured onLogoutPress={() => this.setState({ isLoggedIn: false })} token={this.state.token} currentUser={this.state.user}/>
+//           : (this.state.isSignedUp)
+//           ? <Login onLoginPress={() => this.setState({ isLoggedIn: true })} onLogin={this.setUserInState}/>
+//           : <SignUp onSignUpPress={()=> this.setState({ isSignedUp: true }) }/>
+
+//         }
+//       </View>
 
   render() {
 
@@ -36,27 +50,44 @@ class App extends React.Component {
           <View style={styles.container}>
             <Text>JACKSON TREENDER </Text>
 
-            <View style={styles.nav}>
+            {
+              (!this.state.isLoggedIn)
+              ? 
+              <View style={styles.nav}>
+                  <Link
+                      to="/signup"
+                      underlayColor='#f0f4f7'
+                      style={styles.navItem}>
+                        <Text>Sign Up 
 
-         
-              <Link
-                to="/signup"
-                underlayColor='#f0f4f7'
-                style={styles.navItem}>
-                  <Text>Sign Up</Text>
-              </Link>
-              <Link
-                to="/login"
-                underlayColor='#f0f4f7'
-                style={styles.navItem}>
-                  <Text>Login</Text>
-              </Link>
+                       {console.log('USER IN ROUTER- SIGNUP', this.props.user)}
+
+                        </Text>
+
+                    </Link>
+                  <Link
+                    to="/login"
+                    underlayColor='#f0f4f7'
+                    style={styles.navItem}>
+                      <Text>Login</Text>
+                  </Link>
+                  <_Welcome />
+
+                </View>
+               
+              :
+              <View style={styles.nav}>
 
               <Link
                 to="/profile"
                 underlayColor='#f0f4f7'
                 style={styles.navItem}>
-                  <Text>Profile</Text>
+                  <Text>Profile
+
+
+                  {console.log('USER IN ROUTER- PROFILE', this.props.user)}
+
+                  </Text>
               </Link>
 
               <Link
@@ -72,23 +103,26 @@ class App extends React.Component {
                 style={styles.navItem}>
                   <Text>Chat</Text>
               </Link>
-
             </View>
+                
+
+                
+
+            }
+
+         
+              
+
+             
+
 
         
             <Route path="/login" render={() => 
-              <_Login 
-         
-                // setUser={this.setCurrentUser} 
-                onLoginPress={() => this.setState({ isLoggedIn: true })}
+              <_Login onLoginPress={() => this.setState({ isLoggedIn: true })}
                 />} 
               />
             <Route path="/signup" render={ () => 
-              <_SignUp 
-              
-                // onSignUp={this.setCurrentUser} 
-                onSignUpPress={()=> this.setState({ isSignedUp: true }) }
-              />
+              <_SignUp />
             }/>
 
             <Route path="/profile" render={ () => 
@@ -119,6 +153,7 @@ class App extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+
     marginTop: 25,
     padding: 10,
     flex: 1,

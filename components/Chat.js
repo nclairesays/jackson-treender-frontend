@@ -7,7 +7,11 @@ class _Chat extends Component {
   render() {
     return (
       <View>
-        <Text> textInCHATComponent </Text>
+        {console.log(this.props.getMatches())
+
+        // .map(match => 
+        //     <Text>NAME: {match.name}</Text>)
+        } 
       </View>
     )
   }
@@ -24,10 +28,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    getMatchees: () => 
-        dispatch({ type: 'GET_POTENTIALS' }),
-    addResponse: (matchee_id, current_user_response, current_user_id) => 
-      dispatch({ type: 'ADD_RESPONSE', matchee_id, current_user_response, current_user_id })
+    getMatches: () => 
+        dispatch({ type: 'GET_SUCCESSFUL_MATCHES' })
 })
 
 

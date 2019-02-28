@@ -23,7 +23,8 @@ export default class _Card extends Component {
             Animated.decay(this.pan, {
               velocity: {x:3 * direction, y:0},
               deceleration: 0.995,
-            }).start(this.props.onSwipeOff)
+            }).start(
+              this.props.onSwipeOff)
           } else {
             Animated.spring(this.pan, {
               toValue: {x:0, y:0},

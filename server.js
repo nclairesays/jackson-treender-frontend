@@ -13,9 +13,15 @@ import { AsyncStorage } from 'react-native';
 // }
 
 
-const request = method => (url, body) => {
+const request =  (method) =>  (url, body) => {
+
+
+
     return AsyncStorage.getItem('token')
-        .then( token => fetch(url, {
+
+        .then( token => 
+
+            fetch(url, {
             method: method,
             headers: {
                 'Content-Type': 'application/json',
@@ -24,7 +30,10 @@ const request = method => (url, body) => {
             body: JSON.stringify(body)
         })
         .then(resp => resp.json())
-        )}
+
+        )
+   
+    }
 
 export const server = {
     get: request('GET'),

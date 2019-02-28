@@ -17,6 +17,7 @@ const initialState = {
 
     user: null,
     potentials: null
+
       
     // user: {
     //     name: "Claire",
@@ -68,21 +69,40 @@ const rootReducer = (state, action) => {
                 ...state, user: null
             }
         case 'LOGIN':
+
+
             server.post(`${API_URL}/auth`, {
                 email: action.email,
                 password: action.password
             }) 
-            
+            .then( async (user) => {
+                // console.log(user)
+                if(!user.error){
+                    console.log('TOKEN1', user.token)
+                    await AsyncStorage.setItem('token', user.token)
+                    await AsyncStorage.setItem('user', JSON.stringify(user))
+                    await AsyncStorage.getItem('token').then(token => console.log('TOKEN 1.5', token))
+                    return user
+                }
+            })
             .then( user => {
-                store.dispatch({ type: 'SAVE_USER', user })
-                AsyncStorage.setItem('token', user.token)
-                AsyncStorage.setItem('user', JSON.stringify(user)) 
-                history.push(`/profile`)
+                if(!user.error){
+                    console.log('TOKEN2', user.token)
+                    store.dispatch({ type: 'SAVE_USER', user })
+                    history.push(`/profile`)
+                } else {
+                    console.log('Invalid login')
+                }
             })
             .catch(error => {
-                console.log('SIGN IN ERRORS GOT IN THE WAY: ', error)
+                console.log('LOGIN ERRORS GOT IN THE WAY: ', error)
+                // ADD WARNING LOGIN ERROR
            })
         case 'GET_POTENTIALS': 
+            console.log('HIT ME USER', state.user)
+            AsyncStorage.getItem('token').then(token => console.log('TOKEN 3', token))
+
+            
             server.get(`${API_URL}/get_potential_matchees`)
             .then( potentials => {
                 store.dispatch({ type: 'SAVE_POTENTIALS', potentials })
@@ -117,6 +137,13 @@ const rootReducer = (state, action) => {
             // .then(res => res.json() )
             // .then(console.log)
         } 
+
+
+        case 'GET_SUCCESSFUL_MATCHES': {
+            server.get(`${API_URL}/successful_matches`)
+            
+        }
+
 
             
         case 'LOADING':

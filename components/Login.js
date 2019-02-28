@@ -47,13 +47,12 @@ class _Login extends Component {
 
                 <Button 
                     onPress={ () => {
-                        // this.props.onLogin()
-                        // this.props.logIn(this.state.email, this.state.password)
-                        // this.props.onLoginPress() 
+                        this.props.onLoginPress() 
                         this.props.onLogin(this.state.email, this.state.password)
                     }}
                     title="Login, Jackson!"
                     color="#841584"  // color of text
+                    
                 />
 
                 <View style={{margin:10}}/>
