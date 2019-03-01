@@ -111,7 +111,7 @@ const rootReducer = (state, action) => {
           .catch(error => {
                console.log('ERRORS GOT IN THE WAY: ', error)
            })},
-           3000
+           2000
            )
             
            

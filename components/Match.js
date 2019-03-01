@@ -39,7 +39,7 @@ class _Match extends Component {
    
     return (
       <View style={{flex:1}}>
-        {/* {this.props.getMatchees().map((profile) => {
+        {this.props.potentials.map((profile) => {
           return (
             <_Card
               key={profile.id}
@@ -51,7 +51,7 @@ class _Match extends Component {
               onPressRight={this.pressedRight}
             />
           )
-        })} */}
+        })}
          
 
       </View>
@@ -66,13 +66,13 @@ class _Match extends Component {
 const mapStateToProps = state => {
 
     return {
-      user: state.user
+      user: state.user,
+      potentials: state.potentials
     }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    getMatchees: () => 
-        dispatch({ type: 'GET_POTENTIALS' }),
+   
     addResponse: (matchee_id, current_user_response, current_user_id) => 
       dispatch({ type: 'ADD_RESPONSE', matchee_id, current_user_response, current_user_id })
 })
