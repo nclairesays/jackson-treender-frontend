@@ -14,24 +14,48 @@ import { AsyncStorage } from 'react-native';
 
 
 const request = (method) =>  async (url, body) => {
+   
+    try {
+        token = await AsyncStorage.getItem('token')
+        // parsedToken = await JSON.parse(token)
+        console.log("PARSED TOKEN AFTER AWAIT", token)
+
+
+        return fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}` 
+                    },
+                    body: JSON.stringify(body)
+                })
+                .then(resp => resp.json())
+                
+        
+                
+        
+    } catch (error){
+        alert(error.message)
+    }
   
 
-    return await AsyncStorage.getItem('token')
+    // return await AsyncStorage.getItem('token')
+    //     .then(console.log)
 
 
-        .then( token => 
+    //     .then( token => 
 
-            fetch(url, {
-            method: method,
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}` 
-            },
-            body: JSON.stringify(body)
-        })
-        .then(resp => resp.json())
+    //         fetch(url, {
+    //         method: method,
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'Authorization': `Bearer ${token}` 
+    //         },
+    //         body: JSON.stringify(body)
+    //     })
+    //     .then(resp => resp.json())
 
-        )
+    //     )
    
     }
 

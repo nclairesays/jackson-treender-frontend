@@ -1,4 +1,2 @@
 // export const API_URL = 'http://localhost:3000'
-export const API_URL = 'http://192.168.1.77:3000'
-
-// 169.254.155.58
+export const API_URL = 'http://172.25.58.90:3000'

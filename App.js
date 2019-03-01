@@ -28,18 +28,10 @@ class App extends React.Component {
     isLoggedIn: false
   }
 
-//  <View style={ styles.container}>
-//         {
-//           (this.state.isLoggedIn) 
-//           ? <Secured onLogoutPress={() => this.setState({ isLoggedIn: false })} token={this.state.token} currentUser={this.state.user}/>
-//           : (this.state.isSignedUp)
-//           ? <Login onLoginPress={() => this.setState({ isLoggedIn: true })} onLogin={this.setUserInState}/>
-//           : <SignUp onSignUpPress={()=> this.setState({ isSignedUp: true }) }/>
-
-//         }
-//       </View>
+  
 
   render() {
+
 
    
     return (
@@ -151,8 +143,7 @@ class App extends React.Component {
                   <Text>Profile
 
 
-                  {console.log('USER IN ROUTER- PROFILE', this.props.user)}
-
+                 
                   </Text>
               </Link>
 
@@ -160,14 +151,20 @@ class App extends React.Component {
                 to="/match"
                 underlayColor='#f0f4f7'
                 style={styles.navItem}>
-                  <Text>Match</Text>
+                
+                  <Text>Match
+
+                  </Text>
+
+                
               </Link>
 
               <Link
                 to="/chat"
                 underlayColor='#f0f4f7'
                 style={styles.navItem}>
-                  <Text>Chat</Text>
+                  <Text>Chat
+                  </Text>
               </Link>
             </View>
                 

@@ -17,7 +17,6 @@ class _Profile extends Component {
         return token
     }
     render() {
-        console.log('PROPS IN PROFILE', this.props.user)
         
         return (
 

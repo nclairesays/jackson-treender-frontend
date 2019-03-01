@@ -77,17 +77,20 @@ const rootReducer = (state, action) => {
             }) 
             .then( async (user) => {
                 // console.log(user)
-                if(!user.error){
-                    console.log('TOKEN1', user.token)
+                try {
+                    console.log('LOGIN TOKEN1', user.token)
                     await AsyncStorage.setItem('token', user.token)
                     await AsyncStorage.setItem('user', JSON.stringify(user))
-                    await AsyncStorage.getItem('token').then(token => console.log('TOKEN 1.5', token))
+                    await AsyncStorage.getItem('token').then(token => console.log('LOGIN TOKEN 1.5', token))
                     return user
+                } catch (error) {
+                    alert(error)
                 }
+
             })
             .then( user => {
                 if(!user.error){
-                    console.log('TOKEN2', user.token)
+                    console.log('LOGIN TOKEN2', user.token)
                     store.dispatch({ type: 'SAVE_USER', user })
                     history.push(`/profile`)
                 } else {
@@ -99,17 +102,22 @@ const rootReducer = (state, action) => {
                 // ADD WARNING LOGIN ERROR
            })
         case 'GET_POTENTIALS': 
-            console.log('HIT ME USER', state.user)
-            AsyncStorage.getItem('token').then(token => console.log('TOKEN 3', token))
-
+           setTimeout(() =>{server.get(`${API_URL}/get_potential_matchees`)
+           .then( potentials => {
+               store.dispatch({ type: 'SAVE_POTENTIALS', potentials })
+               return potentials
+           })     
+           .then((potentials) => console.log('INSIDE GET POTENTIALS', potentials))
+          .catch(error => {
+               console.log('ERRORS GOT IN THE WAY: ', error)
+           })},
+           3000
+           )
             
-            server.get(`${API_URL}/get_potential_matchees`)
-            .then( potentials => {
-                store.dispatch({ type: 'SAVE_POTENTIALS', potentials })
-            })
-           .catch(error => {
-                console.log('ERRORS GOT IN THE WAY: ', error)
-            })
+           
+            
+
+
         case 'SAVE_POTENTIALS': {
             return {...state, potentials: action.potentials}
         }   
