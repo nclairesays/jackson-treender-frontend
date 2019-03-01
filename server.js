@@ -13,11 +13,14 @@ import { AsyncStorage } from 'react-native';
 // }
 
 
-const request =  (method) =>  (url, body) => {
-
+const request = (method) =>  async (url, body) => {
+    let token = await AsyncStorage.getItem('token')
+    
+    console.log('LOCAL STORAGE TOKEN', token)
 
 
     return AsyncStorage.getItem('token')
+
 
         .then( token => 
 

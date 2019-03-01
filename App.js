@@ -44,10 +44,77 @@ class App extends React.Component {
    
     return (
       
-      
+        // <Router history={history}>
+        //   <View>
+        //     <Text>JACKSON TREENDER </Text>
+
+        //     {
+        //       (!this.state.isLoggedIn)
+        //       ? 
+        //       <View style={styles.nav}>
+        //           <_Welcome />
+        //           <Link
+        //               to="/signup"
+        //               underlayColor='#f0f4f7'
+        //               style={styles.navItem}>
+        //                 <Text>Sign Up 
+
+        //                {console.log('USER IN ROUTER- SIGNUP', this.props.user)}
+
+        //                 </Text>
+
+        //             </Link>
+        //           <Link
+        //             to="/login"
+        //             underlayColor='#f0f4f7'
+        //             style={styles.navItem}>
+        //               <Text>Login</Text>
+        //           </Link>
+        //         </View>
+               
+        //       :
+        //       <View style={styles.nav}>
+
+        //       <Link
+        //         to="/profile"
+        //         underlayColor='#f0f4f7'
+        //         style={styles.navItem}>
+        //           <Text>Profile
+
+
+        //           {console.log('USER IN ROUTER- PROFILE', this.props.user)}
+
+        //           </Text>
+        //       </Link>
+
+        //       <Link
+        //         to="/match"
+        //         underlayColor='#f0f4f7'
+        //         style={styles.navItem}>
+        //           <Text>Match</Text>
+        //       </Link>
+
+        //       <Link
+        //         to="/chat"
+        //         underlayColor='#f0f4f7'
+        //         style={styles.navItem}>
+        //           <Text>Chat</Text>
+        //       </Link>
+        //     </View>
+                
+
+                
+
+        //     }
+
+         
+
+
+        <View>
 
         <Router history={history}>
-          <View style={styles.container}>
+<>
+
             <Text>JACKSON TREENDER </Text>
 
             {
@@ -117,8 +184,12 @@ class App extends React.Component {
 
         
             <Route path="/login" render={() => 
-              <_Login onLoginPress={() => this.setState({ isLoggedIn: true })}
-                />} 
+              <_Login onLoginPress={() => 
+                this.setState({ 
+                  isLoggedIn: true 
+                })
+                } />
+                } 
               />
             <Route path="/signup" render={ () => 
               <_SignUp />
@@ -137,10 +208,10 @@ class App extends React.Component {
               <_Chat />
             }/>
 
-
+</>
+        </Router>
            
           </View>
-        </Router>
 
        
     )

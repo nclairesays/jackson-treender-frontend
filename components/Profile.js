@@ -7,11 +7,17 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux'
 import { Link, Redirect } from 'react-router-native';
+import { AsyncStorage } from 'react-native'
 
 
 class _Profile extends Component {
+
+    checkAsync = async () => {
+        token = await AsyncStorage.getItem('token').then(token => console.log('TOKEN IN PROFILE ASYNC STORAGE', token))
+        return token
+    }
     render() {
-        // console.log('PROPS IN PROFILE', this.props)
+        console.log('PROPS IN PROFILE', this.props.user)
         
         return (
 

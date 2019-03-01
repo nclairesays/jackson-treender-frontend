@@ -62,7 +62,7 @@ class _SignUp extends Component {
                     onPress={() => {
                       // this.createUser()
                       this.props.onSignUp(this.state.name, this.state.email, this.state.password)
-                      this.props.onSignUpPress()
+                      // this.props.onSignUpPress()
                     }}
                     title="Sign Up"
                     color="#841584"  // color of text
