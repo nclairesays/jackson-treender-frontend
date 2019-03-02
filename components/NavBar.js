@@ -1,90 +1,98 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet } from 'react-native'
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { Route, Link } from 'react-router-native'
 
 
-import _Login from './components/Login';
-import _Profile from './components/Profile';
-import _SignUp from './components/SignUp';
-import _Match from './components/Match'
-import _Chat from './components/Chat'
-import _Welcome from './components/Welcome'
+import _Login from './Login';
+import _Profile from './Profile';
+import _SignUp from './SignUp';
+import _Match from './Match'
+import _Chat from './Chat'
+import _Welcome from './Welcome'
 
 
-// console.log(Link)
+
 
 class _NavBar extends Component {
+
+ 
   render() {
     return (
+      <>
     
-        <View>
-            {/* <Text>JACKSON TREENDER </Text>
+      <Text>JACKSON TREENDER </Text>
 
-            {
-              (this.props.isLoggedIn)
-              ? 
-
-              <View style={styles.nav}>
-
-              <Link
-                to="/profile"
+      {
+        (!this.props.isLoggedIn)
+        ? 
+        <View style={styles.nav}>
+            <_Welcome />
+            <Link
+                to="/signup"
                 underlayColor='#f0f4f7'
                 style={styles.navItem}>
-                  <Text>Profile
+                  <Text>Sign Up 
 
-
-                  {console.log('USER IN ROUTER- PROFILE', this.props.user)}
 
                   </Text>
-              </Link>
 
-              <Link
-                to="/match"
-                underlayColor='#f0f4f7'
-                style={styles.navItem}>
-                  <Text>Match</Text>
               </Link>
+            <Link
+              to="/login"
+              underlayColor='#f0f4f7'
+              style={styles.navItem}>
+                <Text>Login</Text>
+            </Link>
+          </View>
+         
+        :
+        <View style={styles.nav}>
 
-              <Link
+        <Link
+          to="/profile"
+          underlayColor='#f0f4f7'
+          style={styles.navItem}>
+            <Text>Profile
+
+
+           
+            </Text>
+        </Link>
+
+        <Link
+          to="/match"
+          underlayColor='#f0f4f7'
+          style={styles.navItem}>
+          
+            <Text>Match
+
+            </Text>
+
+          
+        </Link>
+
+       
+            <TouchableOpacity onPress={() => {this.props.getMatches()}}>
+            <Link
                 to="/chat"
                 underlayColor='#f0f4f7'
                 style={styles.navItem}>
-                  <Text>Chat</Text>
+                    <Text>
+                      Chat
+                    </Text>
               </Link>
+
             
-            </View>
-               
-              :
-
-              <View style={styles.nav}>
-                  <Link
-                      to="/signup"
-                      underlayColor='#f0f4f7'
-                      style={styles.navItem}>
-                        <Text>Sign Up 
-
-                       {console.log('USER IN ROUTER- SIGNUP', this.props.user)}
-
-                        </Text>
-
-                    </Link>
-                  <Link
-                    to="/login"
-                    underlayColor='#f0f4f7'
-                    style={styles.navItem}>
-                      <Text>Login</Text>
-                  </Link>
-                  <_Welcome />
-
-                </View>
-                
-
-                
-
-            } */}
-
+            </TouchableOpacity>
+           
       </View>
+          
+
+        
+
+      } 
+       </>
     )
   }
 }
@@ -119,12 +127,14 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
 
     return {
-      user: state.user
+      user: state.user,
+      potentials: state.potentials,
+      successfulMatches: state.successfulMatches
     }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    onLogout: () => dispatch({ type: 'LOGOUT'})
+    getMatches: () => dispatch({ type: 'GET_SUCCESSFUL_MATCHES'})
 })
 
 

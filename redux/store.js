@@ -16,7 +16,8 @@ const middlewares = [ReduxThunk];
 const initialState = {
 
     user: null,
-    potentials: null
+    potentials: null,
+    successful: null
 
       
     // user: {
@@ -84,21 +85,24 @@ const rootReducer = (state, action) => {
                     await AsyncStorage.getItem('token').then(token => console.log('LOGIN TOKEN 1.5', token))
                     return user
                 } catch (error) {
-                    alert(error)
+                    console.log('Login Errors got in the way #1', error)
                 }
 
             })
             .then( user => {
-                if(!user.error){
+                try {
                     console.log('LOGIN TOKEN2', user.token)
                     store.dispatch({ type: 'SAVE_USER', user })
                     history.push(`/profile`)
-                } else {
-                    console.log('Invalid login')
+
+                } catch (error) {
+                    console.log('Invalid login #2', error)
+
                 }
+                
             })
             .catch(error => {
-                console.log('LOGIN ERRORS GOT IN THE WAY: ', error)
+                console.log('LOGIN ERRORS GOT IN THE WAY #3: ', error)
                 // ADD WARNING LOGIN ERROR
            })
         case 'GET_POTENTIALS': 
@@ -107,11 +111,10 @@ const rootReducer = (state, action) => {
                store.dispatch({ type: 'SAVE_POTENTIALS', potentials })
                return potentials
            })     
-           .then((potentials) => console.log('INSIDE GET POTENTIALS', potentials))
           .catch(error => {
                console.log('ERRORS GOT IN THE WAY: ', error)
            })},
-           2000
+           1000
            )
             
            
@@ -148,14 +151,15 @@ const rootReducer = (state, action) => {
 
 
         case 'GET_SUCCESSFUL_MATCHES': {
-            server.get(`${API_URL}/successful_matches`)
-            
+            // server.get(`${API_URL}/successful_matches`)
+            console.log('claire')
         }
 
 
             
         case 'LOADING':
-            return { ...state, loading: action.isLoading };
+            
+            return { ...state, loading: !action.isLoading };
         case 'ERROR':
             return { ...state, error: action.error };
         default:

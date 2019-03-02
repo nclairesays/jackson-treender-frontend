@@ -4,6 +4,18 @@ import { connect } from 'react-redux'
 
 
 class _Chat extends Component {
+
+  state = {
+    matches: null
+  }
+
+  matchGetter = () => {
+    // this.props.getMatches()
+  }
+  componentDidMount () {
+    // this.props.getMatches()
+  }
+
   render() {
     return (
       <View>
@@ -23,15 +35,14 @@ const mapStateToProps = state => {
 
     return {
       user: state.user,
-      potentials: state.potentials
+      potentials: state.potentials,
+      successfulMatches: state.successfulMatches
     }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    // getMatches: () => 
-    //     dispatch({ type: 'GET_SUCCESSFUL_MATCHES' }),
-        getMatchees: () => 
-        dispatch({ type: 'GET_POTENTIALS' }),
+    getMatches: () => dispatch({ type: 'GET_SUCCESSFUL_MATCHES'})
+ 
 })
 
 
