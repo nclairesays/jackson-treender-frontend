@@ -17,7 +17,7 @@ const initialState = {
 
     user: null,
     potentials: null,
-    successful: null
+    successfulMatches: null
 
       
     // user: {
@@ -151,8 +151,14 @@ const rootReducer = (state, action) => {
 
 
         case 'GET_SUCCESSFUL_MATCHES': {
-            // server.get(`${API_URL}/successful_matches`)
-            console.log('claire')
+            server.get(`${API_URL}/successful_matches`)
+            .then(successfulMatches => {
+                store.dispatch({type: 'SAVE_SUCCESSFUL_MATCHES', successfulMatches})
+            })
+        }
+
+        case 'SAVE_SUCCESSFUL_MATCHES':{
+            return {...state, successfulMatches: action.successfulMatches}
         }
 
 

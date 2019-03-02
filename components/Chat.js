@@ -5,21 +5,15 @@ import { connect } from 'react-redux'
 
 class _Chat extends Component {
 
-  state = {
-    matches: null
-  }
 
-  matchGetter = () => {
-    // this.props.getMatches()
-  }
   componentDidMount () {
-    // this.props.getMatches()
+    this.props.getMatches()
   }
 
   render() {
     return (
       <View>
-        {console.log('CHAT COMPONENT, PROPS.GETMATCHES')
+        {console.log('CHAT COMPONENT, SUCCESSFUL MATCHES', this.props.successfulMatches)
 
         // .map(match => 
         //     <Text>NAME: {match.name}</Text>)
