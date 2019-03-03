@@ -66,8 +66,8 @@ class _Match extends Component {
 const mapStateToProps = state => {
 
     return {
-      user: state.user,
-      potentials: state.potentials
+      user: state.user.user,
+      potentials: state.match.potentials
     }
 }
 

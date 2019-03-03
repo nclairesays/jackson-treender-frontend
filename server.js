@@ -17,8 +17,8 @@ const request = (method) =>  async (url, body) => {
    
     try {
         token = await AsyncStorage.getItem('token')
-        // parsedToken = await JSON.parse(token)
-        console.log("PARSED TOKEN AFTER AWAIT", token)
+        
+        console.log("TOKEN AFTER AWAIT IN SERVER.JS", token)
 
 
         return fetch(url, {

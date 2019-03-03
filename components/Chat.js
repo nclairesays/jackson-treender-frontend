@@ -32,6 +32,7 @@ import { server } from '../server'
 import React, { Component } from 'react';
 import { Text, View } from 'react-native'
 import { Container, Header, Content, List, ListItem, Thumbnail, Left, Body, Right, Button } from 'native-base';
+import { API_URL } from '../constants';
 
 
 class _Chat extends Component {
@@ -40,18 +41,24 @@ class _Chat extends Component {
     matches: []
   }
   componentDidMount () {
-        // this.props.getMatches()
+        console.log('CHAT COMPONENT DID MOUNT user', this.props.user.token)
 
-        fetch('http://localhost:3000/successful_matches', {
+        server.get(`${API_URL}/successful_matches`)
         
-          headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${this.props.user.token}` 
-          }
-      })
-      .then(resp => resp.json())
+
+
+
+
+      //   fetch(`${API_URL}/successful_matches`, {
+        
+      //     headers: {
+      //         'Content-Type': 'application/json',
+      //         'Authorization': `Bearer ${this.props.user.token}` 
+      //     }
+      // })
+      // .then(resp => resp.json())
       .then(console.log)
-        .catch(error => console.log('ERRRRORS', error))
+      .catch(error => console.log('ERRRRORS IN CHAT', error))
         // .then(matches => this.setState({matches}))
       }
 

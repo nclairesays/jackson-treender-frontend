@@ -60,18 +60,20 @@ class _NavBar extends Component {
             </Text>
         </Link>
 
-        <Link
-          to="/match"
-          underlayColor='#f0f4f7'
-          style={styles.navItem}>
-          
-            <Text>Match
+        <TouchableOpacity onPress={() => {this.props.getPotentials()}}>
+            <Link
+                to="/match"
+                underlayColor='#f0f4f7'
+                style={styles.navItem}>
+                    <Text>
+                      Match
+                    </Text>
+              </Link>
 
-            </Text>
+            
+            </TouchableOpacity>
 
-          
-        </Link>
-
+    
        
             <TouchableOpacity onPress={() => {this.props.getMatches()}}>
             <Link
@@ -125,16 +127,27 @@ const styles = StyleSheet.create({
   
 
 const mapStateToProps = state => {
-
-    return {
-      user: state.user,
-      potentials: state.potentials,
-      successfulMatches: state.successfulMatches
+  console.log('inside map state to props navbar', state)
+    if (!state.match && state.user){
+      return {
+        user: state.user
+      }
+    }
+    else if(state.match) {
+      return {
+        user: state.user,
+        potentials: state.match.potentials,
+        successfulMatches: state.match.successfulMatches
+      }
+    }
+    else {
+      return {}
     }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    getMatches: () => dispatch({ type: 'GET_SUCCESSFUL_MATCHES'})
+    getMatches: () => dispatch({ type: 'GET_SUCCESSFUL_MATCHES'}),
+    getPotentials: () => dispatch({ type: 'GET_POTENTIALS' })
 })
 
 
