@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
   
 
 const mapStateToProps = state => {
-  console.log('inside map state to props navbar', state)
+  // console.log('inside map state to props navbar', state)
     if (!state.match && state.user){
       return {
         user: state.user

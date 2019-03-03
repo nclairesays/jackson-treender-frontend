@@ -58,9 +58,9 @@ export default matchReducer = (state = { potentials: null, successfulMatches: nu
 
 
         case 'GET_SUCCESSFUL_MATCHES': {
-            console.log("HITS GET_SUCCESSFUL MATCHES")
             server.get(`${API_URL}/successful_matches`)
             .then(successfulMatches => {
+                console.log("store", store.dispatch)
                 store.dispatch({type: 'SAVE_SUCCESSFUL_MATCHES', successfulMatches})
             })
         }

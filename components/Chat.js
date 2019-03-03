@@ -40,27 +40,17 @@ class _Chat extends Component {
   state = {
     matches: []
   }
+
   componentDidMount () {
-        console.log('CHAT COMPONENT DID MOUNT user', this.props.user.token)
+    
 
-        server.get(`${API_URL}/successful_matches`)
-        
-
-
-
-
-      //   fetch(`${API_URL}/successful_matches`, {
-        
-      //     headers: {
-      //         'Content-Type': 'application/json',
-      //         'Authorization': `Bearer ${this.props.user.token}` 
-      //     }
-      // })
-      // .then(resp => resp.json())
-      .then(console.log)
+      server.get(`${API_URL}/successful_matches`)
+      .then(matches=> this.setState({matches}))      
       .catch(error => console.log('ERRRRORS IN CHAT', error))
-        // .then(matches => this.setState({matches}))
-      }
+
+      // let test = this.props.getSuccessfulMatches()
+      // console.log('TESTING FUNCTION', test)  
+  }
 
   render() {
 
@@ -70,12 +60,15 @@ class _Chat extends Component {
     // console.log(typeof(matches))
     // console.log(matches.keys())
 
-    // console.log(this.state.matches)
 
 
     return (
       <>
-      <Text>SOMETHING</Text>
+      <Text>
+
+
+
+      </Text>
       </>
     );
   }
@@ -112,16 +105,26 @@ const CardThing = () => {
 
 
 
-const mapStateToProps = state => {
+// const mapStateToProps = state => {
 
-    return {
-      user: state.user,
-      successfulMatches: state.successfulMatches
-    }
+//     return {
+//       user: state.user,
+//       successfulMatches: state.matchsuccessfulMatches
+//     }
+// }
+
+
+
+
+
+const mapStateToProps = state => {
+  return {
+    user: state.user.user
+  }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-    getMatches: () => dispatch({ type: 'GET_SUCCESSFUL_MATCHES'})
+const mapDispatchToProps = (dispatch, props) => ({
+    getSuccessfulMatches: () => dispatch({ type: 'GET_SUCCESSFUL_MATCHES'})
  
 })
 
