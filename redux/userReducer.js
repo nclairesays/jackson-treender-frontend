@@ -10,6 +10,7 @@ import { history } from '../history';
 import store from './store'
 
 
+const defaultImage = 'https://i.pinimg.com/originals/9f/81/2d/9f812d4cf313e887ef99d8722229eee1.jpg'
 
 export default userReducer = (state = null, action) => {
     switch (action.type) {
@@ -29,7 +30,8 @@ export default userReducer = (state = null, action) => {
                 body: JSON.stringify({
                     name: action.name,
                     email: action.email,
-                    password: action.password
+                    password: action.password,
+                    image: defaultImage
                 })
             })
             .then(resp => resp.json())

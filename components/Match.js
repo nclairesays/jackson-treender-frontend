@@ -67,7 +67,7 @@ const mapStateToProps = state => {
 
     return {
       user: state.user.user,
-      potentials: state.match.potentials
+      potentials: state.matches.potentials
     }
 }
 
