@@ -62,10 +62,11 @@ const rootReducer = (state, action) => {
             })   
         case 'LOGOUT':
             AsyncStorage.clear()
+
             history.push(`/login`)
 
             return {
-                ...state, user: null
+                user: null, potentials: null, successfulMatches: null
             }
         case 'LOGIN':
 
@@ -77,10 +78,10 @@ const rootReducer = (state, action) => {
             .then( async (user) => {
                 // console.log(user)
                 try {
-                    console.log('LOGIN TOKEN1', user.token)
+                    // console.log('LOGIN TOKEN1', user.token)
                     await AsyncStorage.setItem('token', user.token)
                     await AsyncStorage.setItem('user', JSON.stringify(user))
-                    await AsyncStorage.getItem('token').then(token => console.log('LOGIN TOKEN 1.5', token))
+                    // await AsyncStorage.getItem('token').then(token => console.log('LOGIN TOKEN 1.5', token))
                     return user
                 } catch (error) {
                     console.log('Login Errors got in the way #1', error)
@@ -91,6 +92,7 @@ const rootReducer = (state, action) => {
                 try {
                     console.log('LOGIN TOKEN2', user.token)
                     store.dispatch({ type: 'SAVE_USER', user })
+                    
                     history.push(`/profile`)
 
                 } catch (error) {
@@ -104,11 +106,13 @@ const rootReducer = (state, action) => {
                 // ADD WARNING LOGIN ERROR
            })
         case 'GET_POTENTIALS': 
+        console.log("GETTING POTENTIALS NOW")
            setTimeout(() =>{server.get(`${API_URL}/get_potential_matchees`)
            .then( potentials => {
                store.dispatch({ type: 'SAVE_POTENTIALS', potentials })
                return potentials
-           })     
+           })
+           .then (() => history.push('/match'))
           .catch(error => {
                console.log('ERRORS GOT IN THE WAY: ', error)
            })},
@@ -153,6 +157,7 @@ const rootReducer = (state, action) => {
             .then(successfulMatches => {
                 store.dispatch({type: 'SAVE_SUCCESSFUL_MATCHES', successfulMatches})
             })
+            .then( () => history.push('/chat')) 
         }
 
         case 'SAVE_SUCCESSFUL_MATCHES':{

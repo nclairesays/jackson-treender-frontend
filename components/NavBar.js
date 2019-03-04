@@ -12,7 +12,7 @@ import _Chat from './Chat'
 import _Welcome from './Welcome'
 
 
-
+ 
 
 class _NavBar extends Component {
 

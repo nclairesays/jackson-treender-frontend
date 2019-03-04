@@ -36,9 +36,30 @@ class _Profile extends Component {
                     <Button 
                         title="Logout"
                         onPress={() => 
-                            {
+                            {   console.log('hits logout in profile')
                                 // <Redirect to='/login' /> // Doesn't do anything
                                 this.props.onLogout()
+                            }}
+                    />
+
+                    <Button 
+                        title="Match"
+                        onPress={() => 
+                            {
+                             console.log('hits Match in profile')
+
+                                this.props.onMatch()
+                            }}
+                    />
+
+                    <Button 
+                        title="Chat"
+                        onPress={() => 
+                            {
+                                console.log('hits Chat in profile')
+
+                                // <Redirect to='/login' /> // Doesn't do anything
+                                this.props.onChat()
                             }}
                     />
                     </>
@@ -56,15 +77,19 @@ class _Profile extends Component {
 
 
 const mapStateToProps = state => {
-
+    console.log('STATE IN PROFILE', state)
     return {
       user: state.user
     }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-    onLogout: () => dispatch({ type: 'LOGOUT'})
-})
+const mapDispatchToProps = (dispatch) => {
+    return {
+    onLogout: () => dispatch({ type: 'LOGOUT'}),
+    onMatch: () => dispatch({ type: 'GET_POTENTIALS'}),
+    onChat: () => dispatch({  type: 'GET_SUCCESSFUL_MATCHES'})
+    }
+}
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(_Profile)
