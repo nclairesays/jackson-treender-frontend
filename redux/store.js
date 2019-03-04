@@ -18,11 +18,6 @@ const middlewares = [ReduxThunk];
 const initialState = {
 
     user: null,
-<<<<<<< HEAD
-    match: null
-    // potentials: null,
-    // successfulMatches: null
-=======
     potentials: null,
     successful: null
 
@@ -33,20 +28,17 @@ const initialState = {
     //     age: 26,
     //     bio: "I code and stuff"
     // },
->>>>>>> parent of 9b70cb3... able to get and log successful matches
 
     // loading: true,
     // error: null
 }
 
 
-const allReducers = combineReducers({
-    user: userReducer,
-    match: matchReducer
-})
+// const allReducers = combineReducers({
+//     user: userReducer,
+//     match: matchReducer
+// })
 
-<<<<<<< HEAD
-=======
 const rootReducer = (state, action) => {
     history
     switch (action.type) {
@@ -178,7 +170,6 @@ const rootReducer = (state, action) => {
             return state;
     }
 };
->>>>>>> parent of 9b70cb3... able to get and log successful matches
 
 
 
@@ -195,7 +186,7 @@ AsyncStorage.getItem('user')
 
 
 const store = createStore(
-    allReducers,
+    rootReducer,
     initialState,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
     compose(applyMiddleware(...middlewares))

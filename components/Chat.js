@@ -10,31 +10,14 @@ import store from '../redux/store'
 class _Chat extends Component {
 
   state = {
-<<<<<<< HEAD
-    matches: []
-=======
     matches: null
->>>>>>> parent of 9b70cb3... able to get and log successful matches
   }
 
   matchGetter = () => {
     // this.props.getMatches()
   }
   componentDidMount () {
-<<<<<<< HEAD
-      // server.get(`${API_URL}/successful_matches`)
-      // .then(matches=> this.setState({matches}))
-      // .then(() => console.log("STATEEEE COMPONENT DID MOUNT", this.state.matches))      
-      // .catch(error => console.log('ERRRRORS IN CHAT', error))
-
-
-      // let test = this.props.getSuccessfulMatches()
-      // console.log("props in COMPONENT DID MOUNT1111" , this.props)
-      // console.log("props in COMPONENT DID MOUNT222" , store.getState())
-    
-=======
     // this.props.getMatches()
->>>>>>> parent of 9b70cb3... able to get and log successful matches
   }
 
   render() {
@@ -48,18 +31,6 @@ class _Chat extends Component {
     // setTimeout(() => console.log('USERS IN STATE - CHAT', this.state.users), 1000)
 
     return (
-<<<<<<< HEAD
-      <>
-      <Text>
-       CHAT BOX THINGY
-       
-
-      </Text>
-
-      
-      </>
-    );
-=======
       <View>
         {console.log('CHAT COMPONENT, PROPS.GETMATCHES')
 
@@ -68,7 +39,6 @@ class _Chat extends Component {
         } 
       </View>
     )
->>>>>>> parent of 9b70cb3... able to get and log successful matches
   }
 }
 
