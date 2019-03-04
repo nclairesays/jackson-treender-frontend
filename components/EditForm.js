@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 
 
 
-class _Login extends Component {
+class _EditForm extends Component {
 
     state = {
         email: null,
@@ -16,6 +16,15 @@ class _Login extends Component {
 
     }
 
+    componentDidMount() {
+        const {name, bio, email, age, id, gender} = this.props.user
+        this.setState({
+            email: email,
+            bio: bio,
+            age: age,
+            gender: gender
+        })
+    }
   
 
     static navigationOptions = {
@@ -29,22 +38,43 @@ class _Login extends Component {
             <View>
                 <Text 
                     style={{fontSize: 27}}>
-                    Login
+                    Edit Yeere Profile
                 </Text>
 
                 <View style={{margin:10}}/>
 
+                <Text>Full Name: {this.props.user.name}</Text>
+                <Text>Email: {this.props.user.email}</Text>
+                
+
                 <TextInput 
                     placeholder='Email' 
                     style={styles.input}
+                    value={this.state.email}
                     onChangeText={ text => this.setState({ email: text })}
                 />
+
+                <TextInput 
+                    placeholder='Age' 
+                    style={styles.input}
+                    value={this.state.age}
+
+                    onChangeText={ text => this.setState({ age: text })}
+                />
+
+                <TextInput 
+                    placeholder='Gender' 
+                    style={styles.input}
+                    value={this.state.gender}
+                    onChangeText={ text => this.setState({ gender: text })}
+                />
+
                 <TextInput 
                     placeholder='Bio' 
                     style={styles.input}
                     multiline = {true}
-                    multiline = {true}
-                    numberOfLines = {8}
+                    numberOfLines = {20}
+                    value={this.state.bio}
                     onChangeText={ text => this.setState({ bio: text })}
                 />
                 <View style={{margin:10}}/>
@@ -53,7 +83,7 @@ class _Login extends Component {
                 <Button 
                     onPress={ () => {
                         
-                        this.props.onEditProfile(this.state.email, this.state.password)
+                        this.props.onEditProfile(this.state.email, this.state.bio, this.state.gender, this.state.age)
                     }}
                     title="Edit!"
                     color="#841584"  // color of text
@@ -86,11 +116,13 @@ const styles = StyleSheet.create({
 
 
 
-const mapStateToProps = state => state
+const mapStateToProps = state => ({
+    user: state.user
+})
 const mapDispatchToProps = (dispatch) => ({
-    onEditProfile: (email) => 
+    onEditProfile: ( email, bio, gender, age ) => 
         dispatch({ type: 'EDIT_PROFILE', email, bio, gender, age })
 })
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(_Login)
+export default connect(mapStateToProps, mapDispatchToProps)(_EditForm)

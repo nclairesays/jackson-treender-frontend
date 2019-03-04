@@ -161,6 +161,28 @@ const rootReducer = (state, action) => {
             return {...state, successfulMatches: action.successfulMatches}
         }
 
+        case 'EDIT_PROFILE': {
+            try {
+                server.patch(`${API_URL}/users/${state.user.id}`,{
+                    email: action.email, 
+                    bio: action.bio, 
+                    gender: action.gender, 
+                    age: action.age
+                })
+                .then(res => console.log('EDIT PROFILE AFTER PAtCH', res))
+                return {...state , user: {
+                    email: action.email, 
+                    bio: action.bio, 
+                    gender: action.gender, 
+                    age: action.age
+                }}
+            } catch (err) {
+                alert("YOU GOT ERRORS WHILE EDITING:", err)
+
+            }
+           
+        }
+
 
             
         case 'LOADING':

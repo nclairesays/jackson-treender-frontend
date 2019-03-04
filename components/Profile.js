@@ -65,11 +65,17 @@ class _Profile extends Component {
 
                         <View style={{flexDirection: 'row',  justifyContent: 'space-between'}}>
           
-                            <TouchableHighlight onPress={()=>(console.log('EDITTING THIS PROFILE'))}>
+                        <Link
+                            to="/editForm"
+                            underlayColor='#f0f4f7'
+                            >
+                            
                             <View style={{ backgroundColor: 'darkred'}}>
                                     <Text>EDIT YOUR PROFILE</Text>
                             </View>
-                            </TouchableHighlight>
+    
+                        </Link>
+                            
                
                         </View>
 

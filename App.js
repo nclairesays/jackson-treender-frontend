@@ -7,6 +7,7 @@ import _Match from './components/Match'
 import _Chat from './components/Chat'
 import _Welcome from './components/Welcome'
 import _NavBar from './components/NavBar'
+import _EditForm from './components/EditForm';
 
 import { Route, Link  } from 'react-router-native'
 import { Switch, Router } from 'react-router'
@@ -65,6 +66,10 @@ class App extends React.Component {
 
             <Route path="/chat" render={ () => 
               <_Chat />
+            }/>
+
+            <Route path="/editForm" render={ () => 
+              <_EditForm />
             }/>
 
 </>
