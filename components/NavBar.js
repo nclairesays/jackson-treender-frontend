@@ -1,25 +1,30 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet } from 'react-native'
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { Route, Link } from 'react-router-native'
 
 
-import _Login from './components/Login';
-import _Profile from './components/Profile';
-import _SignUp from './components/SignUp';
-import _Match from './components/Match'
-import _Chat from './components/Chat'
-import _Welcome from './components/Welcome'
+// import _Login from './Login';
+// import _Profile from './components/Profile';
+// import _SignUp from './components/SignUp';
+// import _Match from './components/Match'
+// import _Chat from './components/Chat'
+import _Welcome from './Welcome'
 
 
 // console.log(Link)
 
 class _NavBar extends Component {
+
+  getPotentials = () => {
+    this.props.getPotentials()
+  }
+
   render() {
     return (
     
         <View>
-            {/* <Text>JACKSON TREENDER </Text>
+            <Text>JACKSON TREENDER </Text>
 
             {
               (this.props.isLoggedIn)
@@ -39,18 +44,29 @@ class _NavBar extends Component {
                   </Text>
               </Link>
 
+              <TouchableOpacity onPress={this.getPotentials}>
               <Link
                 to="/match"
                 underlayColor='#f0f4f7'
                 style={styles.navItem}>
-                  <Text>Match</Text>
+                  <Text>Match
+
+                  {console.log('USER IN ROUTER- MATCH')}
+                  </Text>
               </Link>
+              </TouchableOpacity>
+
+              
 
               <Link
                 to="/chat"
                 underlayColor='#f0f4f7'
                 style={styles.navItem}>
-                  <Text>Chat</Text>
+                  <Text>Chat
+
+                  {console.log('USER IN ROUTER- CHAT')}
+
+                  </Text>
               </Link>
             
             </View>
@@ -82,7 +98,7 @@ class _NavBar extends Component {
 
                 
 
-            } */}
+            }
 
       </View>
     )
@@ -135,9 +151,12 @@ const styles = StyleSheet.create({
 //     }
 // }
 
+const mapStateToProps = state => state
+
 const mapDispatchToProps = (dispatch) => {
   return {
       getSuccessfulMatches: () => dispatch({ type: 'GET_SUCCESSFUL_MATCHES'}),
+      getPotentials: () => dispatch({ type: 'GET_POTENTIALS'})
    }
 }
 

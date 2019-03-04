@@ -30,6 +30,7 @@ const request = (method) =>  async (url, body) => {
                     body: JSON.stringify(body)
                 })
                 .then(resp => resp.json())
+                .then((json) => console.log('SHOULD RETURN THE JSON', json))
                 
         
                 

@@ -14,6 +14,8 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux'
 import store from './redux/store'
 import { history } from './history'
+import _NavBar from './components/NavBar';
+
 
 
 import { YellowBox, AppRegistry } from 'react-native'
@@ -32,163 +34,19 @@ class App extends React.Component {
 
   render() {
 
-
-
-   
     return (
-      
-        // <Router history={history}>
-        //   <View>
-        //     <Text>JACKSON TREENDER </Text>
-
-        //     {
-        //       (!this.state.isLoggedIn)
-        //       ? 
-        //       <View style={styles.nav}>
-        //           <_Welcome />
-        //           <Link
-        //               to="/signup"
-        //               underlayColor='#f0f4f7'
-        //               style={styles.navItem}>
-        //                 <Text>Sign Up 
-
-        //                {console.log('USER IN ROUTER- SIGNUP', this.props.user)}
-
-        //                 </Text>
-
-        //             </Link>
-        //           <Link
-        //             to="/login"
-        //             underlayColor='#f0f4f7'
-        //             style={styles.navItem}>
-        //               <Text>Login</Text>
-        //           </Link>
-        //         </View>
-               
-        //       :
-        //       <View style={styles.nav}>
-
-        //       <Link
-        //         to="/profile"
-        //         underlayColor='#f0f4f7'
-        //         style={styles.navItem}>
-        //           <Text>Profile
-
-
-        //           {console.log('USER IN ROUTER- PROFILE', this.props.user)}
-
-        //           </Text>
-        //       </Link>
-
-        //       <Link
-        //         to="/match"
-        //         underlayColor='#f0f4f7'
-        //         style={styles.navItem}>
-        //           <Text>Match</Text>
-        //       </Link>
-
-        //       <Link
-        //         to="/chat"
-        //         underlayColor='#f0f4f7'
-        //         style={styles.navItem}>
-        //           <Text>Chat</Text>
-        //       </Link>
-        //     </View>
-                
-
-                
-
-        //     }
-
-         
-
+    
 
         <View>
 
         <Router history={history}>
 <>
-
-            <Text>JACKSON TREENDER </Text>
-
-            {
-              (!this.state.isLoggedIn)
-              ? 
-              <View style={styles.nav}>
-                  <_Welcome />
-                  <Link
-                      to="/signup"
-                      underlayColor='#f0f4f7'
-                      style={styles.navItem}>
-                        <Text>Sign Up 
-
-                       {console.log('USER IN ROUTER- SIGNUP', this.props.user)}
-
-                        </Text>
-
-                    </Link>
-                  <Link
-                    to="/login"
-                    underlayColor='#f0f4f7'
-                    style={styles.navItem}>
-                      <Text>Login</Text>
-                  </Link>
-                </View>
-               
-              :
-              <View style={styles.nav}>
-
-              <Link
-                to="/profile"
-                underlayColor='#f0f4f7'
-                style={styles.navItem}>
-                  <Text>Profile
-
-
-                 
-                  </Text>
-              </Link>
-
-              <Link
-                to="/match"
-                underlayColor='#f0f4f7'
-                style={styles.navItem}>
-                
-                  <Text>Match
-
-                  </Text>
-
-                
-              </Link>
-
-              <Link
-                to="/chat"
-                underlayColor='#f0f4f7'
-                style={styles.navItem}>
-                  <Text>Chat
-                  </Text>
-              </Link>
-            </View>
-                
-
-                
-
-            }
-
-         
-              
-
-             
-
+        <_NavBar isLoggedIn={this.state.isLoggedIn} />
 
         
             <Route path="/login" render={() => 
-              <_Login onLoginPress={() => 
-                this.setState({ 
-                  isLoggedIn: true 
-                })
-                } />
-                } 
-              />
+              <_Login onLoginPress={() => this.setState({isLoggedIn: true})}/>
+            }/>
             <Route path="/signup" render={ () => 
               <_SignUp />
             }/>
@@ -199,7 +57,7 @@ class App extends React.Component {
 
 
             <Route path="/match" render={ () => 
-              <_Match />
+              <_Match/>
             }/>
 
             <Route path="/chat" render={ () => 
@@ -293,3 +151,4 @@ export default () => {
     </Provider>
   )
 }
+ 

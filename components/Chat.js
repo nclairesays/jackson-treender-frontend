@@ -20,11 +20,9 @@ class _Chat extends Component {
 
     return (
       <View>
-        {console.log('CHAT COMPONENT, PROPS.GETMATCHES')
+        {/* {console.log('CHAT COMPONENT, PROPS.GETMATCHES')} */}
 
-        // .map(match => 
-        //     <Text>NAME: {match.name}</Text>)
-        } 
+        <Text>CHAT COMPONENT HERE</Text>
       </View>
     )
   }
@@ -32,11 +30,11 @@ class _Chat extends Component {
 
 
 
-const mapStateToProps = () => {
-    return {
-      user: state.user,
-      potentials: state.potentials
-    }
+const mapStateToProps = state => {
+  console.log(state)
+  return {
+    user: state.user
+  }
 }
 
 const mapDispatchToProps = (dispatch) => ({

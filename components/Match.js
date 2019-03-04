@@ -64,18 +64,20 @@ class _Match extends Component {
 
 
 const mapStateToProps = state => {
+  console.log('MATCH PROPS', state)
 
     return {
-      user: state.user.user,
-      potentials: state.matches.potentials
+      user: state.user,
+      potentials: state.potentials
     }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-   
+const mapDispatchToProps = (dispatch) => {
+   return {
     addResponse: (matchee_id, current_user_response, current_user_id) => 
       dispatch({ type: 'ADD_RESPONSE', matchee_id, current_user_response, current_user_id })
-})
+  }
+}
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(_Match)

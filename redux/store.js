@@ -7,8 +7,7 @@ import { AsyncStorage } from 'react-native';
 import { server } from '../server';
 import { push } from 'react-router-redux'
 import { history } from '../history';
-import userReducer from './userReducer'
-import matchReducer from './matchReducer'
+
 
 
 
@@ -20,34 +19,12 @@ const initialState = {
     user: null,
     potentials: null
 
-      
-    // user: {
-    //     name: "Claire",
-    //     email: "claire@flatiron.com",
-    //     age: 26,
-    //     bio: "I code and stuff"
-    // },
-
-    // loading: true,
-    // error: null
 }
 
 
-// const allReducers = combineReducers({
-//     user: userReducer,
-//     match: matchReducer
-// })
-
 const rootReducer = (state, action) => {
-    history
+   console.log('STATE IN ROOTREDUCER', state)
     switch (action.type) {
-        
-        case 'SAVE_USER':
-            //  console.log(action)
-
-            return {
-                ...state, user: action.user
-            };
         case 'CREATE_USER': 
             fetch(`${API_URL}/users`,{
                 method: 'POST',
@@ -94,8 +71,9 @@ const rootReducer = (state, action) => {
             })
             .then( user => {
                 if(!user.error){
-                    console.log('LOGIN TOKEN2', user.token)
+                    console.log('LOGIN TOKEN 2', user.token)
                     store.dispatch({ type: 'SAVE_USER', user })
+                    // store.dispatch({ type: 'GET_POTENTIALS' })
                     history.push(`/profile`)
                 } else {
                     console.log('Invalid login')
@@ -105,17 +83,25 @@ const rootReducer = (state, action) => {
                 console.log('LOGIN ERRORS GOT IN THE WAY: ', error)
                 // ADD WARNING LOGIN ERROR
            })
+        case 'SAVE_USER':
+           console.log('HITS SAVE_USER', state)
+          return {
+              ...state, user: action.user
+          };
         case 'GET_POTENTIALS': 
+        console.log('hitting get potentials reducer')
            setTimeout(() =>{server.get(`${API_URL}/get_potential_matchees`)
-           .then( potentials => {
-               store.dispatch({ type: 'SAVE_POTENTIALS', potentials })
-               return potentials
-           })     
-           .then((potentials) => console.log('INSIDE GET POTENTIALS', potentials))
+           .then(()=>console.log('hits thiss after fetching potentials'))
+        //    .then( potentials => {
+        //        store.dispatch({ type: 'SAVE_POTENTIALS', potentials })
+        //        console.log("GET_POTENTIALS TRYING TO SAVE", potentials)
+        //        return potentials
+        //    })     
+        //    .then((potentials) => console.log('INSIDE GET POTENTIALS', potentials))
           .catch(error => {
                console.log('ERRORS GOT IN THE WAY: ', error)
            })},
-           2000
+           1000
            )
             
            
