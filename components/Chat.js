@@ -32,7 +32,7 @@ class _Chat extends Component {
 
 
 
-
+const mapStateToProps = () => {
     return {
       user: state.user,
       potentials: state.potentials
@@ -43,7 +43,7 @@ const mapDispatchToProps = (dispatch) => ({
     // getMatches: () => 
     //     dispatch({ type: 'GET_SUCCESSFUL_MATCHES' }),
         getMatchees: () => 
-        dispatch({ type: 'GET_POTENTIALS' }),
+        dispatch({ type: 'GET_POTENTIALS' })
 })
 
 

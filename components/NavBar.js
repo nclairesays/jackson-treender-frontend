@@ -116,42 +116,36 @@ const styles = StyleSheet.create({
   
   
 
-const mapStateToProps = state => {
-<<<<<<< HEAD
-  // console.log('inside map state to props navbar', state)
-    if (!state.match && state.user){
-      return {
-        user: state.user
-      }
-    }
-    else if(state.match) {
-      return {
-        user: state.user,
-        potentials: state.match.potentials,
-        successfulMatches: state.match.successfulMatches
-      }
-    }
-    else {
-      return {}
-    }
-}
+// const mapStateToProps = state => {
+//   // console.log('inside map state to props navbar', state)
+//     if (!state.match && state.user){
+//       return {
+//         user: state.user
+//       }
+//     }
+//     else if(state.match) {
+//       return {
+//         user: state.user,
+//         potentials: state.match.potentials,
+//         successfulMatches: state.match.successfulMatches
+//       }
+//     }
+//     else {
+//       return {}
+//     }
+// }
 
 const mapDispatchToProps = (dispatch) => {
   return {
       getSuccessfulMatches: () => dispatch({ type: 'GET_SUCCESSFUL_MATCHES'}),
    }
-  }
-=======
-
-    return {
-      user: state.user
-    }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-    onLogout: () => dispatch({ type: 'LOGOUT'})
-})
->>>>>>> parent of 92a4e83... checkpoint 710pm
+
+
+// const mapDispatchToProps = (dispatch) => ({
+//     onLogout: () => dispatch({ type: 'LOGOUT'})
+// })
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(_NavBar)
