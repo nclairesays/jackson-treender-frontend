@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View, Button, StyleSheet, AsyncStorage } from 'react-native';
+import { Text, TextInput, View, Button, StyleSheet, AsyncStorage, Dimensions } from 'react-native';
 import { NativeRouter, Route, Link } from 'react-router-native'
 import { API_URL } from '../constants';
 import { connect } from 'react-redux'
+
 
 
 
@@ -17,7 +18,7 @@ class _EditForm extends Component {
     }
 
     componentDidMount() {
-        const {name, bio, email, age, id, gender} = this.props.user
+        const { bio, email, age, gender} = this.props.user
         this.setState({
             email: email,
             bio: bio,
@@ -38,19 +39,17 @@ class _EditForm extends Component {
             <View>
                 <Text 
                     style={{fontSize: 27}}>
-                    Edit Yeere Profile
+                    Edit Yeere Profile, {this.props.user.name} Jackson!
                 </Text>
 
                 <View style={{margin:10}}/>
-
-                <Text>Full Name: {this.props.user.name}</Text>
-                <Text>Email: {this.props.user.email}</Text>
-                
+                <Form onSubmit>
 
                 <TextInput 
                     placeholder='Email' 
                     style={styles.input}
                     value={this.state.email}
+                    keyboardType='email-address'
                     onChangeText={ text => this.setState({ email: text })}
                 />
 
@@ -58,7 +57,7 @@ class _EditForm extends Component {
                     placeholder='Age' 
                     style={styles.input}
                     value={this.state.age}
-
+                    keyboardType='numeric'
                     onChangeText={ text => this.setState({ age: text })}
                 />
 
@@ -71,24 +70,31 @@ class _EditForm extends Component {
 
                 <TextInput 
                     placeholder='Bio' 
-                    style={styles.input}
+                    style={styles.input_multiline}
                     multiline = {true}
-                    numberOfLines = {20}
+                    numberOfLines = {10}
                     value={this.state.bio}
                     onChangeText={ text => this.setState({ bio: text })}
                 />
                 <View style={{margin:10}}/>
+                </Form>
 
 
-                <Button 
-                    onPress={ () => {
+
+                <Link to="/profile">
+                    <Text>TESTING LINK</Text>
+                    {/* <Text onPress={ () => {
+                            this.props.onEditProfile(this.state.email, this.state.bio, this.state.gender, this.state.age)
+                        }}>
+                        EDIT YOUR PROFILE
+                        </Text>
+                    {/* <Button 
                         
-                        this.props.onEditProfile(this.state.email, this.state.bio, this.state.gender, this.state.age)
-                    }}
-                    title="Edit!"
-                    color="#841584"  // color of text
-                    
-                />
+                        title="Edit!"
+                        color="#841584"  // color of text
+                    />            */} 
+                </Link>
+                
 
                 <View style={{margin:10}}/>
 
@@ -101,15 +107,27 @@ class _EditForm extends Component {
     }
 }
 
+const {width, height} = Dimensions.get('window')
+
+
 
 const styles = StyleSheet.create({
     input: {
-      width: 250,
-      height: 50,
-      margin: 5,
-      padding: 8,
-      fontSize: 18,
-      fontWeight: '500'
+        width: 250,
+        height: 50,
+        margin: 5,
+        padding: 8,
+        fontSize: 18,
+        fontWeight: '500'
+    },
+    input_multiline: {
+        width: width - 40,
+        height: height * .25,
+        margin: 5,
+        padding: 8,
+        fontSize: 18,
+        fontWeight: '500'
+
     }
 });
 

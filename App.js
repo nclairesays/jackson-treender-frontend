@@ -67,7 +67,6 @@ class App extends React.Component {
             <Route path="/chat" render={ () => 
               <_Chat />
             }/>
-
             <Route path="/editForm" render={ () => 
               <_EditForm />
             }/>

@@ -16,19 +16,8 @@ const initialState = {
     user: null,
     potentials: null,
     successfulMatches: null
-
-      
-    // user: {
-    //     name: "Claire",
-    //     email: "claire@flatiron.com",
-    //     age: 26,
-    //     bio: "I code and stuff"
-    // },
-
     // loading: true,
     // error: null
-
-
 }
 
 
@@ -38,14 +27,10 @@ const rootReducer = (state, action) => {
     switch (action.type) {
         
         case 'SAVE_USER':
-             console.log("SAVE USER ACTION", action)
-
             return {
                 ...state, user: action.res.user
             };
         case 'CREATE_USER': 
-        console.log("CREATE USER ACTION", action)
-
             fetch(`${API_URL}/users`,{
                 method: 'POST',
                 headers: {
@@ -72,42 +57,38 @@ const rootReducer = (state, action) => {
                 successfulMatches: null
             }
         case 'LOGIN':
+            try {
+                server.post(`${API_URL}/auth`, {
+                    email: action.email,
+                    password: action.password
+                }) 
+                .then( async (user) => {
+                    try {
 
-            console.log('LOGIN ACTION', action)
-            server.post(`${API_URL}/auth`, {
-                email: action.email,
-                password: action.password
-            }) 
-            .then( async (user) => {
-                // console.log(user)
-                try {
-                    console.log('LOGIN TOKEN1', user.token)
-                    await AsyncStorage.setItem('token', user.token)
-                    await AsyncStorage.setItem('user', JSON.stringify(user))
-                    await AsyncStorage.getItem('token').then(token => console.log('LOGIN TOKEN 1.5', token))
-                    return {...state, user}
-                } catch (error) {
-                    console.log('Login Errors got in the way #1', error)
-                }
-
-            })
-            .then( res => {
-                console.log("RES", res)
-                try {
-                    console.log('LOGIN TOKEN2', res.user.token),
-                    store.dispatch({ type: 'SAVE_USER', res}),
-                    history.push(`/profile`)
-
-                } catch (error) {
-                    console.log('Invalid login #2', error)
-
-                }
-                
-            })
-            .catch(error => {
-                console.log('LOGIN ERRORS GOT IN THE WAY #3: ', error)
-                // ADD WARNING LOGIN ERROR
-           })
+                        await AsyncStorage.setItem('token', user.token)
+                        await AsyncStorage.setItem('user', JSON.stringify(user))
+                        return {...state, user}
+                    } catch (error) {
+                        alert('Login Errors got in the way #1', error)
+                    }
+                })
+                .then( res => {
+                    try {
+                        console.log('LOGIN TOKEN2', res.user.token),
+                        store.dispatch({ type: 'SAVE_USER', res}),
+                        history.push(`/profile`)
+    
+                    } catch (error) {
+                        alert('ERROR WHEN SAVING USER: ', error)
+                    }
+        
+                })
+                .catch(error => {
+                    alert("ERRORS AFTER POSTING AUTH:", error)
+               })
+            } catch (err) {
+                alert('LOGIN ERRORS: ', err)
+            } 
         case 'GET_POTENTIALS': 
            setTimeout(() =>{server.get(`${API_URL}/get_potential_matchees`)
            .then( potentials => {
@@ -115,12 +96,10 @@ const rootReducer = (state, action) => {
                return {...state, potentials}
            })     
           .catch(error => {
-               console.log('ERRORS GOT IN THE WAY: ', error)
+               alert('ERRORS WHEN GETTING POTENTIALS', error)
            })},
            1000
            )
-            
- 
         case 'SAVE_POTENTIALS': {
             return {...state, potentials: action.potentials}
         }   
@@ -131,37 +110,18 @@ const rootReducer = (state, action) => {
                 matchee_id: action.matchee_id,
                 current_user_id: action.current_user_id
             })
-
-
-
-
-                // method: 'POST',
-                // headers: {
-                //     'Content-Type': 'application/json',
-                //     'Authorization': state.user.token
-                // },
-                // body: JSON.stringify({
-                //     current_user_response: action.current_user_response,
-                //     matchee_id: action.matchee_id
-                // })
-            // })
-            // .then(res => res.json() )
-            // .then(console.log)
         } 
-
-
         case 'GET_SUCCESSFUL_MATCHES': {
             server.get(`${API_URL}/successful_matches`)
             .then(successfulMatches => {
                 store.dispatch({type: 'SAVE_SUCCESSFUL_MATCHES', successfulMatches})
             })
         }
-
         case 'SAVE_SUCCESSFUL_MATCHES':{
             return {...state, successfulMatches: action.successfulMatches}
         }
-
         case 'EDIT_PROFILE': {
+            console.log('Is the age working?', action.age)
             try {
                 server.patch(`${API_URL}/users/${state.user.id}`,{
                     email: action.email, 
@@ -169,24 +129,13 @@ const rootReducer = (state, action) => {
                     gender: action.gender, 
                     age: action.age
                 })
-                .then(res => console.log('EDIT PROFILE AFTER PAtCH', res))
-                return {...state , user: {
-                    email: action.email, 
-                    bio: action.bio, 
-                    gender: action.gender, 
-                    age: action.age
-                }}
+                .then(user => ({...state, user: user}))
             } catch (err) {
                 alert("YOU GOT ERRORS WHILE EDITING:", err)
 
-            }
-           
+            }   
         }
-
-
-            
-        case 'LOADING':
-            
+        case 'LOADING':   
             return { ...state, loading: !action.isLoading };
         case 'ERROR':
             return { ...state, error: action.error };

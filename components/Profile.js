@@ -21,7 +21,7 @@ class _Profile extends Component {
         return token
     }
     render() {
-        const {name, bio, email, id} = this.props.profile
+        const {name, bio, email, gender,age, id} = this.props.profile
         const defaultImage = 'https://i.pinimg.com/originals/9f/81/2d/9f812d4cf313e887ef99d8722229eee1.jpg'
         
         return (
@@ -58,22 +58,15 @@ class _Profile extends Component {
                             source={{uri: defaultImage}}
                         />
                         <View style={{margin:10}}>
-                            <Text style={{fontSize:20}}>{name}</Text>
-                            <Text style={{fontSize:15}} note>{email}</Text>
-                            <Text style={{fontSize:15, color:'darkgrey'}}>{bio}</Text>
+                            <Text style={{fontSize:20}}>{name}, {age}, {gender}</Text>
+                            <Text style={{fontSize:15, color:'darkgrey'}} note>{email}</Text>
+                            <Text style={{fontSize:15}}>{bio}</Text>
                         </View>
 
                         <View style={{flexDirection: 'row',  justifyContent: 'space-between'}}>
           
-                        <Link
-                            to="/editForm"
-                            underlayColor='#f0f4f7'
-                            >
-                            
-                            <View style={{ backgroundColor: 'darkred'}}>
-                                    <Text>EDIT YOUR PROFILE</Text>
-                            </View>
-    
+                        <Link to="/editForm">
+                            <Text style={{color: 'purple'}}>EDIT YOUR PROFILE</Text>
                         </Link>
                             
                
