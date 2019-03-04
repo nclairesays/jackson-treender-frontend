@@ -45,7 +45,7 @@ class _Chat extends Component {
         {names 
           ?
           names.map( name => 
-          <Text >
+          <Text key={name.index}>
           {name}
           
         </Text>)
