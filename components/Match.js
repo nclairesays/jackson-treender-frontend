@@ -35,6 +35,7 @@ class _Match extends Component {
 
 
   render() {
+   
     
    
     return (
@@ -64,10 +65,11 @@ class _Match extends Component {
 
 
 const mapStateToProps = state => {
+    let potentialMatchees =  state.potentials.filter( user => user.id !== state.user.id)
 
     return {
       user: state.user,
-      potentials: state.potentials
+      potentials: potentialMatchees
     }
 }
 
