@@ -20,10 +20,18 @@ class _Chat extends Component {
     console.log('TYPEOF(MATCHES2)', typeof(matches2)) //returns string
 
 
-    console.log('INDEX or KEY 0', this.props.sucessfulMatches[0] ) //Cannot read property '0' of undefined
+    console.log('INSTANCE OF', matches instanceof Array) //returns TRUE
+    // let mapped = matches.map( u => u.id)
+    // console.log(map)
 
+    // console.log('INDEX or KEY 0', this.props.sucessfulMatches[0] ) //Cannot read property '0' of undefined
 
+    let array = ['a', 'b', 'c']
+    console.log('ARRAY', array)
 
+    let names = matches && matches.map( user => (user.name))
+      
+    console.log("NAMES", names)
 
 
    
@@ -34,6 +42,20 @@ class _Chat extends Component {
 
     return (
       <View>
+        {names 
+          ?
+          names.map( name => 
+          <Text >
+          {name}
+          
+        </Text>)
+        :null
+        
+      }
+
+
+
+
         {/* {console.log('PROPS', this.props.successfulMatches) } */}
 
         {/* {

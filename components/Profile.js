@@ -3,7 +3,11 @@ import {
     ScrollView,
     Text,
     View,
-    Button
+    Button,
+    Image,
+    StyleSheet,
+    Dimensions,
+    TouchableHighlight
 } from 'react-native';
 import { connect } from 'react-redux'
 import { Link, Redirect } from 'react-router-native';
@@ -17,6 +21,8 @@ class _Profile extends Component {
         return token
     }
     render() {
+        const {name, bio, email, id} = this.props.profile
+        const defaultImage = 'https://i.pinimg.com/originals/9f/81/2d/9f812d4cf313e887ef99d8722229eee1.jpg'
         
         return (
 
@@ -46,10 +52,66 @@ class _Profile extends Component {
                 : null
                 }
 
+                <View style={styles.card}>
+                        <Image
+                            style={{flex:1}}
+                            source={{uri: defaultImage}}
+                        />
+                        <View style={{margin:10}}>
+                            <Text style={{fontSize:20}}>{name}</Text>
+                            <Text style={{fontSize:15}} note>{email}</Text>
+                            <Text style={{fontSize:15, color:'darkgrey'}}>{bio}</Text>
+                        </View>
+
+                        <View style={{flexDirection: 'row',  justifyContent: 'space-between'}}>
+          
+                            <TouchableHighlight onPress={()=>(console.log('EDITTING THIS PROFILE'))}>
+                            <View style={{ backgroundColor: 'darkred'}}>
+                                    <Text>EDIT YOUR PROFILE</Text>
+                            </View>
+                            </TouchableHighlight>
+               
+                        </View>
+
+                        <Button 
+                        title="Logout"
+                        onPress={() => 
+                            {
+                                // <Redirect to='/login' /> // Doesn't do anything
+                                this.props.onLogout()
+                            }}
+                        />
+
+
+                </View>
+
+
+
             </View>
         )
     }
 } 
+
+
+
+const {width, height} = Dimensions.get('window')
+
+const styles = StyleSheet.create({
+    card: {
+        position: 'absolute',
+        width: width - 40,
+        height: height * 0.7,
+        overflow: 'hidden',
+        backgroundColor: 'white',
+        margin: 10,
+        borderWidth: 1,
+        borderColor: 'lightgrey',
+        borderRadius: 8,
+    },
+    button: {
+        flex: 2
+    }
+})
 
   
  
@@ -58,7 +120,7 @@ class _Profile extends Component {
 const mapStateToProps = state => {
 
     return {
-      user: state.user
+        profile: state.user
     }
 }
 
