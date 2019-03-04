@@ -12,8 +12,18 @@ class _Chat extends Component {
 
   render() {
     let matches = this.props.successfulMatches
-    console.log('SUCESSFUL MATCHES', matches) //returns Array of Objects (capitalized Array &Object) see below in the return for example
+    console.log('SUCESSFUL MATCHES', matches) //returns Array of Objects (capitalized Array &Object) see below in the return for example, sometimes will return null
     console.log('TYPEOF(MATCHES)', typeof(matches)) //returns object (lowercase object)
+
+    let matches2 = JSON.stringify(this.props.successfulMatches)
+    console.log('SUCESSFUL MATCHES2', matches2) // returns it into a string
+    console.log('TYPEOF(MATCHES2)', typeof(matches2)) //returns string
+
+
+    console.log('INDEX or KEY 0', this.props.sucessfulMatches[0] ) //Cannot read property '0' of undefined
+
+
+
 
 
    
@@ -40,7 +50,12 @@ class _Chat extends Component {
                 "password_digest": "$2a$10$WPVxp4Av/lhANkEHmsPvz.4Zl9jgVjUxaT1il2DgYqld3dFu7dcBe",
                 "updated_at": "2019-02-27T20:53:38.394Z",
               },
+               Object {
+                "birthday": null,
+                ... more data
+              },
             ]
+
         } */}
 
 

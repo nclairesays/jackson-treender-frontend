@@ -38,12 +38,14 @@ const rootReducer = (state, action) => {
     switch (action.type) {
         
         case 'SAVE_USER':
-            //  console.log(action)
+             console.log("SAVE USER ACTION", action)
 
             return {
-                ...state, user: action.user
+                ...state, user: action.res.user
             };
         case 'CREATE_USER': 
+        console.log("CREATE USER ACTION", action)
+
             fetch(`${API_URL}/users`,{
                 method: 'POST',
                 headers: {
@@ -65,11 +67,13 @@ const rootReducer = (state, action) => {
             history.push(`/login`)
 
             return {
-                ...state, user: null
+                user: null,  
+                potentials: null,
+                successfulMatches: null
             }
         case 'LOGIN':
 
-
+            console.log('LOGIN ACTION', action)
             server.post(`${API_URL}/auth`, {
                 email: action.email,
                 password: action.password
@@ -81,16 +85,17 @@ const rootReducer = (state, action) => {
                     await AsyncStorage.setItem('token', user.token)
                     await AsyncStorage.setItem('user', JSON.stringify(user))
                     await AsyncStorage.getItem('token').then(token => console.log('LOGIN TOKEN 1.5', token))
-                    return user
+                    return {...state, user}
                 } catch (error) {
                     console.log('Login Errors got in the way #1', error)
                 }
 
             })
-            .then( user => {
+            .then( res => {
+                console.log("RES", res)
                 try {
-                    console.log('LOGIN TOKEN2', user.token)
-                    store.dispatch({ type: 'SAVE_USER', user })
+                    console.log('LOGIN TOKEN2', res.user.token),
+                    store.dispatch({ type: 'SAVE_USER', res}),
                     history.push(`/profile`)
 
                 } catch (error) {
@@ -107,7 +112,7 @@ const rootReducer = (state, action) => {
            setTimeout(() =>{server.get(`${API_URL}/get_potential_matchees`)
            .then( potentials => {
                store.dispatch({ type: 'SAVE_POTENTIALS', potentials })
-               return potentials
+               return {...state, potentials}
            })     
           .catch(error => {
                console.log('ERRORS GOT IN THE WAY: ', error)
@@ -115,10 +120,7 @@ const rootReducer = (state, action) => {
            1000
            )
             
-           
-            
-
-
+ 
         case 'SAVE_POTENTIALS': {
             return {...state, potentials: action.potentials}
         }   
