@@ -8,18 +8,6 @@ import store from '../redux/store'
 
 
 class _Chat extends Component {
-
-  state = {
-    matches: null
-  }
-
-  matchGetter = () => {
-    // this.props.getMatches()
-  }
-  componentDidMount () {
-    // this.props.getMatches()
-  }
-
   render() {
 
     // let mapped = matches.map(match => console.log(match))x
@@ -45,22 +33,18 @@ class _Chat extends Component {
 
 
 
-
-const mapStateToProps = state => {
-  // console.log('map state to props11111', store.getState())
-  // console.log('map state to props222222', state.match)
-  return {
-    user: state.user.user,
-    match: state.match
-  }
+    return {
+      user: state.user,
+      potentials: state.potentials
+    }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getSuccessfulMatches: () => dispatch({ type: 'GET_SUCCESSFUL_MATCHES '})
-  }
- 
-}
+const mapDispatchToProps = (dispatch) => ({
+    // getMatches: () => 
+    //     dispatch({ type: 'GET_SUCCESSFUL_MATCHES' }),
+        getMatchees: () => 
+        dispatch({ type: 'GET_POTENTIALS' }),
+})
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(_Chat)

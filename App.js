@@ -7,7 +7,6 @@ import _SignUp from './components/SignUp';
 import _Match from './components/Match'
 import _Chat from './components/Chat'
 import _Welcome from './components/Welcome'
-import _NavBar from './components/NavBar'
 
 import { Route, Link  } from 'react-router-native'
 import { Switch, Router } from 'react-router'
@@ -18,8 +17,7 @@ import { history } from './history'
 
 
 import { YellowBox, AppRegistry } from 'react-native'
-
-
+import HomeScreen from './screens/HomeScreen';
 YellowBox.ignoreWarnings([
   'Remote debugger',
 ])
@@ -30,9 +28,7 @@ class App extends React.Component {
     isLoggedIn: false
   }
 
-  login = () => {this.setState({ isLoggedIn: true })}
-
-  renderChat = () => {store.dispatch({type: 'GET_SUCCESSFUL_MATCHES'})}
+  
 
   render() {
 
@@ -41,15 +37,156 @@ class App extends React.Component {
    
     return (
       
-        <View>
+        // <Router history={history}>
+        //   <View>
+        //     <Text>JACKSON TREENDER </Text>
 
+        //     {
+        //       (!this.state.isLoggedIn)
+        //       ? 
+        //       <View style={styles.nav}>
+        //           <_Welcome />
+        //           <Link
+        //               to="/signup"
+        //               underlayColor='#f0f4f7'
+        //               style={styles.navItem}>
+        //                 <Text>Sign Up 
+
+        //                {console.log('USER IN ROUTER- SIGNUP', this.props.user)}
+
+        //                 </Text>
+
+        //             </Link>
+        //           <Link
+        //             to="/login"
+        //             underlayColor='#f0f4f7'
+        //             style={styles.navItem}>
+        //               <Text>Login</Text>
+        //           </Link>
+        //         </View>
+               
+        //       :
+        //       <View style={styles.nav}>
+
+        //       <Link
+        //         to="/profile"
+        //         underlayColor='#f0f4f7'
+        //         style={styles.navItem}>
+        //           <Text>Profile
+
+
+        //           {console.log('USER IN ROUTER- PROFILE', this.props.user)}
+
+        //           </Text>
+        //       </Link>
+
+        //       <Link
+        //         to="/match"
+        //         underlayColor='#f0f4f7'
+        //         style={styles.navItem}>
+        //           <Text>Match</Text>
+        //       </Link>
+
+        //       <Link
+        //         to="/chat"
+        //         underlayColor='#f0f4f7'
+        //         style={styles.navItem}>
+        //           <Text>Chat</Text>
+        //       </Link>
+        //     </View>
+                
+
+                
+
+        //     }
+
+         
+
+
+        <View>
 
         <Router history={history}>
 <>
-        <_NavBar isLoggedIn={this.state.isLoggedIn}/>
 
+            <Text>JACKSON TREENDER </Text>
+
+            {
+              (!this.state.isLoggedIn)
+              ? 
+              <View style={styles.nav}>
+                  <_Welcome />
+                  <Link
+                      to="/signup"
+                      underlayColor='#f0f4f7'
+                      style={styles.navItem}>
+                        <Text>Sign Up 
+
+                       {console.log('USER IN ROUTER- SIGNUP', this.props.user)}
+
+                        </Text>
+
+                    </Link>
+                  <Link
+                    to="/login"
+                    underlayColor='#f0f4f7'
+                    style={styles.navItem}>
+                      <Text>Login</Text>
+                  </Link>
+                </View>
+               
+              :
+              <View style={styles.nav}>
+
+              <Link
+                to="/profile"
+                underlayColor='#f0f4f7'
+                style={styles.navItem}>
+                  <Text>Profile
+
+
+                 
+                  </Text>
+              </Link>
+
+              <Link
+                to="/match"
+                underlayColor='#f0f4f7'
+                style={styles.navItem}>
+                
+                  <Text>Match
+
+                  </Text>
+
+                
+              </Link>
+
+              <Link
+                to="/chat"
+                underlayColor='#f0f4f7'
+                style={styles.navItem}>
+                  <Text>Chat
+                  </Text>
+              </Link>
+            </View>
+                
+
+                
+
+            }
+
+         
+              
+
+             
+
+
+        
             <Route path="/login" render={() => 
-              <_Login onLoginPress={this.login} />
+              <_Login onLoginPress={() => 
+                this.setState({ 
+                  isLoggedIn: true 
+                })
+                } />
                 } 
               />
             <Route path="/signup" render={ () => 
@@ -151,7 +288,7 @@ export default () => {
   return (
     <Provider store={store}>
       <View style={styles.container}>
-        <App store={store}/>
+        <App />
       </View>
     </Provider>
   )

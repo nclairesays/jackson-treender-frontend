@@ -1,106 +1,90 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
+import { Text, View, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { Route, Link } from 'react-router-native'
 
 
-import _Login from './Login';
-import _Profile from './Profile';
-import _SignUp from './SignUp';
-import _Match from './Match'
-import _Chat from './Chat'
-import _Welcome from './Welcome'
+import _Login from './components/Login';
+import _Profile from './components/Profile';
+import _SignUp from './components/SignUp';
+import _Match from './components/Match'
+import _Chat from './components/Chat'
+import _Welcome from './components/Welcome'
 
 
-
+// console.log(Link)
 
 class _NavBar extends Component {
-
-  onChat = () => {
-    this.props.getSucessfulMatches()
-  }
-
- 
   render() {
     return (
-      <>
     
-      <Text>JACKSON TREENDER </Text>
+        <View>
+            {/* <Text>JACKSON TREENDER </Text>
 
-      {
-        (!this.props.isLoggedIn)
-        ? 
-        <View style={styles.nav}>
-            <_Welcome />
-            <Link
-                to="/signup"
+            {
+              (this.props.isLoggedIn)
+              ? 
+
+              <View style={styles.nav}>
+
+              <Link
+                to="/profile"
                 underlayColor='#f0f4f7'
                 style={styles.navItem}>
-                  <Text>Sign Up 
+                  <Text>Profile
 
+
+                  {console.log('USER IN ROUTER- PROFILE', this.props.user)}
 
                   </Text>
-
               </Link>
-            <Link
-              to="/login"
-              underlayColor='#f0f4f7'
-              style={styles.navItem}>
-                <Text>Login</Text>
-            </Link>
-          </View>
-         
-        :
-        <View style={styles.nav}>
 
-        <Link
-          to="/profile"
-          underlayColor='#f0f4f7'
-          style={styles.navItem}>
-            <Text>Profile
-
-
-           
-            </Text>
-        </Link>
-
-        <TouchableOpacity onPress={() => {this.props.getPotentials()}}>
-            <Link
+              <Link
                 to="/match"
                 underlayColor='#f0f4f7'
                 style={styles.navItem}>
-                    <Text>
-                      Match
-                    </Text>
+                  <Text>Match</Text>
               </Link>
 
-            
-            </TouchableOpacity>
-
-    
-       
-            
-            <Link
+              <Link
                 to="/chat"
                 underlayColor='#f0f4f7'
                 style={styles.navItem}>
-                <TouchableOpacity onPress={() => this.onChat()}>
-                    <Text>
-                      Chat
-                    </Text>
-               </TouchableOpacity>
-
+                  <Text>Chat</Text>
               </Link>
-
             
-           
+            </View>
+               
+              :
+
+              <View style={styles.nav}>
+                  <Link
+                      to="/signup"
+                      underlayColor='#f0f4f7'
+                      style={styles.navItem}>
+                        <Text>Sign Up 
+
+                       {console.log('USER IN ROUTER- SIGNUP', this.props.user)}
+
+                        </Text>
+
+                    </Link>
+                  <Link
+                    to="/login"
+                    underlayColor='#f0f4f7'
+                    style={styles.navItem}>
+                      <Text>Login</Text>
+                  </Link>
+                  <_Welcome />
+
+                </View>
+                
+
+                
+
+            } */}
+
       </View>
-          
-
-        
-
-      } 
-       </>
     )
   }
 }
@@ -133,6 +117,7 @@ const styles = StyleSheet.create({
   
 
 const mapStateToProps = state => {
+<<<<<<< HEAD
   // console.log('inside map state to props navbar', state)
     if (!state.match && state.user){
       return {
@@ -156,6 +141,17 @@ const mapDispatchToProps = (dispatch) => {
       getSuccessfulMatches: () => dispatch({ type: 'GET_SUCCESSFUL_MATCHES'}),
    }
   }
+=======
+
+    return {
+      user: state.user
+    }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+    onLogout: () => dispatch({ type: 'LOGOUT'})
+})
+>>>>>>> parent of 92a4e83... checkpoint 710pm
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(_NavBar)
