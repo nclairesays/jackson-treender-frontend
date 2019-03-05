@@ -1,4 +1,5 @@
 import { createStore, applyMiddleware, compose } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import ReduxThunk from 'redux-thunk';
 import { API_URL } from '../constants';
 import { AsyncStorage } from 'react-native';
@@ -161,7 +162,8 @@ AsyncStorage.getItem('user')
 const store = createStore(
     rootReducer,
     initialState,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-    compose(applyMiddleware(...middlewares))
+    composeWithDevTools(applyMiddleware(...middlewares))
+    // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+    // compose(applyMiddleware(...middlewares))
 );
 export default store;

@@ -66,7 +66,8 @@ class _Match extends Component {
 
 const mapStateToProps = state => {
     let potentialMatchees =  state.potentials.filter( user => user.id !== state.user.id)
-    
+    // console.log('P HERE', p)
+
     return {
       user: state.user,
       potentials: potentialMatchees
