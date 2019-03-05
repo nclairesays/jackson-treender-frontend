@@ -12,26 +12,36 @@ import {
 import { connect } from 'react-redux'
 import { Link, Redirect } from 'react-router-native';
 import { AsyncStorage } from 'react-native'
+import { server } from '../server';
+import { API_URL } from '../constants';
 
 
-class _Profile extends Component {
+class _MatcheeProfile extends Component {
 
     state ={
-        matchee: null
+        matchee: {}
+    }
+
+    componentDidMount() {
+        const { id } = this.props.props2.match.params
+        console.log('ID in component did mount', id)
+        server.get(`${API_URL}/users/${id}`)
+        .then(res => 
+            this.setState({matchee: res})
+        )
     }
 
     
     render() {
-        const {name, bio, email, gender,age, id} = this.props.current_user
+        const {name, bio, email, gender,age, id} = this.state.matchee
         const defaultImage = 'https://i.pinimg.com/originals/9f/81/2d/9f812d4cf313e887ef99d8722229eee1.jpg'
 
-        console.log("PROPS IN PROFILE 1", this.props)
+        console.log("STATEEEEEEEE", this.state)
         
         return (
 
             <View >
-              
-
+               
                 <View style={styles.card}>
                         <Image
                             style={{flex:1}}
@@ -39,21 +49,13 @@ class _Profile extends Component {
                         />
                         <View style={{margin:10}}>
                             <Text style={{fontSize:20}}>{name}{age? <>(, {age}, </>: null } </Text>
-                            <Text style={{fontSize:15, color:'darkgrey'}} note>{email}</Text>
                             <Text style={{fontSize:15, color:'darkgrey'}} note>{gender ? <> I am of the {gender} species. </>: null }</Text>
                             <Text style={{fontSize:15}}>{bio}</Text>
                         </View>
 
                         <View style={{flexDirection: 'row',  justifyContent: 'space-between'}}>
           
-                       
-                        {
-                            this.props.current_user !== this.state.matchee
-                        }
-                        <Link to="/editForm">
-                            <Text style={{color: 'purple'}}>EDIT YOUR PROFILE</Text>
-                        </Link>
-                            
+                     
                
                         </View>
 
@@ -113,4 +115,4 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(_Profile)
+export default connect(mapStateToProps, mapDispatchToProps)(_MatcheeProfile)

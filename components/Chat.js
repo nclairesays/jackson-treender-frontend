@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
+import { Route, Link  } from 'react-router-native'
+
+import {_Profile } from './Profile'
 
 
 class _Chat extends Component {
@@ -12,22 +15,32 @@ class _Chat extends Component {
 
   render() {
     let matches = this.props.successfulMatches 
-    let users = matches && matches.map( user => (user.name))
+    let users = matches && matches.map( user => user)
 
     return (
-      <View>
-        {users 
-          ?
-          users.map( name => 
-          <Text key={name.indexOf()} style={styles.name}>
-          {name}
-          
-        </Text>)
-        :null
-        
-        }
 
-      </View>
+
+      <View>
+            {users 
+              ?
+              users.map( user => 
+                <Link to={`/profile/${user.id}`}>
+                {/* <Link to='/users/:id'> */}
+                  <Text key={user.id} style={styles.name}>
+                  {user.name}
+                  </Text>
+                  
+                </Link>)
+              
+          
+            :null
+            
+            }
+
+    </View>
+          
+            
+      
     )
   }
 }
@@ -36,7 +49,7 @@ class _Chat extends Component {
 
 const styles = StyleSheet.create({
   name: {
-    fontSize: 18,
+    fontSize: 30,
     fontWeight: '500'
   }
 })

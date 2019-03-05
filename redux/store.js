@@ -6,6 +6,7 @@ import { AsyncStorage } from 'react-native';
 import { server } from '../server';
 import { push } from 'react-router-redux'
 import { history } from '../history';
+import { Link } from 'react-router-native'
 
 
 
@@ -131,6 +132,7 @@ const rootReducer = (state, action) => {
                     age: parseInt(action.age)
                 })
                 .then( user => store.dispatch({ type: 'SAVE_USER', user}))
+                .then( () => history.push('/profile') )
 
             } catch (err) {
                 alert("YOU GOT ERRORS WHILE EDITING:", err)

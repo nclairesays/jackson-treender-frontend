@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
 import _Login from './components/Login';
 import _Profile from './components/Profile';
+import _MatcheeProfile from './components/MatcheeProfile';
 import _SignUp from './components/SignUp';
 import _Match from './components/Match'
 import _Chat from './components/Chat'
@@ -55,9 +56,16 @@ class App extends React.Component {
               <_SignUp />
             }/>
 
-            <Route path="/profile" render={ () => 
-              <_Profile />
+
+            <Route exact path="/profile" render={ (props) => 
+              <_Profile props2={props}/>
             }/>
+            
+            <Route path="/profile/:id" render={ (props) => 
+              <_MatcheeProfile props2={props} />
+            }/>
+
+          
 
 
             <Route path="/match" render={ () => 
