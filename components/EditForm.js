@@ -33,7 +33,7 @@ class _EditForm extends Component {
     };
 
     render() {
-    //   console.log("LOGIN PROPS HERE", this.props)
+      console.log("SATE IN FEDIT FORM", this.state)
 
         return (
             <View>
@@ -43,7 +43,7 @@ class _EditForm extends Component {
                 </Text>
 
                 <View style={{margin:10}}/>
-                <Form onSubmit>
+                {/* <Form onSubmit> */}
 
                 <TextInput 
                     placeholder='Email' 
@@ -56,7 +56,7 @@ class _EditForm extends Component {
                 <TextInput 
                     placeholder='Age' 
                     style={styles.input}
-                    value={this.state.age}
+                    value={`${this.state.age}`} 
                     keyboardType='numeric'
                     onChangeText={ text => this.setState({ age: text })}
                 />
@@ -77,22 +77,22 @@ class _EditForm extends Component {
                     onChangeText={ text => this.setState({ bio: text })}
                 />
                 <View style={{margin:10}}/>
-                </Form>
+                {/* </Form> */}
 
 
 
                 <Link to="/profile">
-                    <Text>TESTING LINK</Text>
-                    {/* <Text onPress={ () => {
+                    {/* <Text>TESTING LINK</Text> */}
+                    <Text onPress={ () => {
                             this.props.onEditProfile(this.state.email, this.state.bio, this.state.gender, this.state.age)
                         }}>
                         EDIT YOUR PROFILE
-                        </Text>
+                    </Text>
                     {/* <Button 
                         
                         title="Edit!"
                         color="#841584"  // color of text
-                    />            */} 
+                    />  */}          
                 </Link>
                 
 
@@ -134,9 +134,12 @@ const styles = StyleSheet.create({
 
 
 
-const mapStateToProps = state => ({
-    user: state.user
-})
+const mapStateToProps = state => {
+    console.log("INSIDE STATE TO PROPS", state.user)
+    return {
+        user: state.user
+    }
+}
 const mapDispatchToProps = (dispatch) => ({
     onEditProfile: ( email, bio, gender, age ) => 
         dispatch({ type: 'EDIT_PROFILE', email, bio, gender, age })

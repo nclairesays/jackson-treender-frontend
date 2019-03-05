@@ -29,7 +29,7 @@ const rootReducer = (state, action) => {
         
         case 'SAVE_USER':
             return {
-                ...state, user: action.res.user
+                ...state, user: action.user
             };
         case 'CREATE_USER': 
             fetch(`${API_URL}/users`,{
@@ -68,15 +68,15 @@ const rootReducer = (state, action) => {
 
                         await AsyncStorage.setItem('token', user.token)
                         await AsyncStorage.setItem('user', JSON.stringify(user))
-                        return {...state, user}
+                        return user
                     } catch (error) {
                         alert('Login Errors got in the way #1', error)
                     }
                 })
-                .then( res => {
+                .then( user => {
                     try {
-                        console.log('LOGIN TOKEN2', res.user.token),
-                        store.dispatch({ type: 'SAVE_USER', res}),
+                        console.log("RESPONSE FROM AFTER POSTING", user)
+                        store.dispatch({ type: 'SAVE_USER', user}),
                         history.push(`/profile`)
     
                     } catch (error) {
@@ -128,9 +128,10 @@ const rootReducer = (state, action) => {
                     email: action.email, 
                     bio: action.bio, 
                     gender: action.gender, 
-                    age: action.age
+                    age: parseInt(action.age)
                 })
-                .then(user => ({...state, user: user}))
+                .then( user => store.dispatch({ type: 'SAVE_USER', user}))
+
             } catch (err) {
                 alert("YOU GOT ERRORS WHILE EDITING:", err)
 

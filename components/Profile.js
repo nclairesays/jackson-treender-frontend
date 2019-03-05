@@ -16,18 +16,18 @@ import { AsyncStorage } from 'react-native'
 
 class _Profile extends Component {
 
-    checkAsync = async () => {
-        token = await AsyncStorage.getItem('token').then(token => console.log('TOKEN IN PROFILE ASYNC STORAGE', token))
-        return token
+    state = {
+        matchee: null
     }
+
     render() {
-        const {name, bio, email, gender,age, id} = this.props.profile
+        const {name, bio, email, gender,age, id} = this.props.current_user
         const defaultImage = 'https://i.pinimg.com/originals/9f/81/2d/9f812d4cf313e887ef99d8722229eee1.jpg'
         
         return (
 
             <View >
-                <Text style={{fontSize: 27}}> PROFILE </Text>
+                {/* <Text style={{fontSize: 27}}> PROFILE </Text>
 
                 {
                 this.props.user    
@@ -50,7 +50,7 @@ class _Profile extends Component {
                     </>
                 
                 : null
-                }
+                } */}
 
                 <View style={styles.card}>
                         <Image
@@ -65,9 +65,15 @@ class _Profile extends Component {
 
                         <View style={{flexDirection: 'row',  justifyContent: 'space-between'}}>
           
-                        <Link to="/editForm">
-                            <Text style={{color: 'purple'}}>EDIT YOUR PROFILE</Text>
-                        </Link>
+                       
+                        {
+                            this.props.current_user !== this.state.matchee
+                            ?  <Link to="/editForm">
+                                    <Text style={{color: 'purple'}}>EDIT YOUR PROFILE</Text>
+                                </Link>
+                            : null
+                        }
+                      
                             
                
                         </View>
@@ -119,7 +125,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
 
     return {
-        profile: state.user
+        current_user: state.user
     }
 }
 

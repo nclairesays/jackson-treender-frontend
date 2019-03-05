@@ -11,7 +11,7 @@ class _Chat extends Component {
   }
 
   render() {
-    let matches = this.props.successfulMatches
+    let matches = this.props.successfulMatches 
     let users = matches && matches.map( user => (user.name))
 
     return (
@@ -19,7 +19,7 @@ class _Chat extends Component {
         {users 
           ?
           users.map( name => 
-          <Text key={name.index} style={styles.name}>
+          <Text key={name.indexOf()} style={styles.name}>
           {name}
           
         </Text>)
