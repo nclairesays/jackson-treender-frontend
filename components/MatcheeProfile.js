@@ -22,14 +22,46 @@ class _MatcheeProfile extends Component {
         matchee: {}
     }
 
-
     componentDidMount() {
-        const { id } = this.props.props2.match.params
+        let id
+
+        console.log("THIS.PROPS IN CDM", this.props.props2.match)
+        
+        // if (this.props.user) {
+        //     id = this.props.user.id
+          
+        // } else {
+        //     id = this.props.props2.match.params
+
+        // }
+
+         
+        if (this.props.props2) {
+            id = this.props.props2.match.params
+
+          
+        } else {
+            // id = this.props.props2.match.params
+            id = this.props.user.id
+
+
+        }
+
         server.get(`${API_URL}/users/${id}`)
         .then(res => 
             this.setState({matchee: res})
         )
     }
+
+
+    // componentDidMount() {
+    //     const { id } = this.props.props2.match.params
+    //     console.log('ID in component did mount', id)
+    //     server.get(`${API_URL}/users/${id}`)
+    //     .then(res => 
+    //         this.setState({matchee: res})
+    //     )
+    // }
 
     
     render() {
