@@ -31,6 +31,30 @@ class _Match extends Component {
         ...this.position.getTranslateTransform() //this will automatically convert the x and y values to x and y axes 
       ],
     } 
+
+    this.likeOpacity = this.position.x.interpolate({
+      inputRange:[-width/2, 0, width/2],  
+      outputRange: [0, 0, 1], //opacity
+      extrapolate: 'clamp' 
+    })
+ 
+    this.dislikeOpacity = this.position.x.interpolate({
+      inputRange:[-width/2, 0, width/2],  
+      outputRange: [1, 0, 0], //opacity
+      extrapolate: 'clamp' 
+    })
+
+    this.nextCardOpacity = this.position.x.interpolate({
+      inputRange:[-width/2, 0, width/2],  
+      outputRange: [1, 0, 1], //opacity
+      extrapolate: 'clamp' 
+    })
+
+    this.nextCardScale = this.position.x.interpolate({
+      inputRange:[-width/2, 0, width/2],  
+      outputRange: [1, 0.8, 1], //opacity
+      extrapolate: 'clamp' 
+    })
   }
 
 
@@ -46,9 +70,39 @@ class _Match extends Component {
       onPanResponderMove: (event, gestureState) => {
         this.position.setValue({x: gestureState.dx, y: gestureState.dy})
       },
+
       // what to do when released
       onPanResponderRelease: (event, gestureState) => {
+        if (gestureState.dx > 120){ // if it's moved to the RIGHT by a certain value 
+          Animated.spring(this.position, {
+            toValue: {x: width+100, y: gestureState.dy} //then spring it completely off the screen
+          }).start(() => { //then once the card is off the screen, you want to "start...."
+            this.setState({currentIndex: this.state.currentIndex + 1 }, () => {
+              this.position.setValue({x: 0, y:0 })
+            })
 
+          })
+        }
+        else if (gestureState.dx < -120){ // if it's moved to the LEFT by a certain value 
+          Animated.spring(this.position, {
+            toValue: {x: -width - 100, y: gestureState.dy} //then spring it completely off the screen
+          }).start(() => { //then once the card is off the screen, you want to "start...."
+            this.setState({currentIndex: this.state.currentIndex + 1 }, () => {
+              this.position.setValue({x: 0, y:0 })
+            })
+
+          })
+        }
+        else {
+          Animated.spring(this.position, {
+            toValue: { x: 0, y: 0},
+            friction: 4
+          }).start()
+        }
+
+
+        
+        
       }
     })
   }
@@ -69,6 +123,20 @@ class _Match extends Component {
             // style={[{transform:this.position.getTranslateTransform()},{height: height-120, width: width, borderColor: '#d6d7da',position: 'absolute'}]} 
             style={[ this.rotateAndTranslate,{height: height-120, width: width, borderColor: '#d6d7da',position: 'absolute'}]} 
           > 
+
+            <Animated.View style={{opacity:this.likeOpacity, transform:[{rotate: '-30deg'}], position: 'absolute', top: 50, left: 40, zIndex: 1000}}>
+              <Text style={{borderWidth: 1, borderColor: 'green', color: 'green', fontSize: 32, fontWeight: '800', padding: 10}}>
+                Like
+              </Text> 
+            </Animated.View>
+
+            <Animated.View style={{opacity:this.dislikeOpacity, transform:[{rotate: '30deg'}], position: 'absolute', top: 50, right: 50, zIndex: 1000}}>
+              <Text style={{borderWidth: 1, borderColor: 'red', color: 'red', fontSize: 32, fontWeight: '800', padding: 10}}>
+                Nah
+              </Text> 
+            </Animated.View>
+
+
             <_MatcheeProfile user={user} />
           </Animated.View> )
       } 
@@ -76,7 +144,11 @@ class _Match extends Component {
         return (
           <Animated.View   
             key={user.id} 
-            style={[{height: height-120, width: width, borderColor: '#d6d7da',position: 'absolute'}]} 
+            style={[{
+              opacity: this.nextCardOpacity, 
+              transform: [{scale: this.nextCardScale}],
+              height: height-120, width: width, 
+              borderColor: '#d6d7da',position: 'absolute'}]} 
           > 
             <_MatcheeProfile user={user} />
           </Animated.View>
