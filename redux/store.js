@@ -15,9 +15,9 @@ const middlewares = [ReduxThunk];
 
 const initialState = {
 
-    user: null,
-    potentials: null,
-    successfulMatches: null
+    user: {},
+    potentials: [],
+    successfulMatches: []
     // loading: true,
     // error: null
 }
@@ -28,7 +28,7 @@ const rootReducer = (state=initialState, action) => {
     switch (action.type) {
         
         case 'SAVE_USER':
-            console.log('STATE AFTER SAVE USER', state)
+            // console.log('STATE AFTER SAVE USER', state)
             return {
                 ...state, user: action.user
             }
@@ -54,9 +54,9 @@ const rootReducer = (state=initialState, action) => {
             history.push(`/login`)
 
             return {
-                user: null,  
-                potentials: null,
-                successfulMatches: null
+                user: {},  
+                potentials: [],
+                successfulMatches: []
             }
         case 'LOGIN':
             try {
@@ -76,7 +76,7 @@ const rootReducer = (state=initialState, action) => {
                 })
                 .then( user => {
                     try {
-                        console.log("STATE AFTER POSTING 3", state)
+                        // console.log("STATE AFTER POSTING 3", state)
                         store.dispatch({ type: 'SAVE_USER', user})
                         history.push(`/profile/`)
                         return {...state, user: user}
@@ -91,21 +91,24 @@ const rootReducer = (state=initialState, action) => {
                 alert('LOGIN ERRORS: ', err)
             } 
         case 'GET_POTENTIALS': 
-           setTimeout(() =>{server.get(`${API_URL}/get_potential_matchees`)
+           setTimeout(() =>{
+            server.get(`${API_URL}/get_potential_matchees`)
            .then( potentials => {
                store.dispatch({ type: 'SAVE_POTENTIALS', potentials })
                return {...state, potentials}
            })     
           .catch(error => {
                alert('ERRORS WHEN GETTING POTENTIALS', error)
-           })},
+           })
+           },
            1000
            )
         case 'SAVE_POTENTIALS': {
+            // console.log('STATE BEFORE SAVING POTENTIALS', state)
             return {...state, potentials: action.potentials}
         }   
         case 'ADD_RESPONSE': {
-            console.log('ACTIONSSS', action)
+            // console.log('ACTIONSSS', action)
             server.post(`${API_URL}/matches/check`, {
                 current_user_response: action.current_user_response,
                 matchee_id: action.matchee_id,
@@ -123,7 +126,7 @@ const rootReducer = (state=initialState, action) => {
             return {...state, successfulMatches: action.successfulMatches}
         }
         case 'EDIT_PROFILE': {
-            console.log('Is the age working?', action.age)
+            // console.log('Is the age working?', action.age)
             try {
                 server.patch(`${API_URL}/users/${state.user.id}`,{
                     email: action.email, 
@@ -154,9 +157,9 @@ AsyncStorage.getItem('user')
 .then( jsonUser => {
     try {
         let user = JSON.parse(jsonUser)
-        if(user) store.dispatch({ type: 'SAVE_USER', user: user, potentials: null, successfulMatches: null })
+        if(user != {}) store.dispatch({ type: 'SAVE_USER', user: user, potentials: null, successfulMatches: null })
     } catch(err){
-        console.log('HAVE NO SIGNED IN YET. ERROR: ', err)
+        alert('HAVE NOT SIGNED IN YET. ERROR! ', err)
       
     }
 })

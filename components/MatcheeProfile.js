@@ -23,8 +23,15 @@ class _MatcheeProfile extends Component {
     }
 
     componentDidMount() {
-        const { id } = this.props.props2.match.params
-        // console.log('ID in component did mount', id)
+        let id
+        
+        if (this.props.user) {
+            id = this.props.user.id
+        } else {
+            id = this.props.props2.match.params
+
+        }
+        
         server.get(`${API_URL}/users/${id}`)
         .then(res => 
             this.setState({matchee: res})
@@ -84,7 +91,7 @@ const {width, height} = Dimensions.get('window')
 
 const styles = StyleSheet.create({
     card: {
-        position: 'absolute',
+        // position: 'absolute',
         width: width - 40,
         height: height * 0.7,
         overflow: 'hidden',
@@ -92,8 +99,14 @@ const styles = StyleSheet.create({
         margin: 10,
         borderWidth: 1,
         borderColor: 'lightgrey',
-        borderRadius: 8,
+        borderRadius: 20,
     },
+    // card: { 
+    //     flex:1, height: null, width: null, resizeMode: 'cover',
+    //     position: 'absolute',
+
+
+    // },
     button: {
         flex: 2
     }

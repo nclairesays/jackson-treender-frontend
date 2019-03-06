@@ -2,59 +2,82 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { StyleSheet, View, Image, Text, PanResponder, Animated, Dimensions } from 'react-native';
 import _Card from './Card'
+import _MatcheeProfile from './MatcheeProfile'
+
+const {width, height} = Dimensions.get('window')
 
 
 class _Match extends Component {
-  state= {
-    profileIndex: 0
+
+  constructor() {
+    super()
+    this.position = new Animated.ValueXY()
+    this.state = {
+      currentIndex: 0
+    }
   }
 
-  nextCard = () => {
-    this.setState({profileIndex: this.state.profileIndex + 1})
-  }
+  componentWillMount(){
+    this.PanResponder = PanResponder.create({
+      //set true by default so panresponder is responsive when user clicks
+      onStartShouldSetPanResponder: (event, gestureState) => true,
 
-  swipedRight = () => {
-    console.log('YOU SWIPED RIGHT')
-  }
+      //set gesture to a particular value
+      onPanResponderMove: (event, gestureState) => {
+        this.position.setValue({x: gestureState.dx, y: gestureState.dy})
+      },
+      // what to do when released
+      onPanResponderRelease: (event, gestureState) => {
 
-  swipedLeft = () => {
-    console.log('YOU SWIPED LEFT')
-   
-
-  }
-
-  pressedRight = (id) => {
-    console.log('YOU PRESSED RIGHT', id)
-    this.props.addResponse(id, true, this.props.user.id)
-  }
-
-  pressedLeft = (id) => {
-    console.log('YOU PRESSED LEFT', id)
-    this.props.addResponse(id, false, this.props.user.id)
+      }
+    })
   }
 
 
+//   constructor(props) {
+//     super(props);
+//     this.position = new Animated.ValueXY();
+//     const panResponder = PanResponder.create({
+//        onStartShouldSetPanResponder: () => true,
+//        onPanResponderMove: (event, gesture) => {
+//          console.log('GESTURE', gesture)
+//        }
+//     });
+
+//     this.state = { 
+//       panResponder: panResponder,  
+//       currentIndex: 0 
+//     };
+//  }
+
+  renderPotentials = () => {
+    return this.props.potentials.map((user, index) => {
+      return (
+        <Animated.View   
+          key={user.id} 
+          {...this.PanResponder.panHandlers}
+          // {...this.state.panResponder.panHandlers}
+          //transforming: so the x and y values are translated onto the x and y axes 
+          style={[{transform:this.position.getTranslateTransform()},{height: height-120, width: width, borderColor: '#d6d7da',position: 'absolute'
+          // style={{height: height-120, width: width, borderColor: '#d6d7da',position: 'absolute'
+          }]} > 
+            <_MatcheeProfile user={user} />
+        </Animated.View>
+      )
+    }).reverse()
+  }
   render() {
-   
-    
-   
     return (
       <View style={{flex:1}}>
-        {this.props.potentials.map((profile) => {
-          return (
-            <_Card
-              key={profile.id}
-              profile={profile}
-              onSwipeOff={this.nextCard}
-              onSwipeRight={this.swipedRight}
-              onSwipeLeft={this.swipedLeft}
-              onPressLeft={this.pressedLeft}
-              onPressRight={this.pressedRight}
-            />
-          )
-        })}
-         
+      
+          <View style={{flex:1}}>{/*this is the Body*/}
+           
+           {this.renderPotentials()}
 
+          </View>
+
+
+        
       </View>
     )
   }
@@ -63,15 +86,20 @@ class _Match extends Component {
 }
 
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  }
+})
 
-const mapStateToProps = state => {
-    let potentialMatchees =  state.potentials.filter( user => user.id !== state.user.id)
-    // console.log('P HERE', p)
 
-    return {
-      user: state.user,
-      potentials: potentialMatchees
-    }
+
+const mapStateToProps = state => { 
+  let potentialMatchees =  state.potentials.filter( user => user.id !== state.user.id)
+  return {
+    user: state.user,
+    potentials: potentialMatchees
+  }
 }
 
 const mapDispatchToProps = (dispatch) => ({
@@ -86,9 +114,102 @@ export default connect(mapStateToProps, mapDispatchToProps)(_Match)
 
 
 
+// import React, { Component } from 'react';
+// import { connect } from 'react-redux'
+// import { StyleSheet, View, Image, Text, PanResponder, Animated, Dimensions } from 'react-native';
+// import _Card from './Card'
+
+// class _Match extends Component {
 
 
 
+
+
+// class _Match extends Component {
+//   state= {
+//     profileIndex: 0
+//   }
+
+//   nextCard = () => {
+//     this.setState({profileIndex: this.state.profileIndex + 1})
+//   }
+
+//   swipedRight = () => {
+//     console.log('YOU SWIPED RIGHT')
+//   }
+
+//   swipedLeft = () => {
+//     console.log('YOU SWIPED LEFT')
+   
+
+//   }
+
+//   pressedRight = (id) => {
+//     console.log('YOU PRESSED RIGHT', id)
+//     this.props.addResponse(id, true, this.props.user.id)
+//   }
+
+//   pressedLeft = (id) => {
+//     console.log('YOU PRESSED LEFT', id)
+//     this.props.addResponse(id, false, this.props.user.id)
+//   }
+
+
+//   render() {
+   
+    
+   
+//     return (
+//       <View style={{flex:1}}>
+//         {this.props.potentials.map((profile) => {
+//           return (
+//             <_Card
+//               key={profile.id}
+//               profile={profile}
+//               onSwipeOff={this.nextCard}
+//               onSwipeRight={this.swipedRight}
+//               onSwipeLeft={this.swipedLeft}
+//               onPressLeft={this.pressedLeft}
+//               onPressRight={this.pressedRight}
+//             />
+//           )
+//         })}
+         
+
+//       </View>
+//     )
+//   }
+
+
+// }
+
+
+
+// const mapStateToProps = state => {
+//     let potentialMatchees =  state.potentials.filter( user => user.id !== state.user.id)
+//     // console.log('P HERE', p)
+
+//     return {
+//       user: state.user,
+//       potentials: potentialMatchees
+//     }
+// }
+
+// const mapDispatchToProps = (dispatch) => ({
+   
+//     addResponse: (matchee_id, current_user_response, current_user_id) => 
+//       dispatch({ type: 'ADD_RESPONSE', matchee_id, current_user_response, current_user_id })
+// })
+
+
+// export default connect(mapStateToProps, mapDispatchToProps)(_Match)
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////
 
 
 
