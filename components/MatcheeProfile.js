@@ -24,7 +24,7 @@ class _MatcheeProfile extends Component {
 
     componentDidMount() {
         const { id } = this.props.props2.match.params
-        console.log('ID in component did mount', id)
+        // console.log('ID in component did mount', id)
         server.get(`${API_URL}/users/${id}`)
         .then(res => 
             this.setState({matchee: res})
@@ -36,7 +36,7 @@ class _MatcheeProfile extends Component {
         const {name, bio, email, gender,age, id} = this.state.matchee
         const defaultImage = 'https://i.pinimg.com/originals/9f/81/2d/9f812d4cf313e887ef99d8722229eee1.jpg'
 
-        console.log("STATEEEEEEEE", this.state)
+        // console.log("STATEEEEEEEE", this.state)
         
         return (
 

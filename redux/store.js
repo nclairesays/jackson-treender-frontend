@@ -24,14 +24,14 @@ const initialState = {
 
 
 
-const rootReducer = (state, action) => {
-    history
+const rootReducer = (state=initialState, action) => {
     switch (action.type) {
         
         case 'SAVE_USER':
+            console.log('STATE AFTER SAVE USER', state)
             return {
                 ...state, user: action.user
-            };
+            }
         case 'CREATE_USER': 
             fetch(`${API_URL}/users`,{
                 method: 'POST',
@@ -76,14 +76,13 @@ const rootReducer = (state, action) => {
                 })
                 .then( user => {
                     try {
-                        console.log("RESPONSE FROM AFTER POSTING", user)
-                        store.dispatch({ type: 'SAVE_USER', user}),
-                        history.push(`/profile`)
-    
+                        console.log("STATE AFTER POSTING 3", state)
+                        store.dispatch({ type: 'SAVE_USER', user})
+                        history.push(`/profile/`)
+                        return {...state, user: user}
                     } catch (error) {
                         alert('ERROR WHEN SAVING USER: ', error)
                     }
-        
                 })
                 .catch(error => {
                     alert("ERRORS AFTER POSTING AUTH:", error)
@@ -112,6 +111,7 @@ const rootReducer = (state, action) => {
                 matchee_id: action.matchee_id,
                 current_user_id: action.current_user_id
             })
+            .then(() => store.dispatch({ type: 'GET_POTENTIALS'}))
         } 
         case 'GET_SUCCESSFUL_MATCHES': {
             server.get(`${API_URL}/successful_matches`)
@@ -154,7 +154,7 @@ AsyncStorage.getItem('user')
 .then( jsonUser => {
     try {
         let user = JSON.parse(jsonUser)
-        if(user) store.dispatch({ type: 'SAVE_USER', user: user })
+        if(user) store.dispatch({ type: 'SAVE_USER', user: user, potentials: null, successfulMatches: null })
     } catch(err){
         console.log('HAVE NO SIGNED IN YET. ERROR: ', err)
       
