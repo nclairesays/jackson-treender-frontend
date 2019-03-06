@@ -59,7 +59,22 @@ class _Match extends Component {
 
 
 
-    
+  onSwipeLeft = () => {	
+    let i = this.state.currentIndex	
+    let potential = this.props.potentials[i]	
+    console.log('YOU SWIPED LEFT ON ID:', potential.id, potential.name)	
+    this.props.addResponse(potential.id, false, this.props.user.id)	
+  }	
+
+
+  onSwipeRight = () => {	
+    let i = this.state.currentIndex	
+    let potential = this.props.potentials[i]	
+    console.log('YOU SWIPED RIGHT ON ID:', potential.id, potential.name)	
+    this.props.addResponse(potential.id, true, this.props.user.id)
+
+  }
+
 
   componentWillMount(){
     this.PanResponder = PanResponder.create({
@@ -77,6 +92,7 @@ class _Match extends Component {
           Animated.spring(this.position, {
             toValue: {x: width+100, y: gestureState.dy} //then spring it completely off the screen
           }).start(() => { //then once the card is off the screen, you want to "start...."
+            this.onSwipeRight()
             this.setState({currentIndex: this.state.currentIndex + 1 }, () => {
               this.position.setValue({x: 0, y:0 })
             })
@@ -87,8 +103,9 @@ class _Match extends Component {
           Animated.spring(this.position, {
             toValue: {x: -width - 100, y: gestureState.dy} //then spring it completely off the screen
           }).start(() => { //then once the card is off the screen, you want to "start...."
+            this.onSwipeLeft()
             this.setState({currentIndex: this.state.currentIndex + 1 }, () => {
-              this.position.setValue({x: 0, y:0 })
+              this.position.setValue({x: 0, y: 0 })
             })
 
           })
@@ -98,15 +115,10 @@ class _Match extends Component {
             toValue: { x: 0, y: 0},
             friction: 4
           }).start()
-        }
-
-
-        
-        
+        } 
       }
     })
   }
-
 
 
   renderPotentials = () => {
@@ -204,6 +216,29 @@ const mapDispatchToProps = (dispatch) => ({
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(_Match)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /////////////////////////////////////////////////////////////////////////

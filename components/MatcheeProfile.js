@@ -17,6 +17,8 @@ import { API_URL } from '../constants';
 
 
 class _MatcheeProfile extends Component {
+    
+    _isMounted = false;
 
     state ={
         matchee: {}
@@ -24,39 +26,26 @@ class _MatcheeProfile extends Component {
 
     componentDidMount() {
         let id
-
-        console.log("THIS.PROPS", this.props)
+        this._isMounted = true;
         
         if (this.props.user) {
             id = this.props.user.id
-            
-            console.log('ID OF PROPS USER', id)
-
-            server.get(`${API_URL}/users/${id}`)
-            .then(res => 
-            this.setState({matchee: res})
-        )
         } else {
             id = this.props.props2.match.params.id
-
-            console.log("ID OF PROPS2", id)
-
         }
+
         server.get(`${API_URL}/users/${id}`)
-        .then(res => 
-            this.setState({matchee: res})
+        .then(res => {
+            if (this._isMounted) {
+                this.setState({matchee: res})
+            }}
         )
     }
 
 
-    // componentDidMount() {
-    //     const { id } = this.props.props2.match.params
-    //     console.log('ID in component did mount', id)
-    //     server.get(`${API_URL}/users/${id}`)
-    //     .then(res => 
-    //         this.setState({matchee: res})
-    //     )
-    // }
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
 
     
     render() {

@@ -114,6 +114,7 @@ const rootReducer = (state=initialState, action) => {
                 matchee_id: action.matchee_id,
                 current_user_id: action.current_user_id
             })
+            .then((res) => console.log("RESPONSE AFTER POST", res))
             .then(() => store.dispatch({ type: 'GET_POTENTIALS'}))
         } 
         case 'GET_SUCCESSFUL_MATCHES': {
