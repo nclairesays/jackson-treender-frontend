@@ -25,28 +25,23 @@ class _MatcheeProfile extends Component {
     componentDidMount() {
         let id
 
-        console.log("THIS.PROPS IN CDM", this.props.props2.match)
+        console.log("THIS.PROPS", this.props)
         
-        // if (this.props.user) {
-        //     id = this.props.user.id
-          
-        // } else {
-        //     id = this.props.props2.match.params
-
-        // }
-
-         
-        if (this.props.props2) {
-            id = this.props.props2.match.params
-
-          
-        } else {
-            // id = this.props.props2.match.params
+        if (this.props.user) {
             id = this.props.user.id
+            
+            console.log('ID OF PROPS USER', id)
 
+            server.get(`${API_URL}/users/${id}`)
+            .then(res => 
+            this.setState({matchee: res})
+        )
+        } else {
+            id = this.props.props2.match.params.id
+
+            console.log("ID OF PROPS2", id)
 
         }
-
         server.get(`${API_URL}/users/${id}`)
         .then(res => 
             this.setState({matchee: res})
