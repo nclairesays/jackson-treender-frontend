@@ -15,7 +15,27 @@ class _Match extends Component {
     this.state = {
       currentIndex: 0
     }
+
+    //animate top card, new animated value
+    this.rotate = this.position.x.interpolate({
+      inputRange:[-width/2, 0, width/2],  // half the screen width to the left and right
+      outputRange: ['-10deg', '0deg', '10deg'], //rotatation
+      extrapolate: 'clamp' // don't want animation to extrapolate automatically
+    })
+
+    //we want to add above property to our card. this will rotate the card when you swipe.
+    this.rotateAndTranslate = {
+      transform: [{
+        rotate: this.rotate
+        },
+        ...this.position.getTranslateTransform() //this will automatically convert the x and y values to x and y axes 
+      ],
+    } 
   }
+
+
+
+    
 
   componentWillMount(){
     this.PanResponder = PanResponder.create({
@@ -34,36 +54,33 @@ class _Match extends Component {
   }
 
 
-//   constructor(props) {
-//     super(props);
-//     this.position = new Animated.ValueXY();
-//     const panResponder = PanResponder.create({
-//        onStartShouldSetPanResponder: () => true,
-//        onPanResponderMove: (event, gesture) => {
-//          console.log('GESTURE', gesture)
-//        }
-//     });
-
-//     this.state = { 
-//       panResponder: panResponder,  
-//       currentIndex: 0 
-//     };
-//  }
 
   renderPotentials = () => {
-    return this.props.potentials.map((user, index) => {
-      return (
-        <Animated.View   
-          key={user.id} 
-          {...this.PanResponder.panHandlers}
-          // {...this.state.panResponder.panHandlers}
-          //transforming: so the x and y values are translated onto the x and y axes 
-          style={[{transform:this.position.getTranslateTransform()},{height: height-120, width: width, borderColor: '#d6d7da',position: 'absolute'
-          // style={{height: height-120, width: width, borderColor: '#d6d7da',position: 'absolute'
-          }]} > 
+    return this.props.potentials.map((user, i) => {
+      if ( i < this.state.currentIndex){
+        return null 
+      } 
+      else if ( i == this.state.currentIndex) {
+        return (
+          <Animated.View   
+            key={user.id} 
+            {...this.PanResponder.panHandlers}
+           
+            // style={[{transform:this.position.getTranslateTransform()},{height: height-120, width: width, borderColor: '#d6d7da',position: 'absolute'}]} 
+            style={[ this.rotateAndTranslate,{height: height-120, width: width, borderColor: '#d6d7da',position: 'absolute'}]} 
+          > 
             <_MatcheeProfile user={user} />
-        </Animated.View>
-      )
+          </Animated.View> )
+      } 
+      else { // remove pan responder so cards below do not move
+        return (
+          <Animated.View   
+            key={user.id} 
+            style={[{height: height-120, width: width, borderColor: '#d6d7da',position: 'absolute'}]} 
+          > 
+            <_MatcheeProfile user={user} />
+          </Animated.View>
+      )}
     }).reverse()
   }
   render() {
@@ -95,7 +112,11 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = state => { 
-  let potentialMatchees =  state.potentials.filter( user => user.id !== state.user.id)
+  let potentialMatchees  
+  if (state.potentials) {
+    potentialMatchees = state.potentials.filter( user => user.id !== state.user.id)
+  } else { potentialMatchees = [] }
+
   return {
     user: state.user,
     potentials: potentialMatchees
@@ -112,15 +133,13 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(mapStateToProps, mapDispatchToProps)(_Match)
 
 
+/////////////////////////////////////////////////////////////////////////
 
 
 // import React, { Component } from 'react';
 // import { connect } from 'react-redux'
 // import { StyleSheet, View, Image, Text, PanResponder, Animated, Dimensions } from 'react-native';
 // import _Card from './Card'
-
-// class _Match extends Component {
-
 
 
 
@@ -351,3 +370,19 @@ export default connect(mapStateToProps, mapDispatchToProps)(_Match)
 
 
   
+
+//   constructor(props) {
+//     super(props);
+//     this.position = new Animated.ValueXY();
+//     const panResponder = PanResponder.create({
+//        onStartShouldSetPanResponder: () => true,
+//        onPanResponderMove: (event, gesture) => {
+//          console.log('GESTURE', gesture)
+//        }
+//     });
+
+//     this.state = { 
+//       panResponder: panResponder,  
+//       currentIndex: 0 
+//     };
+//  }
