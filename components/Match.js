@@ -150,7 +150,7 @@ class _Match extends Component {
             </Animated.View>
 
 
-            <_MatcheeProfile user={user} />
+            <_MatcheeProfile user={user} key={user.id}/>
           </Animated.View> )
       } 
       else { // remove pan responder so cards below do not move

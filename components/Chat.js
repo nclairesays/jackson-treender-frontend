@@ -24,7 +24,7 @@ class _Chat extends Component {
             {users 
               ?
               users.map( user => 
-                <Link to={`/profile/${user.id}`}>
+                <Link to={`/profile/${user.id}`} key={user.id}>
                 {/* <Link to='/users/:id'> */}
                   <Text key={user.id} style={styles.name}>
                   {user.name}
