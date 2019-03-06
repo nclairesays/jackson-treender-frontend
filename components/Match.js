@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { StyleSheet, View, Image, Text, PanResponder, Animated, Dimensions } from 'react-native';
 import _Card from './Card'
 import _MatcheeProfile from './MatcheeProfile'
+import { server } from '../server';
 
 const {width, height} = Dimensions.get('window')
 
@@ -13,7 +14,7 @@ class _Match extends Component {
     super()
     this.position = new Animated.ValueXY()
     this.state = {
-      currentIndex: 0
+      currentIndex: 0,
     }
 
     //animate top card, new animated value
@@ -57,9 +58,23 @@ class _Match extends Component {
     })
   }
 
+  onSwipeLeft = () => {
+    let i = this.state.currentIndex
+    let potential = this.props.potentials[i]
+    console.log('YOU SWIPED LEFT ON', potential)
+
+    this.props.addResponse(potential.id, false, this.props.user.id)
+
+  }
 
 
-    
+  onSwipeRight = () => {
+    let i = this.state.currentIndex
+    let potential = this.props.potentials[i]
+    console.log('YOU SWIPED RIGHT ON', potential)
+
+    this.props.addResponse(potential.id, true, this.props.user.id)
+  }
 
   componentWillMount(){
     this.PanResponder = PanResponder.create({
@@ -77,6 +92,7 @@ class _Match extends Component {
           Animated.spring(this.position, {
             toValue: {x: width+100, y: gestureState.dy} //then spring it completely off the screen
           }).start(() => { //then once the card is off the screen, you want to "start...."
+            this.onSwipeRight()
             this.setState({currentIndex: this.state.currentIndex + 1 }, () => {
               this.position.setValue({x: 0, y:0 })
             })
@@ -87,8 +103,9 @@ class _Match extends Component {
           Animated.spring(this.position, {
             toValue: {x: -width - 100, y: gestureState.dy} //then spring it completely off the screen
           }).start(() => { //then once the card is off the screen, you want to "start...."
+            this.onSwipeLeft()
             this.setState({currentIndex: this.state.currentIndex + 1 }, () => {
-              this.position.setValue({x: 0, y:0 })
+              this.position.setValue({x: 0, y: 0 })
             })
 
           })
@@ -111,7 +128,8 @@ class _Match extends Component {
 
   renderPotentials = () => {
     return this.props.potentials.map((user, i) => {
-      if ( i < this.state.currentIndex){
+      if ( i <= this.state.currentIndex){
+        console.log("YOU SHOULD RENDER FOR MORE")
         return null 
       } 
       else if ( i == this.state.currentIndex) {
@@ -120,7 +138,6 @@ class _Match extends Component {
             key={user.id} 
             {...this.PanResponder.panHandlers}
            
-            // style={[{transform:this.position.getTranslateTransform()},{height: height-120, width: width, borderColor: '#d6d7da',position: 'absolute'}]} 
             style={[ this.rotateAndTranslate,{height: height-120, width: width, borderColor: '#d6d7da',position: 'absolute'}]} 
           > 
 
@@ -128,6 +145,7 @@ class _Match extends Component {
               <Text style={{borderWidth: 1, borderColor: 'green', color: 'green', fontSize: 32, fontWeight: '800', padding: 10}}>
                 Like
               </Text> 
+            
             </Animated.View>
 
             <Animated.View style={{opacity:this.dislikeOpacity, transform:[{rotate: '30deg'}], position: 'absolute', top: 50, right: 50, zIndex: 1000}}>
