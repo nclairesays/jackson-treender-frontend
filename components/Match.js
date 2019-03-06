@@ -128,8 +128,8 @@ class _Match extends Component {
 
   renderPotentials = () => {
     return this.props.potentials.map((user, i) => {
-      if ( i <= this.state.currentIndex){
-        console.log("YOU SHOULD RENDER FOR MORE")
+      if ( i < this.state.currentIndex){
+        // console.log("YOU SHOULD RENDER FOR MORE")
         return null 
       } 
       else if ( i == this.state.currentIndex) {
