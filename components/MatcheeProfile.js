@@ -22,16 +22,9 @@ class _MatcheeProfile extends Component {
         matchee: {}
     }
 
-    componentDidMount() {
-        let id
-        
-        if (this.props.user) {
-            id = this.props.user.id
-        } else {
-            id = this.props.props2.match.params
 
-        }
-        
+    componentDidMount() {
+        const { id } = this.props.props2.match.params
         server.get(`${API_URL}/users/${id}`)
         .then(res => 
             this.setState({matchee: res})
