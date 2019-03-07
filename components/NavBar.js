@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { Route, Link, BackButton } from 'react-router-native'
 import { Redirect } from 'react-router'
+import { styles } from './Styles'
 
 
 import _Login from './Login';
@@ -39,6 +40,7 @@ class _NavBar extends Component {
           to="/profile"
           underlayColor='#f0f4f7'
           style={styles.navItem}>
+
             <Text>Profile
 
 
@@ -93,11 +95,9 @@ class _NavBar extends Component {
             <Link
                 to="/signup"
                 underlayColor='#f0f4f7'
-                style={styles.navItem}>
-                  <Text>Sign Up 
-
-
-                  </Text>
+                style={styles.navItem}
+                >
+                  <Text>Sign Up </Text>
 
               </Link>
             <Link
@@ -122,30 +122,6 @@ class _NavBar extends Component {
 
 
 
-const styles = StyleSheet.create({
-   
-    header: {
-      fontSize: 20,
-    },
-    nav: {
-      flexDirection: 'row',
-      justifyContent: 'space-around'
-    },
-    navItem: {
-      flex: 1,
-      width:'100%',
-      alignItems: 'center',
-      padding: 10,
-    },
-    subNavItem: {
-      padding: 5,
-    },
-    topic: {
-      textAlign: 'center',
-      fontSize: 15,
-    }
-  })
-  
   
 
 const mapStateToProps = state => {

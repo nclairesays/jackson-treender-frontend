@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, TextInput, View, Button, StyleSheet } from 'react-native';
 import { API_URL } from '../constants';
 import { connect } from 'react-redux'
+import { styles } from './Styles';
 
 
 
@@ -21,7 +22,7 @@ class _SignUp extends Component {
       
         const { name, email, password, gender } = this.state
         return (
-            <View>
+            <View style={styles.mainBody}>
                 <Text 
                     style={{fontSize: 27}}>
                     Sign Up
@@ -70,11 +71,11 @@ class _SignUp extends Component {
              
                 <Button 
                     onPress={() => {
-                      // this.createUser()
+                  
                       this.props.onSignUp(this.state.name, this.state.email, this.state.password, this.state.gender)
-                      // this.props.onSignUpPress()
+                      
                     }}
-                    title="Sign Up"
+                    title="Sign Up as a Jackson"
                     color="#841584"  // color of text
                 />
             </View>    
@@ -84,16 +85,6 @@ class _SignUp extends Component {
 
 
 
-const styles = StyleSheet.create({
-    input: {
-      width: 250,
-      height: 50,
-      margin: 5,
-      padding: 8,
-      fontSize: 18,
-      fontWeight: '500'
-    }
-});
 
 
 

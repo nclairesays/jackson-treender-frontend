@@ -3,6 +3,8 @@ import { Text, TextInput, View, Button, StyleSheet, AsyncStorage } from 'react-n
 import { NativeRouter, Route, Link } from 'react-router-native'
 import { API_URL } from '../constants';
 import { connect } from 'react-redux'
+import { styles } from './Styles'
+
 
 
 
@@ -23,7 +25,7 @@ class _Login extends Component {
     //   console.log("LOGIN PROPS HERE", this.props)
 
         return (
-            <View>
+            <View style={styles.mainBody}>
                 <Text 
                     style={{fontSize: 27}}>
                     Login
@@ -68,18 +70,6 @@ class _Login extends Component {
         )
     }
 }
-
-
-const styles = StyleSheet.create({
-    input: {
-      width: 250,
-      height: 50,
-      margin: 5,
-      padding: 8,
-      fontSize: 18,
-      fontWeight: '500'
-    }
-});
 
 
 

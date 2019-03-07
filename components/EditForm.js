@@ -3,6 +3,7 @@ import { Text, TextInput, View, Button, StyleSheet, AsyncStorage, Dimensions } f
 import { NativeRouter, Route, Link } from 'react-router-native'
 import { API_URL } from '../constants';
 import { connect } from 'react-redux'
+import { styles } from './Styles'
 
 
 
@@ -28,23 +29,18 @@ class _EditForm extends Component {
     }
   
 
-    static navigationOptions = {
-        title: 'Welcome to the Jackson Treender App!',
-    };
-
     render() {
-      console.log("SATE IN FEDIT FORM", this.state)
-
+  
         return (
-            <View>
+            <View >
                 <Text 
                     style={{fontSize: 27}}>
                     Edit Yeere Profile, {this.props.user.name} Jackson!
                 </Text>
 
                 <View style={{margin:10}}/>
-                {/* <Form onSubmit> */}
-
+           
+                <View>
                 <TextInput 
                     placeholder='Email' 
                     style={styles.input}
@@ -76,8 +72,8 @@ class _EditForm extends Component {
                     value={this.state.bio}
                     onChangeText={ text => this.setState({ bio: text })}
                 />
-                <View style={{margin:10}}/>
-                {/* </Form> */}
+                <View style={{margin:1}}/>
+               
 
 
 
@@ -92,6 +88,7 @@ class _EditForm extends Component {
                     </Text>
                   
                 </Link>
+                </View>
 
                 
 
@@ -102,30 +99,6 @@ class _EditForm extends Component {
         )
     }
 }
-
-const {width, height} = Dimensions.get('window')
-
-
-
-const styles = StyleSheet.create({
-    input: {
-        width: 250,
-        height: 50,
-        margin: 5,
-        padding: 8,
-        fontSize: 18,
-        fontWeight: '500'
-    },
-    input_multiline: {
-        width: width - 40,
-        height: height * .25,
-        margin: 5,
-        padding: 8,
-        fontSize: 18,
-        fontWeight: '500'
-
-    }
-});
 
 
 

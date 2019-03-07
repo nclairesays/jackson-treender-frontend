@@ -9,6 +9,7 @@ import _Chat from './components/Chat'
 import _Welcome from './components/Welcome'
 import _NavBar from './components/NavBar'
 import _EditForm from './components/EditForm';
+import { styles } from './components/Styles'
 
 import { Route, Link  } from 'react-router-native'
 import { Switch, Router, Redirect } from 'react-router'
@@ -16,6 +17,7 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux'
 import store from './redux/store'
 import { history } from './history'
+
 
 
 import { YellowBox, AppRegistry } from 'react-native'
@@ -124,39 +126,6 @@ class App extends React.Component {
   }
 }
       
-
-
-
-const styles = StyleSheet.create({
-  container: {
-
-    marginTop: 25,
-    padding: 10,
-    flex: 1,
-
-  },
-  header: {
-    fontSize: 20,
-  },
-  nav: {
-    
-    flexDirection: 'row',
-    justifyContent: 'space-around'
-  },
-  navItem: {
-    flex: 1,
-    alignItems: 'center',
-    padding: 10,
-  },
-  subNavItem: {
-    padding: 5,
-  },
-  topic: {
-    textAlign: 'center',
-    fontSize: 15,
-  }
-})
-
 
 
 
