@@ -44,13 +44,20 @@ class _Chat extends Component {
                 <FlatList
                   data={users}
                   renderItem={({ item }) => (
-                    <ListItem
-                      roundAvatar
-                      title={`${item.name}`}
-                      subtitle={`I am of the ${item.gender} species.`}
-                      // avatar={{ uri: item.picture.thumbnail }}
-                      containerStyle={{ borderBottomWidth: 0 }}
-                    />
+                    <Link to={`/profile/${item.id}`} key={item.id}>
+                 
+                        <ListItem
+                          roundAvatar
+                          title={`${item.name}`}
+                          subtitle={`I am of the ${item.gender} species.`}
+                          // avatar={{ uri: item.picture.thumbnail }}
+                          containerStyle={{ borderBottomWidth: 0 }}
+                        
+                        />
+                 
+                  
+                      </Link>
+                   
                   )}
                   keyExtractor={item => item.email}
                   ItemSeparatorComponent={this.renderSeparator}
