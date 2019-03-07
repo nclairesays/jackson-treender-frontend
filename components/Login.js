@@ -58,7 +58,7 @@ class _Login extends Component {
                 <View style={{margin:10}}/>
 
                 <Text> Not a registered Jackson?  </Text>
-                {/* <Link to="/signup">Sign up here! </Link> //REACT CHILDREN EXPECTED TO RECEIVE ONE PROP */}
+                <Link to="/signup"><Text>Sign up here! </Text></Link> 
                 {/* <Link to="/">Home</Link> */}
 
             </View>    

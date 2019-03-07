@@ -11,7 +11,7 @@ import _NavBar from './components/NavBar'
 import _EditForm from './components/EditForm';
 
 import { Route, Link  } from 'react-router-native'
-import { Switch, Router } from 'react-router'
+import { Switch, Router, Redirect } from 'react-router'
 import { Provider } from 'react-redux';
 import { createStore } from 'redux'
 import store from './redux/store'
@@ -32,13 +32,18 @@ class App extends React.Component {
   }
 
   async componentDidMount(){
+   
     await AsyncStorage.getItem('user')
     .then( jsonUser => {
         try {
             let user = JSON.parse(jsonUser)
-            if(user != {}) { 
+            console.log("USER", user)
+            
+            if( user !== null) { 
               store.dispatch({ type: 'SAVE_USER', user: user, potentials: null, successfulMatches: null })
               this.setState({isLoggedIn: true}) 
+            } else {
+              this.setState({isLoggedIn: false})  
             }
         } catch(err){
             alert('HAVE NOT SIGNED IN YET. ERROR! ', err)
@@ -46,13 +51,16 @@ class App extends React.Component {
         }
     })
   }
+
   login = () => {this.setState({ isLoggedIn: true })}
-
   renderChat = () => {store.dispatch({type: 'GET_SUCCESSFUL_MATCHES'})}
-
+  logout = () => { 
+    store.dispatch({ type: 'LOGOUT'})
+    this.setState({isLoggedIn: false})
+  }
 
   render() {
-
+    // console.log("APP STATE", this.state)
 
    
     return (
@@ -70,6 +78,14 @@ class App extends React.Component {
               />
             <Route path="/signup" render={ () => 
               <_SignUp />
+            }/>
+
+            <Route path="/logout" render={ () => {
+                
+                this.logout()
+                return <Redirect to="/login"/>
+              }
+            
             }/>
 
 
@@ -137,37 +153,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
   }
 })
-
-
-
-
-
-// STORE/ INITIAL STATE
-
-
-const initialState = {
-  token: null,   
-  user: {
-      name: "Claire",
-      email: "claire@flatiron.com",
-      age: 26,
-      bio: "I code and stuff"
-  },
-
-  loading: true,
-  error: null
-
-
-}
-
-
-
-// const store = createStore(
-//   rootReducer,
-//   initialState,
-//   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-//   // compose(applyMiddleware(...middlewares))
-// );
 
 
 

@@ -51,7 +51,11 @@ class _Profile extends Component {
                         <Link to="/editForm">
                             <Text style={{color: 'purple'}}>EDIT YOUR PROFILE</Text>
                         </Link>
-                            
+
+                        {/* <Link to="/logout">
+                            <Text style={{color: 'purple'}}>LOGOUT YOUR PROFILE</Text>
+                        </Link>
+                             */}
                
                         </View>
 

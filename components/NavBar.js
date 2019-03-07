@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
-import { Route, Link } from 'react-router-native'
+import { Route, Link, BackButton } from 'react-router-native'
 
 
 import _Login from './Login';
@@ -22,12 +22,14 @@ class _NavBar extends Component {
       <>
     
       <Text>JACKSON TREENDER </Text>
+      
 
       {
         (this.props.isLoggedIn)
         ? 
         
         <View style={styles.nav}>
+        {/* <BackButton /> */}
 
         <Link
           to="/profile"
@@ -53,24 +55,37 @@ class _NavBar extends Component {
         </Link>
 
        
-            <TouchableOpacity onPress={() => {this.props.getMatches()}}>
-            <Link
-                to="/chat"
-                underlayColor='#f0f4f7'
-                style={styles.navItem}>
-                    <Text>
-                      Chat
-                    </Text>
-              </Link>
+        <TouchableOpacity onPress={() => {this.props.getMatches()}}>
+        <Link
+            to="/chat"
+            underlayColor='#f0f4f7'
+            style={styles.navItem}>
+                <Text>
+                  Chat
+                </Text>
+          </Link>
 
-            
-            </TouchableOpacity>
+        
+        </TouchableOpacity>
+
+        <Link
+          to="/logout"
+          underlayColor='#f0f4f7'
+          style={styles.navItem}>
+          
+            <Text>Logout
+
+            </Text>
+
+          
+        </Link>
            
       </View>
          
         :
         <View style={styles.nav}>
-            <_Welcome />
+
+            {/* <BackButton /> */}
             <Link
                 to="/signup"
                 underlayColor='#f0f4f7'
@@ -87,6 +102,8 @@ class _NavBar extends Component {
               style={styles.navItem}>
                 <Text>Login</Text>
             </Link>
+            {/* <_Welcome /> */}
+
           </View>
           
 
@@ -111,6 +128,7 @@ const styles = StyleSheet.create({
     },
     navItem: {
       flex: 1,
+      width:'100%',
       alignItems: 'center',
       padding: 10,
     },
