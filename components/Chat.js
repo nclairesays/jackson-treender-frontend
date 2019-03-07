@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, Flatlist } from 'react-native'
+import { Text, View, StyleSheet, FlatList } from 'react-native'
 import { connect } from 'react-redux'
 import { Route, Link  } from 'react-router-native'
 import { List, ListItem } from "react-native-elements";
@@ -14,6 +14,21 @@ class _Chat extends Component {
     this.props.getMatches()
   }
 
+  renderSeparator = () => {
+    return (
+      <View
+        style={{
+          height: 1,
+          // width: '86%',
+          width: '100%',
+          backgroundColor: '#CED0CE',
+          // marginLeft: '14%',
+          // marginLeft: '14%',
+        }}
+      />
+    );
+  };
+
   render() {
     let matches = this.props.successfulMatches 
     let users = matches && matches.map( user => user)
@@ -21,26 +36,29 @@ class _Chat extends Component {
     return (
 
 
-      <View>
-            {users 
+      // <View>
+            users 
               ?
               
-              <List>
+              
                 <FlatList
                   data={users}
                   renderItem={({ item }) => (
                     <ListItem
                       roundAvatar
                       title={`${item.name}`}
-                      subtitle={item.gender}
+                      subtitle={`I am of the ${item.gender} species.`}
                       // avatar={{ uri: item.picture.thumbnail }}
-                      keyExtractor={item => item.email}
+                      containerStyle={{ borderBottomWidth: 0 }}
                     />
                   )}
+                  keyExtractor={item => item.email}
+                  ItemSeparatorComponent={this.renderSeparator}
+
                 />
 
 
-              </List>
+             
 
 
 
@@ -57,11 +75,11 @@ class _Chat extends Component {
               //   </Link>)
               
           
-            :null
+            :<View></View>
             
-            }
+            
 
-    </View>
+    // </View>
           
             
       
