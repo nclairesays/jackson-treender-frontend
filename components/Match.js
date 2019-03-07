@@ -46,7 +46,8 @@ class _Match extends Component {
 
     this.nextCardOpacity = this.position.x.interpolate({
       inputRange:[-width/2, 0, width/2],  
-      outputRange: [1, 0, 1], //opacity
+      // outputRange: [1, 0, 1], //opacity -- fade in, fix random fetch later...
+      outputRange: [0, 0, 0], //opacity --
       extrapolate: 'clamp' 
     })
 
@@ -74,7 +75,6 @@ class _Match extends Component {
     this.props.addResponse(potential.id, true, this.props.user.id)
 
   }
-
 
   componentWillMount(){
     this.PanResponder = PanResponder.create({
@@ -123,6 +123,7 @@ class _Match extends Component {
 
   renderPotentials = () => {
     return this.props.potentials.map((user, i) => {
+      if(!user.swiped){
       if ( i < this.state.currentIndex){
         // console.log("YOU SHOULD RENDER FOR MORE")
         return null 
@@ -166,16 +167,15 @@ class _Match extends Component {
             <_MatcheeProfile user={user} />
           </Animated.View>
       )}
-    }).reverse()
+    }}).reverse()
+  
   }
   render() {
     return (
       <View style={{flex:1}}>
       
           <View style={{flex:1}}>{/*this is the Body*/}
-           
-           {this.renderPotentials()}
-
+          {this.renderPotentials()}
           </View>
 
 
@@ -199,7 +199,9 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => { 
   let potentialMatchees  
   if (state.potentials) {
-    potentialMatchees = state.potentials.filter( user => user.id !== state.user.id)
+    potentialMatchees = state.potentials.filter( user => user.id !== state.user.id
+    && user.swiped == false  
+    )
   } else { potentialMatchees = [] }
 
   return {

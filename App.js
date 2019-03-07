@@ -31,9 +31,25 @@ class App extends React.Component {
     isLoggedIn: false
   }
 
+  async componentDidMount(){
+    await AsyncStorage.getItem('user')
+    .then( jsonUser => {
+        try {
+            let user = JSON.parse(jsonUser)
+            if(user != {}) { 
+              store.dispatch({ type: 'SAVE_USER', user: user, potentials: null, successfulMatches: null })
+              this.setState({isLoggedIn: true}) 
+            }
+        } catch(err){
+            alert('HAVE NOT SIGNED IN YET. ERROR! ', err)
+          
+        }
+    })
+  }
   login = () => {this.setState({ isLoggedIn: true })}
 
   renderChat = () => {store.dispatch({type: 'GET_SUCCESSFUL_MATCHES'})}
+
 
   render() {
 

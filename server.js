@@ -9,6 +9,7 @@ const request = (method) =>  async (url, body) => {
                     method: method,
                     headers: {
                         'Content-Type': 'application/json',
+                        'Accept': 'applicatin/json',
                         'Authorization': `Bearer ${token}` 
                     },
                     body: JSON.stringify(body)

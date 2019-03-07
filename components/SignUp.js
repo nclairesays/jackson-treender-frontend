@@ -9,6 +9,7 @@ class _SignUp extends Component {
 
     state = {
       name: '', 
+      gender: '',
       email: '', 
       password: ''
     }
@@ -18,7 +19,7 @@ class _SignUp extends Component {
     render() {
       // console.log("SIGN UP PROPS HERE", this.props)
       
-        const { name, email, password } = this.state
+        const { name, email, password, gender } = this.state
         return (
             <View>
                 <Text 
@@ -35,6 +36,15 @@ class _SignUp extends Component {
                   onChangeText={ text => this.setState({ name: text })}
                   value={name}
                 />
+
+                <TextInput
+                  style={styles.input}
+                  placeholder='Gender'
+                  autoCapitalize="words"
+                  onChangeText={ text => this.setState({ gender: text })}
+                  value={gender}
+                />
+
 
 
                 <TextInput 
@@ -61,7 +71,7 @@ class _SignUp extends Component {
                 <Button 
                     onPress={() => {
                       // this.createUser()
-                      this.props.onSignUp(this.state.name, this.state.email, this.state.password)
+                      this.props.onSignUp(this.state.name, this.state.email, this.state.password, this.state.gender)
                       // this.props.onSignUpPress()
                     }}
                     title="Sign Up"
@@ -90,7 +100,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => state
 const mapDispatchToProps = (dispatch) => ({
-    onSignUp: (name, email, password) => dispatch({ type: 'CREATE_USER', name, email, password })
+    onSignUp: (name, email, password, gender) => dispatch({ type: 'CREATE_USER', name, email, password, gender })
 })
 
 

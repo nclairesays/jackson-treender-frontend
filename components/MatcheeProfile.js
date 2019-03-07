@@ -49,7 +49,7 @@ class _MatcheeProfile extends Component {
 
     
     render() {
-        const {name, bio, email, gender,age, id} = this.state.matchee
+        const {name, bio, gender,age} = this.state.matchee
         const defaultImage = 'https://i.pinimg.com/originals/9f/81/2d/9f812d4cf313e887ef99d8722229eee1.jpg'
 
         // console.log("STATEEEEEEEE", this.state)
@@ -64,8 +64,9 @@ class _MatcheeProfile extends Component {
                             source={{uri: defaultImage}}
                         />
                         <View style={{margin:10}}>
-                            <Text style={{fontSize:20}}>{name}{age? <>(, {age}, </>: null } </Text>
-                            <Text style={{fontSize:15, color:'darkgrey'}} note>{gender ? <> I am of the {gender} species. </>: null }</Text>
+                            <Text style={{fontSize:20}}>{name}{age? <>, {age} </>: null } </Text>
+                            <Text style={{fontSize:15, color:'darkgrey'}} note>{gender ? <> I am of the {gender.toLowerCase()} species. </>: null }</Text>
+                            
                             <Text style={{fontSize:15}}>{bio}</Text>
                         </View>
 

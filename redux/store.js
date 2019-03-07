@@ -39,8 +39,9 @@ const rootReducer = (state=initialState, action) => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    name: action.name,
-                    email: action.email,
+                    name: action.name.trim(),
+                    email: action.email.toLowerCase().trim(),
+                    gender: action.gender.toLowerCase().trim(),
                     password: action.password
                 })
             })
@@ -61,7 +62,7 @@ const rootReducer = (state=initialState, action) => {
         case 'LOGIN':
             try {
                 server.post(`${API_URL}/auth`, {
-                    email: action.email,
+                    email: action.email.toLowerCase().trim(),
                     password: action.password
                 }) 
                 .then( async (user) => {
@@ -94,8 +95,9 @@ const rootReducer = (state=initialState, action) => {
            setTimeout(() =>{
             server.get(`${API_URL}/get_potential_matchees`)
            .then( potentials => {
-               store.dispatch({ type: 'SAVE_POTENTIALS', potentials })
-               return {...state, potentials}
+               let p = potentials.map(p => ({...p, swiped:false}))
+               store.dispatch({ type: 'SAVE_POTENTIALS', potentials: p })
+               return {...state, potentials: p}
            })     
           .catch(error => {
                alert('ERRORS WHEN GETTING POTENTIALS', error)
@@ -111,12 +113,23 @@ const rootReducer = (state=initialState, action) => {
             // console.log('ACTIONSSS', action)
             server.post(`${API_URL}/matches/check`, {
                 current_user_response: action.current_user_response,
-                matchee_id: action.matchee_id,
-                current_user_id: action.current_user_id
+                matchee_id: parseInt(action.matchee_id),
+                // current_user_id: action.current_user_id
             })
-            .then((res) => console.log("RESPONSE AFTER POST", res))
             .then(() => store.dispatch({ type: 'GET_POTENTIALS'}))
+            // .then((res) => store.dispatch({ type: 'ADD_SWIPED_ATRR'}))
+            .catch(err => alert('ERROR WHEN ADDING RESPONSE', err))
         } 
+        case 'ADD_SWIPED_ATTR': {
+            po = state.potentials.map( p => {
+                if(p.id === action.matchee_id ){ 
+                    console.log("swipppeeeddd",{ ...p, swiped: true })
+                    return { ...p, swiped: true }
+                } 
+                else { return p }
+            })
+            return  {...state, potentials: po}  
+        }
         case 'GET_SUCCESSFUL_MATCHES': {
             server.get(`${API_URL}/successful_matches`)
             .then(successfulMatches => {
@@ -130,9 +143,9 @@ const rootReducer = (state=initialState, action) => {
             // console.log('Is the age working?', action.age)
             try {
                 server.patch(`${API_URL}/users/${state.user.id}`,{
-                    email: action.email, 
-                    bio: action.bio, 
-                    gender: action.gender, 
+                    email: action.email.toLowerCase().trim(), 
+                    bio: action.bio.trim(), 
+                    gender: action.gender.trim(), 
                     age: parseInt(action.age)
                 })
                 .then( user => store.dispatch({ type: 'SAVE_USER', user}))
@@ -154,16 +167,16 @@ const rootReducer = (state=initialState, action) => {
 
 
 
-AsyncStorage.getItem('user')
-.then( jsonUser => {
-    try {
-        let user = JSON.parse(jsonUser)
-        if(user != {}) store.dispatch({ type: 'SAVE_USER', user: user, potentials: null, successfulMatches: null })
-    } catch(err){
-        alert('HAVE NOT SIGNED IN YET. ERROR! ', err)
+// AsyncStorage.getItem('user')
+// .then( jsonUser => {
+//     try {
+//         let user = JSON.parse(jsonUser)
+//         if(user != {}) store.dispatch({ type: 'SAVE_USER', user: user, potentials: null, successfulMatches: null })
+//     } catch(err){
+//         alert('HAVE NOT SIGNED IN YET. ERROR! ', err)
       
-    }
-})
+//     }
+// })
 
 
 const store = createStore(

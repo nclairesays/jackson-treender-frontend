@@ -38,18 +38,16 @@ class _Profile extends Component {
                             source={{uri: defaultImage}}
                         />
                         <View style={{margin:10}}>
-                            <Text style={{fontSize:20}}>{name}{age? <>, {age}, </>: null } </Text>
+                            <Text style={{fontSize:20}}>{name}{age? <>, {age} </>: null } </Text>
                             <Text style={{fontSize:15, color:'darkgrey'}} note>{email}</Text>
-                            <Text style={{fontSize:15, color:'darkgrey'}} note>{gender ? <> I am of the {gender} species. </>: null }</Text>
+                            <Text style={{fontSize:15, color:'darkgrey'}} note>{gender ? <> I am of the {gender.toLowerCase()} species. </>: null }</Text>
                             <Text style={{fontSize:15}}>{bio}</Text>
                         </View>
 
                         <View style={{flexDirection: 'row',  justifyContent: 'space-between'}}>
           
                        
-                        {
-                            this.props.current_user !== this.state.matchee
-                        }
+                    
                         <Link to="/editForm">
                             <Text style={{color: 'purple'}}>EDIT YOUR PROFILE</Text>
                         </Link>
@@ -90,7 +88,7 @@ const styles = StyleSheet.create({
         margin: 10,
         borderWidth: 1,
         borderColor: 'lightgrey',
-        borderRadius: 8,
+        borderRadius: 20,
     },
     button: {
         flex: 2
