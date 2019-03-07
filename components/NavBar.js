@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
-import { Text, View, TouchableOpacity } from 'react-native'
+import { Text, View, TouchableOpacity, Image } from 'react-native'
 import { connect } from 'react-redux'
 import { Route, Link, BackButton } from 'react-router-native'
 import { Redirect } from 'react-router'
 import { styles } from './Styles'
+import { Avatar } from "react-native-elements";
+
 
 
 import _Login from './Login';
@@ -26,7 +28,15 @@ class _NavBar extends Component {
     return (
       <>
     
-      <Text>JACKSON TREENDER </Text>
+      {/* <Text>JACKSON TREENDER </Text> */}
+      <Image
+       style={{ height: 75,  resizeMode: 'contain', alignSelf: 'center'}}
+      
+        // source={require('../assets/Jackson_TriangleLogo.png')} 
+        source={require('../assets/JacksonTree_Logo_Black.png')} 
+      />
+
+
       
 
       {
@@ -41,7 +51,7 @@ class _NavBar extends Component {
           underlayColor='#f0f4f7'
           style={styles.navItem}>
 
-            <Text>Profile
+            <Text style={styles.navLink}>Profile
 
 
            
@@ -53,7 +63,7 @@ class _NavBar extends Component {
               to="/match"
               underlayColor='#f0f4f7'
               style={styles.navItem}>
-                  <Text>
+                  <Text style={styles.navLink}>
                     Match 
                   </Text>
             </Link>
@@ -65,7 +75,7 @@ class _NavBar extends Component {
             to="/chat"
             underlayColor='#f0f4f7'
             style={styles.navItem}>
-                <Text>
+                <Text style={styles.navLink}>
                   Chat
                 </Text>
           </Link>
@@ -79,7 +89,7 @@ class _NavBar extends Component {
           underlayColor='#f0f4f7'
           style={styles.navItem}>
           
-            <Text>Logout
+            <Text style={styles.navLink}>Logout
 
             </Text>
 
@@ -97,14 +107,14 @@ class _NavBar extends Component {
                 underlayColor='#f0f4f7'
                 style={styles.navItem}
                 >
-                  <Text>Sign Up </Text>
+                  <Text style={styles.navLink}>Sign Up </Text>
 
               </Link>
             <Link
               to="/login"
               underlayColor='#f0f4f7'
               style={styles.navItem}>
-                <Text>Login</Text>
+                <Text style={styles.navLink}>Login</Text>
             </Link>
             {/* <_Welcome /> */}
 

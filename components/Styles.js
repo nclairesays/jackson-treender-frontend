@@ -26,6 +26,17 @@ export const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         padding: 10,
+        
+    },
+
+    navLink: {
+        color: '#3D9970',
+        fontWeight: 'bold'
+
+    },
+
+    link: {
+        color: '#6C648B'
     },
     subNavItem: {
         padding: 5,

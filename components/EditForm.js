@@ -79,7 +79,7 @@ class _EditForm extends Component {
                 <Link to="/profile">
            
                     <Text 
-                        style={{color: 'blue', alignSelf: 'center' }}
+                        style={{color: '#FBA100', alignSelf: 'center' }}
                         onPress={ () => {
                             this.props.onEditProfile(this.state.email, this.state.bio, this.state.gender, this.state.age)
                         }}>

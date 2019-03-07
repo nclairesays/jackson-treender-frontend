@@ -2,11 +2,13 @@ import React, { Component } from 'react'
 import { Text, View, FlatList } from 'react-native'
 import { connect } from 'react-redux'
 import { Route, Link  } from 'react-router-native'
-import { List, ListItem } from "react-native-elements";
+import { List, ListItem, Avatar } from "react-native-elements";
 import { styles } from './Styles';
+import { defaultImage } from '../constants'
 
 
 import {_Profile } from './Profile'
+import defaultImages from '../constants';
 
 
 class _Chat extends Component {
@@ -45,22 +47,26 @@ class _Chat extends Component {
               
                 <FlatList
                   data={users}
-                  renderItem={({ item }) => (
+                  renderItem={({ item }) => {
+                    return (
                     <Link to={`/profile/${item.id}`} key={item.id}>
-                 
+                        <View>
                         <ListItem
                           roundAvatar
                           title={`${item.name}`}
                           subtitle={`I am of the ${item.gender} species.`}
-                          // avatar={{ uri: item.picture.thumbnail }}
+                          avatar={{uri: `${defaultImage}`}}
                           containerStyle={{ borderBottomWidth: 0 }}
+                          style={{flex: 2}}
                         
                         />
+                        
+                        </View>
                  
                   
                       </Link>
                    
-                  )}
+                  )}}
                   keyExtractor={item => item.email}
                   ItemSeparatorComponent={this.renderSeparator}
 

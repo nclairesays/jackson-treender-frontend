@@ -52,7 +52,7 @@ class _Login extends Component {
                         this.props.onLogin(this.state.email, this.state.password)
                     }}
                     title="Login, Jackson!"
-                    color="#841584"  // color of text
+                    color="#FBA100"  // color of text
                     
                 />
 
@@ -60,7 +60,7 @@ class _Login extends Component {
                 
                 <View style={{flexDirection: 'row'}}>
                     <Text> Not a registered Jackson?  </Text>
-                    <Link to="/signup"><Text style={{color: 'green'}}>Sign up here! </Text></Link> 
+                    <Link to="/signup"><Text style={styles.link}>Sign up here! </Text></Link> 
                 </View>
                 
                

@@ -49,7 +49,7 @@ class _Profile extends Component {
                         </View>  
 
                         <Link to="/editForm">
-                            <Text style={{color: 'blue', alignSelf: 'center' }}>EDIT YOUR PROFILE</Text>
+                            <Text style={{color: '#FBA100', alignSelf: 'center' }}>EDIT YOUR PROFILE</Text>
                         </Link>
                         <View style={{margin: 10}}>
 

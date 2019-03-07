@@ -76,7 +76,8 @@ class _SignUp extends Component {
                       
                     }}
                     title="Sign Up as a Jackson"
-                    color="#841584"  // color of text
+                    color="#FBA100"  // color of text
+                   
                 />
             </View>    
         )
