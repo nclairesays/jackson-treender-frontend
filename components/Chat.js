@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet } from 'react-native'
+import { Text, View, StyleSheet, Flatlist } from 'react-native'
 import { connect } from 'react-redux'
 import { Route, Link  } from 'react-router-native'
+import { List, ListItem } from "react-native-elements";
 
 import {_Profile } from './Profile'
 
@@ -23,14 +24,37 @@ class _Chat extends Component {
       <View>
             {users 
               ?
-              users.map( user => 
-                <Link to={`/profile/${user.id}`} key={user.id}>
-                {/* <Link to='/users/:id'> */}
-                  <Text key={user.id} style={styles.name}>
-                  {user.name}
-                  </Text>
+              
+              <List>
+                <FlatList
+                  data={users}
+                  renderItem={({ item }) => (
+                    <ListItem
+                      roundAvatar
+                      title={`${item.name}`}
+                      subtitle={item.gender}
+                      // avatar={{ uri: item.picture.thumbnail }}
+                      keyExtractor={item => item.email}
+                    />
+                  )}
+                />
+
+
+              </List>
+
+
+
+
+
+
+              // users.map( user => 
+              //   <Link to={`/profile/${user.id}`} key={user.id}>
+              //   {/* <Link to='/users/:id'> */}
+              //     <Text key={user.id} style={styles.name}>
+              //     {user.name}
+              //     </Text>
                   
-                </Link>)
+              //   </Link>)
               
           
             :null

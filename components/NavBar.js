@@ -134,10 +134,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
  
-  // return {
-  //   getMatches: () => dispatch({ type: 'GET_SUCCESSFUL_MATCHES'}),
-  //   getPotentials: () => dispatch({ type: 'GET_POTENTIALS'})
-  // } 
+ 
 }
 
 
