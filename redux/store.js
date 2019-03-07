@@ -92,7 +92,7 @@ const rootReducer = (state=initialState, action) => {
                 alert('LOGIN ERRORS: ', err)
             } 
         case 'GET_POTENTIALS': 
-           setTimeout(() =>{
+        //    setTimeout(() =>{
             server.get(`${API_URL}/get_potential_matchees`)
            .then( potentials => {
                let p = potentials.map(p => ({...p, swiped:false}))
@@ -102,9 +102,9 @@ const rootReducer = (state=initialState, action) => {
           .catch(error => {
                alert('ERRORS WHEN GETTING POTENTIALS', error)
            })
-           },
-           1000
-           )
+        //    },
+        //    1000
+        //    )
         case 'SAVE_POTENTIALS': {
             // console.log('STATE BEFORE SAVING POTENTIALS', state)
             return {...state, potentials: action.potentials}

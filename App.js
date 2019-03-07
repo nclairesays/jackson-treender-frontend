@@ -52,64 +52,67 @@ class App extends React.Component {
     })
   }
 
+  renderPage = () => {
+    (this.state.isLoggedIn) ? <Redirect to={'/profile'}/> : <Redirect to={'/login'} />
+  }
+
   login = () => {this.setState({ isLoggedIn: true })}
-  renderChat = () => {store.dispatch({type: 'GET_SUCCESSFUL_MATCHES'})}
   logout = () => { 
     store.dispatch({ type: 'LOGOUT'})
     this.setState({isLoggedIn: false})
   }
 
   render() {
-    // console.log("APP STATE", this.state)
 
-   
     return (
       
         <View>
 
 
-        <Router history={history}>
+        <Router history={history}>    
 <>
-        <_NavBar isLoggedIn={this.state.isLoggedIn}/>
+          <_NavBar isLoggedIn={this.state.isLoggedIn}/>
+          {/* {(this.props.isLoggedIn) ? <Redirect to={'/profile'}/> : <Redirect to={'/login'} />} */}
+         
 
-            <Route path="/login" render={() => 
-              <_Login onLoginPress={this.login} />
-                } 
-              />
-            <Route path="/signup" render={ () => 
-              <_SignUp />
-            }/>
+          <Route path="/login" render={() => 
+            <_Login onLoginPress={this.login} />
+              } 
+            />
+          <Route path="/signup" render={ () => 
+            <_SignUp />
+          }/>
 
-            <Route path="/logout" render={ () => {
-                
-                this.logout()
-                return <Redirect to="/login"/>
-              }
-            
-            }/>
-
-
-            <Route exact path="/profile" render={ (props) => 
-              <_Profile props2={props}/>
-            }/>
-            
-            <Route path="/profile/:id" render={ (props) => 
-              <_MatcheeProfile props2={props} />
-            }/>
-
+          <Route path="/logout" render={ () => {
+              
+              this.logout()
+              return <Redirect to="/login"/>
+            }
           
+          }/>
 
 
-            <Route path="/match" render={ () => 
-              <_Match />
-            }/>
+          <Route exact path="/profile" render={ (props) => 
+            <_Profile props2={props}/>
+          }/>
+          
+          <Route path="/profile/:id" render={ (props) => 
+            <_MatcheeProfile props2={props} />
+          }/>
 
-            <Route path="/chat" render={ () => 
-              <_Chat />
-            }/>
-            <Route path="/editForm" render={ () => 
-              <_EditForm />
-            }/>
+        
+
+
+          <Route path="/match" render={ () => 
+            <_Match />
+          }/>
+
+          <Route path="/chat" render={ () => 
+            <_Chat />
+          }/>
+          <Route path="/editForm" render={ () => 
+            <_EditForm />
+          }/>
 
 </>
         </Router>

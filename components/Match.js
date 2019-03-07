@@ -76,6 +76,9 @@ class _Match extends Component {
 
   }
 
+  componentDidMount () {
+    this.props.getPotentials()
+  }
   componentWillMount(){
     this.PanResponder = PanResponder.create({
       //set true by default so panresponder is responsive when user clicks
@@ -213,7 +216,10 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch) => ({
    
     addResponse: (matchee_id, current_user_response, current_user_id) => 
-      dispatch({ type: 'ADD_RESPONSE', matchee_id, current_user_response, current_user_id })
+      dispatch({ type: 'ADD_RESPONSE', matchee_id, current_user_response, current_user_id }),
+      getPotentials: () => dispatch({ type: 'GET_POTENTIALS'})
+    
+
 })
 
 

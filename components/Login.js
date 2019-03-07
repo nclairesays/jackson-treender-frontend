@@ -56,10 +56,13 @@ class _Login extends Component {
                 />
 
                 <View style={{margin:10}}/>
-
-                <Text> Not a registered Jackson?  </Text>
-                <Link to="/signup"><Text>Sign up here! </Text></Link> 
-                {/* <Link to="/">Home</Link> */}
+                
+                <View style={{flexDirection: 'row'}}>
+                    <Text> Not a registered Jackson?  </Text>
+                    <Link to="/signup"><Text style={{color: 'green'}}>Sign up here! </Text></Link> 
+                </View>
+                
+               
 
             </View>    
         )

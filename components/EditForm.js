@@ -82,25 +82,21 @@ class _EditForm extends Component {
 
 
                 <Link to="/profile">
-                    {/* <Text>TESTING LINK</Text> */}
-                    <Text onPress={ () => {
+           
+                    <Text 
+                        style={{color: 'blue', alignSelf: 'center' }}
+                        onPress={ () => {
                             this.props.onEditProfile(this.state.email, this.state.bio, this.state.gender, this.state.age)
                         }}>
-                        EDIT YOUR PROFILE
+                        COMMIT YOUR PROFILE CHANGES!
                     </Text>
-                    {/* <Button 
-                        
-                        title="Edit!"
-                        color="#841584"  // color of text
-                    />  */}          
+                  
                 </Link>
+
                 
 
                 <View style={{margin:10}}/>
 
-                {/* <Text> Not a registered Jackson?  </Text> */}
-                {/* <Link to="/signup">Sign up here! </Link> //REACT CHILDREN EXPECTED TO RECEIVE ONE PROP */}
-                {/* <Link to="/">Home</Link> */}
 
             </View>    
         )

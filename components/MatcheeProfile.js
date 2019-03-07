@@ -76,15 +76,7 @@ class _MatcheeProfile extends Component {
                
                         </View>
 
-                        <Button 
-                        title="Logout"
-                        onPress={() => 
-                            {
-                                // <Redirect to='/login' /> // Doesn't do anything
-                                this.props.onLogout()
-                            }}
-                        />
-
+        
 
                 </View>
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { Route, Link, BackButton } from 'react-router-native'
+import { Redirect } from 'react-router'
 
 
 import _Login from './Login';
@@ -16,6 +17,9 @@ import _Welcome from './Welcome'
 
 class _NavBar extends Component {
 
+  getP = () => {
+    this.props.getPotentials()
+  }
  
   render() {
     return (
@@ -42,17 +46,16 @@ class _NavBar extends Component {
             </Text>
         </Link>
 
-        <Link
-          to="/match"
-          underlayColor='#f0f4f7'
-          style={styles.navItem}>
-          
-            <Text>Match
-
-            </Text>
-
-          
-        </Link>
+        <TouchableOpacity onPress={() => {this.props.getPotentials()}}>
+          <Link
+              to="/match"
+              underlayColor='#f0f4f7'
+              style={styles.navItem}>
+                  <Text>
+                    Match 
+                  </Text>
+            </Link>
+        </TouchableOpacity>
 
        
         <TouchableOpacity onPress={() => {this.props.getMatches()}}>
@@ -66,6 +69,7 @@ class _NavBar extends Component {
           </Link>
 
         
+
         </TouchableOpacity>
 
         <Link
@@ -110,6 +114,7 @@ class _NavBar extends Component {
         
 
       } 
+      
        </>
     )
   }
@@ -144,7 +149,6 @@ const styles = StyleSheet.create({
   
 
 const mapStateToProps = state => {
-
     return {
       user: state.user,
       potentials: state.potentials,
@@ -152,9 +156,13 @@ const mapStateToProps = state => {
     }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-    getMatches: () => dispatch({ type: 'GET_SUCCESSFUL_MATCHES'})
-})
+const mapDispatchToProps = (dispatch) => {
+ 
+  // return {
+  //   getMatches: () => dispatch({ type: 'GET_SUCCESSFUL_MATCHES'}),
+  //   getPotentials: () => dispatch({ type: 'GET_POTENTIALS'})
+  // } 
+}
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(_NavBar)
+export default connect(mapStateToProps, null)(_NavBar)

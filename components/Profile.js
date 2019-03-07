@@ -45,31 +45,25 @@ class _Profile extends Component {
                         </View>
 
                         <View style={{flexDirection: 'row',  justifyContent: 'space-between'}}>
-          
-                       
-                    
+
+                        </View>  
+
                         <Link to="/editForm">
-                            <Text style={{color: 'purple'}}>EDIT YOUR PROFILE</Text>
+                            <Text style={{color: 'blue', alignSelf: 'center' }}>EDIT YOUR PROFILE</Text>
                         </Link>
+                        <View style={{margin: 10}}>
 
-                        {/* <Link to="/logout">
-                            <Text style={{color: 'purple'}}>LOGOUT YOUR PROFILE</Text>
-                        </Link>
-                             */}
-               
-                        </View>
+                        </View> 
+                        
 
-                        <Button 
-                        title="Logout"
-                        onPress={() => 
-                            {
-                                // <Redirect to='/login' /> // Doesn't do anything
-                                this.props.onLogout()
-                            }}
-                        />
-
-
+                    
                 </View>
+                {/* <View>
+                    <Link to="/editForm">
+                        <Text style={{color: 'red', alignSelf: 'center' }}>EDIT YOUR PROFILE</Text>
+                    </Link>
+                </View> */}
+             
 
 
 
