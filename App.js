@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
+import { Text, View, AsyncStorage } from 'react-native';
 import _Login from './components/Login';
 import _Profile from './components/Profile';
 import _MatcheeProfile from './components/MatcheeProfile';

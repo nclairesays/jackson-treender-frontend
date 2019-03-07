@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View, Button, StyleSheet } from 'react-native';
+import { Text, TextInput, View, Button } from 'react-native';
 import { API_URL } from '../constants';
 import { connect } from 'react-redux'
 import { styles } from './Styles';

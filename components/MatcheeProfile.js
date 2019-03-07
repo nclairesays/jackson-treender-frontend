@@ -1,19 +1,16 @@
 import React, { Component } from 'react';
 import {
-    ScrollView,
     Text,
     View,
-    Button,
     Image,
-    StyleSheet,
     Dimensions,
     TouchableHighlight
 } from 'react-native';
 import { connect } from 'react-redux'
-import { Link, Redirect } from 'react-router-native';
-import { AsyncStorage } from 'react-native'
 import { server } from '../server';
 import { API_URL } from '../constants';
+import { styles } from './Styles';
+
 
 
 class _MatcheeProfile extends Component {
@@ -91,31 +88,6 @@ class _MatcheeProfile extends Component {
 
 const {width, height} = Dimensions.get('window')
 
-const styles = StyleSheet.create({
-    card: {
-        // position: 'absolute',
-        width: width - 40,
-        height: height * 0.7,
-        overflow: 'hidden',
-        backgroundColor: 'white',
-        margin: 10,
-        borderWidth: 1,
-        borderColor: 'lightgrey',
-        borderRadius: 20,
-    },
-    // card: { 
-    //     flex:1, height: null, width: null, resizeMode: 'cover',
-    //     position: 'absolute',
-
-
-    // },
-    button: {
-        flex: 2
-    }
-})
-
-  
- 
 
 
 const mapStateToProps = state => {

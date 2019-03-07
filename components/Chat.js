@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, FlatList } from 'react-native'
+import { Text, View, FlatList } from 'react-native'
 import { connect } from 'react-redux'
 import { Route, Link  } from 'react-router-native'
 import { List, ListItem } from "react-native-elements";
+import { styles } from './Styles';
+
 
 import {_Profile } from './Profile'
 
@@ -94,14 +96,6 @@ class _Chat extends Component {
   }
 }
 
-
-
-const styles = StyleSheet.create({
-  name: {
-    fontSize: 30,
-    fontWeight: '500'
-  }
-})
 
 
 

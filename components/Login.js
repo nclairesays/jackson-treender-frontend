@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View, Button, StyleSheet, AsyncStorage } from 'react-native';
-import { NativeRouter, Route, Link } from 'react-router-native'
-import { API_URL } from '../constants';
+import { Text, TextInput, View, Button} from 'react-native';
+import { Link } from 'react-router-native'
 import { connect } from 'react-redux'
 import { styles } from './Styles'
 

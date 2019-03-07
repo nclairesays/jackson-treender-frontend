@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet } from 'react-native'
+import { styles } from './Styles';
+
 
 export default class _Welcome extends Component {
   render() {
@@ -10,14 +12,3 @@ export default class _Welcome extends Component {
     )
   }
 }
-
-
-const styles = StyleSheet.create({
-    welcome: {
-  
-      marginTop: 50,
-    //   padding: 10,
-      flex: 1,
-  
-    }
-})

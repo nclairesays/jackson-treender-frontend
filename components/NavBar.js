@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
+import { Text, View, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { Route, Link, BackButton } from 'react-router-native'
 import { Redirect } from 'react-router'

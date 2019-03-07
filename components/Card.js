@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Image, Text, PanResponder, Animated, Dimensions,  TouchableHighlight, Icon } from 'react-native';
+import { View, Image, Text, PanResponder, Animated, Dimensions,  TouchableHighlight, Icon } from 'react-native';
+import { styles } from './Styles';
 
-
-
-const {width, height} = Dimensions.get('window')
 
 export default class _Card extends Component {
     componentWillMount() {
@@ -90,19 +88,3 @@ export default class _Card extends Component {
 }
 
 
-const styles = StyleSheet.create({
-    card: {
-        position: 'absolute',
-        width: width - 40,
-        height: height * 0.7,
-        overflow: 'hidden',
-        backgroundColor: 'white',
-        margin: 10,
-        borderWidth: 1,
-        borderColor: 'lightgrey',
-        borderRadius: 8,
-    },
-    button: {
-        flex: 2
-    }
-})
