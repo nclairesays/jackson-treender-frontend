@@ -4,7 +4,8 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "postinstall": "rndebugger-open --expo"
   },
   "dependencies": {
     "expo": "^32.0.0",
@@ -20,7 +21,8 @@
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
-    "babel-preset-expo": "^5.0.0"
+    "babel-preset-expo": "^5.0.0",
+    "react-native-debugger-open": "^0.3.18"
   },
   "private": true
 }
