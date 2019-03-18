@@ -1,10 +1,10 @@
 {
-  "devToolsPort": 19003,
+  "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 30579,
+  "packagerPid": 7319,
   "expoServerNgrokUrl": "https://a6-56s.nclairesays.jtreender.exp.direct",
   "packagerNgrokUrl": "https://packager.a6-56s.nclairesays.jtreender.exp.direct",
-  "ngrokPid": 30651,
+  "ngrokPid": 7624,
   "webpackServerPort": null
 }

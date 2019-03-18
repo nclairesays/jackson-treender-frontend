@@ -3,7 +3,7 @@ export const API_URL = 'http://192.168.1.21:3000'
 
 
 // open react native debugger:
-// open "rndebugger://set-debugger-loc?host=localhost&port=19001"
+// open "rndebugger://set-debugger-loc?host=192.168.1.21&port=19001"
 
 // export const defaultImages = [
 
