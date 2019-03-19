@@ -1,12 +1,12 @@
 {
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
+    "postinstall": "remotedev-debugger --hostname 192.168.1.13 --port 3000 --injectserver",
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "eject": "expo eject",
     "devtools": "react-devtools"
-    
   },
   "dependencies": {
     "expo": "^32.0.0",

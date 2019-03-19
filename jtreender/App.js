@@ -60,8 +60,8 @@ class App extends React.Component {
 
   login = () => {this.setState({ isLoggedIn: true })}
   logout = () => { 
-    store.dispatch({ type: 'LOGOUT'})
     this.setState({isLoggedIn: false})
+    store.dispatch({ type: 'LOGOUT'})
   }
 
   render() {

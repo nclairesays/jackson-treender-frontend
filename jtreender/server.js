@@ -5,7 +5,7 @@ const request = (method) =>  async (url, body) => {
     try {
         token = await AsyncStorage.getItem('token')
  
-        return fetch(url, {
+        return await fetch(url, {
                     method: method,
                     headers: {
                         'Content-Type': 'application/json',

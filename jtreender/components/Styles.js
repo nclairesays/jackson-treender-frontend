@@ -26,8 +26,8 @@ export const styles = StyleSheet.create({
         justifyContent: 'space-evenly'
 ,
         alignItems: 'center',
-        // border
-        // padding: 10,
+        borderWidth: 3, 
+        padding: 10,
         
     },
 

@@ -11,10 +11,14 @@ class _Match extends Component {
 
   constructor() {
     super()
+
+    this.props.getPotentials()
+
     this.position = new Animated.ValueXY()
     this.state = {
       currentIndex: 0
     }
+
 
     //animate top card, new animated value
     this.rotate = this.position.x.interpolate({
@@ -76,9 +80,10 @@ class _Match extends Component {
 
   }
 
-  componentDidMount () {
-    this.props.getPotentials()
-  }
+  // componentDidMount () {
+  //   this.props.getPotentials()
+  // }
+
   componentWillMount(){
     this.PanResponder = PanResponder.create({
       //set true by default so panresponder is responsive when user clicks
@@ -191,15 +196,10 @@ class _Match extends Component {
 }
 
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  }
-})
-
 
 
 const mapStateToProps = state => { 
+  console.log("IN MATCH, STATE.POTENTIALS: ", state.potentials)
   let potentialMatchees  
   if (state.potentials) {
     potentialMatchees = state.potentials.filter( user => user.id !== state.user.id
@@ -214,12 +214,9 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-   
+    getPotentials: () => dispatch({ type: 'GET_POTENTIALS'}),
     addResponse: (matchee_id, current_user_response, current_user_id) => 
-      dispatch({ type: 'ADD_RESPONSE', matchee_id, current_user_response, current_user_id }),
-      getPotentials: () => dispatch({ type: 'GET_POTENTIALS'})
-    
-
+      dispatch({ type: 'ADD_RESPONSE', matchee_id, current_user_response, current_user_id })
 })
 
 

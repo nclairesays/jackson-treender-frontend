@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
-// import { composeWithDevTools } from 'redux-devtools-extension';
-import { composeWithDevTools } from 'remote-redux-devtools';
+import { composeWithDevTools } from 'redux-devtools-extension';
+
 import ReduxThunk from 'redux-thunk';
 import { API_URL } from '../constants';
 import { AsyncStorage } from 'react-native';
@@ -8,6 +8,7 @@ import { server } from '../server';
 import { push } from 'react-router-redux'
 import { history } from '../history';
 import { Link } from 'react-router-native'
+
 
 
 
@@ -93,19 +94,26 @@ const rootReducer = (state=initialState, action) => {
                 alert('LOGIN ERRORS: ', err)
             } 
         case 'GET_POTENTIALS': 
-           setTimeout(() =>{
+        //    setTimeout(() =>{
+        //     server.get(`${API_URL}/get_potential_matchees`)
+        //    .then( potentials => {
+        //        let p = potentials.map(p => ({...p, swiped:false}))
+        //        store.dispatch({ type: 'SAVE_POTENTIALS', potentials: p })
+        //        return {...state, potentials: p}
+        //    })     
+        //   .catch(error => {
+        //        alert('ERRORS WHEN GETTING POTENTIALS', error)
+        //    })
+        //    },
+        //    1000
+        //    )
+
             server.get(`${API_URL}/get_potential_matchees`)
-           .then( potentials => {
-               let p = potentials.map(p => ({...p, swiped:false}))
-               store.dispatch({ type: 'SAVE_POTENTIALS', potentials: p })
-               return {...state, potentials: p}
-           })     
-          .catch(error => {
-               alert('ERRORS WHEN GETTING POTENTIALS', error)
-           })
-           },
-           1000
-           )
+            .then(potentials => {
+                store.dispatch({type: 'SAVE_POTENTIALS', potentials})
+            })
+
+
         case 'SAVE_POTENTIALS': {
             // console.log('STATE BEFORE SAVING POTENTIALS', state)
             return {...state, potentials: action.potentials}
@@ -132,12 +140,15 @@ const rootReducer = (state=initialState, action) => {
             return  {...state, potentials: po}  
         }
         case 'GET_SUCCESSFUL_MATCHES': {
+            console.log("STATE WHEN GETTING SUCCESSFUL MATCHES", state)
             server.get(`${API_URL}/successful_matches`)
             .then(successfulMatches => {
                 store.dispatch({type: 'SAVE_SUCCESSFUL_MATCHES', successfulMatches})
             })
         }
         case 'SAVE_SUCCESSFUL_MATCHES':{
+            console.log("STATE BEFORE SUCCESSFUL MATCHES", state)
+            
             return {...state, successfulMatches: action.successfulMatches}
         }
         case 'EDIT_PROFILE': {
@@ -178,21 +189,21 @@ const rootReducer = (state=initialState, action) => {
       
 //     }
 // })
+  
 
 
-// const store = createStore(
-//     rootReducer,
-//     initialState,
-//     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-//     composeWithDevTools(applyMiddleware(...middlewares))
-// );
+const store = createStore(rootReducer,initialState, composeWithDevTools(
+    applyMiddleware(...middlewares)
+  ));
 
-const store = createStore(
-    rootReducer,
-    initialState,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-    composeWithDevTools(applyMiddleware(...middlewares))
-);
+
+
+// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+// const store = createStore(rootReducer, initialState, composeEnhancers(
+//     applyMiddleware(...middlewares)
+//     ));
 
 
 export default store;
+
+
