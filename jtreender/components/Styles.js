@@ -20,12 +20,14 @@ export const styles = StyleSheet.create({
     },
     nav: {
         flexDirection: 'row',
-        justifyContent: 'space-around'
     },
     navItem: {
         flex: 1,
+        justifyContent: 'space-evenly'
+,
         alignItems: 'center',
-        padding: 10,
+        // border
+        // padding: 10,
         
     },
 

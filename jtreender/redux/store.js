@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
+// import { composeWithDevTools } from 'redux-devtools-extension';
+import { composeWithDevTools } from 'remote-redux-devtools';
 import ReduxThunk from 'redux-thunk';
 import { API_URL } from '../constants';
 import { AsyncStorage } from 'react-native';
@@ -179,11 +180,19 @@ const rootReducer = (state=initialState, action) => {
 // })
 
 
+// const store = createStore(
+//     rootReducer,
+//     initialState,
+//     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+//     composeWithDevTools(applyMiddleware(...middlewares))
+// );
+
 const store = createStore(
     rootReducer,
     initialState,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
     composeWithDevTools(applyMiddleware(...middlewares))
-    // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-    // compose(applyMiddleware(...middlewares))
 );
+
+
 export default store;
